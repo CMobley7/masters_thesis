@@ -1,0 +1,84 @@
+Base Header Level: 2
+latex input: metadata
+latex author: Christopher James Mobley
+latex title: TITLE OF THESIS
+bibtex: masters_thesis
+myreporttype: Thesis
+mydegree: Masters of Science
+myyear: 2016
+mydepartment: Mechanical Engineering
+latex input: vtthesis/setup.tex
+latex footer: vtthesis/footer.tex
+
+# Introduction
+
+Unlike the substantial benefits seen in the manufacturing industry through automation and robotics, automation and robotics in construction (ARC) has lagged far behind in adoption [#Balaguer]. Consequently, when compared with other industries, construction has seen a significant decrease in productivity, as well as an increase in workplace injuries/fatalities over the last several decades [#Rojas2003]. While several technical complexities inherent in construction have hindered the development and adoption of field construction robots [4], through the capitalization of advances made by other industries, ARC can quickly close this gap. Thereby allowing dangerous and or mundane repetitive tasks to be accomplished autonomously. Thus, causing an increase in productivity and a decrease in workplace injuries/fatalities [1]. However, ARC faces two unique challenges when compared to other industries. Unlike manufacturing environments, which are tightly controlled, typical construction sites tend to lack structure and are continuously evolving. In addition, the reversal in relationship between the part and manipulator has dramatically increased the complexity of the problem to be solved [#Feng2015]. Instead of the part appearing at a fixed manipulator, the manipulator must now move to and localize itself with respect to the part. The remainder of this paper is structured as follows: In Section 2, the author’s technical approach is outlined, with particular focus on problem two, and experimental results are shown. Conclusions are then drawn and future work discussed in Section 3.
+
+# Technical Approach
+
+## System Overview
+
+The generic framework of the system is depicted in Figure <!--\ref{fig:system_overview}-->. The system allows the user to input predefined tasks. Given a priori knowledge of each tasks and their global start locations, the mobile system navigates to and performs the requested operation(s) while monitoring its battery level to ensure mission completion. The framework shown was implemented using a hierarchical state machine and was written in such a way as to make it compatible with the Robot Operating System (ROS) to ensure ease of use across differing robotic platforms.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{system_overview.png}
+  \caption{General system overview.}
+  \label{fig:system_overview}
+\end{figure}
+-->
+
+## Autonomous Navigation and Task Localization
+
+Before the manipulator can localize itself with respect to the part, the system must first navigate to the general vicinity in which the work will take place. In order to achieve this, the system utilizes odometry data, given by wheel encoders and an onboard inertial measurement unit (IMU), as well as sensor data, such as laser scans from a LIDAR or point clouds from an RGB-D sensor, to output safe velocity commands that will be sent to the mobile base of the system.
+
+First, a Simultaneous Localization and Mapping (SLAM) technique named gmapping uses the system’s odometry and laser scan or point cloud data, to create a 2-D map of the environment in which the operation(s) will take place. After which, the global location of specific operation(s) are defined, as shown in Figure <!--\ref{fig:global_map}-->. Adaptive Monte Carlo localization (amcl) is used to localize the system within the map. Subsequently, odometry data is combined with a global and local cost map, in which obstacles and a specific distance around them represent a cost. These maps are used to plan optimal and obstacle free paths through the environment. The global path is computed before the system begins moving and takes into account all known obstacles, while the local path monitors incoming sensor data to compute suitable linear and angular velocities for the system to complete the current section of the global path. The local path is typically computed at a rate of 20 Hz; however, this parameter is adjustable given the needs of the system.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{global_map.png}
+  \caption{2-D map environment with specified start locations.}
+  \label{fig:global_map}
+\end{figure}
+-->
+
+## Data Association and A Priori Knowledge
+
+Once arriving in the general vicinity of the task to be accomplished, the system then locates an augmented reality (AR) tag [#Siltanen], which allows it to localize and transform points of interest (POIs) associated with the AR tag into the system’s frame of reference. This general localization framework is presented in Figure <!--\ref{fig:data_association}-->.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{data_association_and_initial_localization_framework.png}
+  \caption{Data association and localization framework.}
+  \label{fig:data_association}
+\end{figure}
+-->
+
+While the aforementioned framework can be used to perform a number of different tasks, only autonomous drilling operations will be explored in this paper. The structure of the current approach is presented in Figure <!--\ref{fig:drilling_operation_framework}-->. Currently the sponsor of this work uses a hole template on the object to be drilled to ensure accuracy within $\pm$ 0.3 mm. Using the predicted hole locations, given by the AR tag, an inverse kinematic solver is used to move the manipulator to the specified Cartesian location. A camera mounted on the manipulator is then used to further correct the positon of the end-effector. Canny Edge Detection, Hough Transforms, as well as the camera’s intrinsic characteristics and a priori knowledge of each hole’s size is used to output an adjusted Cartesian location of the circle on the templet closest to the predicted position [#Alter1992]. If a hole to be drilled is not found or is outside the range of the manipulator, that hole will be added to a list and the customer notified of all such holes after the operation is completed. In addition to the high precision achieved by the above technique, it can also provide a video log of all work done for inspection.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{drilling_operation_framework.png}
+  \caption{Drilling operation framework.}
+  \label{fig:drilling_operation_framework}
+\end{figure}
+-->
+
+Over 100 trials were conducted. The accuracy listed in [Table][Drilling operation accuracy using USB webcam.] was achieved during these trials using a simple USB webcam. However, the centimeter accuracy given by the AR tag was unrelated to the computer vision method implemented, but rather due to the limitations of the manipulator, which is primarily used for pick and place operations not for high precision ones.
+
+|                     | x (mm) | y (mm) | z (mm) |   |
+|---------------------|--------|--------|--------|---|
+| AR Tag Localization | ~20    | ~20    | ~100   |   |
+| Hole Localization   | ~5     | ~5     | ~5     |   |
+|                     |        |        |        |   |
+[Drilling operation accuracy using USB webcam.]
+
+# Conclusion and Future Work
+
+This paper showed the general framework necessary in order to solve the two main problems preventing the development and widespread adoption of ARC. These problems have caused a decrease in productivity and increase in workplace injuries/fatalities over the past several decades in comparison to other industries [#Rojas2003]. These problems include the fact that typical construction sites tend to be unstructured and are continuously evolving versus the highly controlled environments found in manufacturing. Also, the relationship between the part and manipulator has been reversed, causing increased complexity not seen in manufacturing environments where the part arrives at a fixed manipulator [#Feng2015]. The techniques presented allow systems to create a 2-D map of their environment, localize themselves and complete the task(s) assigned. After localizing an AR tag at the work site, the system is able to use a priori knowledge to localize POIs and complete a plethora of operations achieving an accuracy of approximately $\pm$ 2 mm based on a multifaceted computer vision approach with only a USB webcam.
+
+Future work to be explored includes increasing the accuracy of the computer vision system to the sub-millimeter levels through the use of a machine vision camera, as well as a relatively new calibration technique developed by Feng et al [#Feng2015]. In addition, automated approaches to create 3-D maps are being looked into in order to provide updated data about the robot’s surroundings and task(s) automatically without human intervention. Also, human and robot collaboration over a distributed network is being explored.
