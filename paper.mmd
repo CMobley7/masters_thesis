@@ -194,7 +194,7 @@ Insert Text Explaining How Digital Image Are Recorded and Stored.
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \includegraphics[width=0.75\linewidth]{digital_camera_diagram.png}
   \caption{Digital Image Formation.}
   \label{fig:digital_image_formation}
 \end{figure}
@@ -205,7 +205,7 @@ Insert Text Explaining Ground Sample Distance and It's Effects on Image Quality 
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \includegraphics[width=\linewidth]{spatial_resolution.png}
   \caption{Ground Sample Distance Effects on Image Quality.}
   \label{fig:ground_sample_distance_effects_on_image_quality}
 \end{figure}
@@ -216,7 +216,7 @@ Insert Text Explaining The Effects of Different Shutter Type on Image Quality Th
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \includegraphics[width=0.75\linewidth]{global_vs_rolling_shutter.png}
   \caption{Shutter Type Effects on Image Quality.}
   \label{fig:shutter_type_effects_on_image_quality}
 \end{figure}
@@ -252,14 +252,25 @@ Insert Text Explaining the Basics behind Linear Filters, Which Ones Were Chosen 
 \end{figure}
 -->
 
-Insert Text Explaining the Basics behind Non-Linear Filters, Which Ones Were Chosen and Why.
+Insert Text Explaining the Basics behind Histogram Equalization.
 
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
-  \caption{Effect of histogram equalization.}
-  \label{fig:effects_of_histogram_equalization}
+  \includegraphics[width=\linewidth]{histogram_equalization.png}
+  \caption{Histogram equalization depiction.}
+  \label{fig:histogram_equalization_depiction}
+\end{figure}
+-->
+
+Insert Text Explaining The Effect of Histogram Equalization on Images.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{image_equalization.png}
+  \caption{Effect of histogram equalization on an image.}
+  \label{fig:effects_of_histogram_equalization_on_an_image}
 \end{figure}
 -->
 
@@ -283,7 +294,7 @@ Insert Text Explaining The Basic Preprocessing Operation Performed by Hough Circ
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \includegraphics[width=0.5\linewidth]{edge_detection_hough_circle.png}
   \caption{Summary of preprocessing operation performed by Hough Circle detector.}
   \label{fig:summary_of_preprocessing_operation_performed_by_Hough_Circle_detector}
 \end{figure}
@@ -306,7 +317,7 @@ Insert Text Expanding Basic Intuition Behind Hough Circle with Unknown Radius.
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{hough_circle_summary_unknown_r.png}
+  \includegraphics[width=0.75\linewidth]{hough_circle_summary_unknown_r.png}
   \caption{Summary of Hough Circle detector with unknown radius.}
   \label{fig:summary_of_hough_circle_detector_with_unknown_radius}
 \end{figure}
@@ -317,8 +328,14 @@ Insert Text Expanding Basic Intuition Behind Hough Circle with Unknown Radius.
 
 Insert Text Explaining the Basic Intuition Behind Good Feature.
 
-
-
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \caption{Summary of Good Feature detector.}
+  \label{fig:summary_of_good_feature_detector}
+\end{figure}
+-->
 
 ### Optical Flow
 
@@ -327,7 +344,7 @@ Insert Text Explaining the Basic Intuition Behind Optical Flow.
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \includegraphics[width=\linewidth]{optical_flow_example.png}
   \caption{Example of optical flow.}
   \label{fig:example_of_optical_flow}
 \end{figure}
@@ -336,9 +353,30 @@ Insert Text Explaining the Basic Intuition Behind Optical Flow.
 Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tracker.
 
 <!--
+\begin{equation}
+\sum_{x} [\textit{T}(\textbf{W}(x;\Delta\textbf{p}))-\textit{I}(\textbf{W}(x;\textbf{p}))]^2
+\label{eq:klt1}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+\sum_{x} [\textit{T}(\textbf{W}(x;0))+\nabla T\frac{\partial\textbf{W}}{\partial\textbf{p}}\Delta\textbf{p}-\textit{I}(\textbf{W}(x;p))]^2
+\label{eq:klt2}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+\sum_{x} [\textit{T}(\textbf{W}(x;0))+\nabla T\frac{\partial\textbf{W}}{\partial\textbf{p}}\Delta\textbf{p}-\textit{I}(\textbf{W}(x;p))]^2
+\label{eq:klt2}
+\end{equation}
+-->
+
+<!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \includegraphics[width=\linewidth]{klt_optimization.png}
   \caption{Summary of Kanade-Lucas-Tomasi feature tracker.}
   \label{fig:summary_of_Kanade-Lucas-Tomasi_feature_tracker}
 \end{figure}
