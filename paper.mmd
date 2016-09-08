@@ -92,13 +92,21 @@ Insert Text Specifying Available 2-D SLAM Techniques and Why KartoSLAM was Chose
 \end{figure}
 -->
 
-|            |          | Real World Experiments |          |          |
-|:----------:|:--------:|:----------------------:|:--------:|:--------:|
-| HectorSLAM | GMapping | KartoSLAM              | CoreSLAM | LagoSLAM |
-| 1.1972     | 2.1716   | 1.0318                 | 14.75333 | 3.0264   |
-| 0.5094     | 0.6945   | 0.3742                 | 7.9463   | 0.8181   |
-| 1.0656     | 1.6354   | 0.9080                 | 7.5824   | 2.5236   |
-[Real World Error Estimation for ROS Available SLAM Algorithm. [Santos et al. 2013]]
+<!--
+\begin{table}[H]
+\centering
+\caption{Real World Error Estimation for ROS Available SLAM Algorithm. [Santos et al. 2013]}
+\label{real_world_error_estimation_for_ros_available_slam_algorithm}
+\resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|@{}}
+\toprule
+\multicolumn{5}{|c|}{Real World Experiments}            \\ \midrule
+HectorSLAM & GMapping & KartoSLAM & CoreSLAM & LagoSLAM \\ \midrule
+1.1972     & 2.1716   & 1.0318    & 14.75333 & 3.0264   \\ \midrule
+0.5094     & 0.6945   & 0.3742    & 7.9463   & 0.8181   \\ \midrule
+1.0656     & 1.6354   & 0.9080    & 7.5824   & 2.5236   \\ \bottomrule
+\end{tabular}}
+\end{table}
+-->
 
 ### Navigation Stack
 
@@ -115,7 +123,7 @@ Insert Text Outlining The Navigation Stack's Framework.
 
 Insert Text Explaining How Adaptive Monte Carlo Localization Works. Specifically Start With An Overall Review.
 
-Explain the Basics of a Particle Filter
+Explain the Basics of a Particle Filter in 1D.
 
 <!--
 \begin{figure}[H]
@@ -126,7 +134,23 @@ Explain the Basics of a Particle Filter
 \end{figure}
 -->
 
-Explain the Basics of Resampling in a Particle Filter.
+Explain How the Particle Filter works in 2D. Refer to 2D Map Figure. The Equations Below are Used to Calculated Scan Correlation and Then How to Weight Each Particle.
+
+<!--
+\begin{equation}
+s = \frac{\sum_{m}\sum_{n}(A_{mn} - \bar{A})(B_{mn} - \bar{B})}{\sqrt{(\sum_{m}\sum_{n}(A_{mn} - \bar{A})^2)(\sum_{m}\sum_{n}(B_{mn} - \bar{B})^2)}}
+\label{eq:weight_each_particle}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+W_t \leftarrow W_{t-1}s
+\label{eq:laser_scan_correlation}
+\end{equation}
+-->
+
+Explain the Basics of Resampling in a Particle Filter and Why It is Done.
 
 <!--
 \begin{figure}[H]
@@ -177,7 +201,7 @@ Insert Text Explaining the Basic Intuition Behind Forward and Inverse Kinematics
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{forward_and_inverse_kinematics_depiction.png}
+  \includegraphics[width=0.75\linewidth]{forward_and_inverse_kinematics_depiction.png}
   \caption{Forward and Inverse Kinematics Example}
   \label{fig:forward_and_inverse_kinematics_example}
 \end{figure}
@@ -185,27 +209,37 @@ Insert Text Explaining the Basic Intuition Behind Forward and Inverse Kinematics
 
 Insert Test Explaining the Difference Between KDL, KDL-RR and Trac_IK and Why Trac_IK was chosen to be used.
 
-| Chain                              | DOFs | Orocos' KDL solve rate | Orocos' KDL Avg Time | KDL-RR solve rate | KDL-RR Avg Time | TRAC-IK solve rate | TRAC-IK Avg Time |
-|:----------------------------------:|:----:|:----------------------:|:--------------------:|:-----------------:|:---------------:|:------------------:|:----------------:|
-| Atlas 2013 arm                     | 6    | 75.54%                 | 1.35ms               | 97.13%            | 0.39ms          | 99.97%             | 0.33ms           |
-| Atlas 2015 arm                     | 7    | 75.71%                 | 1.50ms               | 93.13%            | 0.81ms          | 99.18%             | 0.48ms           |
-| Baxter arm                         | 7    | 61.07%                 | 2.21ms               | 89.52%            | 1.02ms          | 99.17%             | 0.60ms           |
-| Denso VS-068                       | 6    | 27.92%                 | 3.69ms               | 98.13%            | 0.42ms          | 99.78%             | 0.38ms           |
-| Fanuc M-430iA/2F                   | 5    | 21.07%                 | 3.99ms               | 88.34%            | 0.92ms          | 99.16%             | 0.58ms           |
-| Fetch arm                          | 7    | 92.49%                 | 0.73ms               | 93.82%            | 0.72ms          | 99.96%             | 0.44ms           |
-| Jaco2                              | 6    | 26.23%                 | 3.79ms               | 97.66%            | 0.58ms          | 99.51%             | 0.58ms           |
-| KUKA LBR iiwa 14 R820              | 7    | 37.71%                 | 3.37ms               | 94.02%            | 0.73ms          | 99.63%             | 0.56ms           |
-| KUKA LWR 4+                        | 7    | 67.80%                 | 1.88ms               | 95.40%            | 0.62ms          | 99.95%             | 0.38ms           |
-| PR2 arm                            | 7    | 83.14%                 | 1.37ms               | 86.96%            | 1.27ms          | 99.84%             | 0.59ms           |
-| NASA Robonaut2 'grasping leg'      | 7    | 61.27%                 | 2.29ms               | 87.57%            | 1.10ms          | 99.31%             | 0.67ms           |
-| NASA Robonaut2 'leg' + waist + arm | 15   | 97.99%                 | 0.80ms               | 98.00%            | 0.84ms          | 99.86%             | 0.79ms           |
-| NASA Robonaut2 arm                 | 7    | 86.28%                 | 1.02ms               | 94.26%            | 0.73ms          | 99.25%             | 0.50ms           |
-| NASA Robosimian arm                | 7    | 61.74%                 | 2.44ms               | 99.87%            | 0.36ms          | 99.93%             | 0.44ms           |
-| TRACLabs modular arm               | 7    | 79.11%                 | 1.35ms               | 95.12%            | 0.63ms          | 99.80%             | 0.53ms           |
-| UR10                               | 6    | 36.16%                 | 3.29ms               | 88.05%            | 0.82ms          | 99.47%             | 0.49ms           |
-| UR5                                | 6    | 35.88%                 | 3.30ms               | 88.69%            | 0.78ms          | 99.55%             | 0.42ms           |
-| NASA Valkyrie arm                  | 7    | 45.18%                 | 3.01ms               | 90.05%            | 1.29ms          | 99.63%             | 0.61ms           |
-[Comparison Between ROS Available Moveit! Inverse Kinematic Plugins. [Beeson et al. 2015]]
+<!--
+\begin{table}[H]
+\centering
+\caption{Comparison Between ROS Available Moveit! Inverse Kinematic Plugins. [Beeson et al. 2015]}
+\label{comparison_between_ros_available_moveit!_inverse_kinematic_plugins}
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|c|c|c|@{}}
+\toprule
+\multicolumn{2}{|c|}{Kinematics Chain}                     & \multicolumn{6}{c|}{IK Technique}                                                                                                                                                                                                 \\ \midrule
+\multirow{2}{*}{Robot}             & \multirow{2}{*}{DOFs} & \multicolumn{2}{c|}{Orocos' KDL}                                          & \multicolumn{2}{c|}{KDL-RR}                                               & \multicolumn{2}{c|}{TRAC-IK}                                              \\ \cmidrule(l){3-8}
+                                   &                       & \multicolumn{1}{l|}{Solve Rate (\%)} & \multicolumn{1}{l|}{Avg Time (ms)} & \multicolumn{1}{l|}{Solve Rate (\%)} & \multicolumn{1}{l|}{Avg Time (ms)} & \multicolumn{1}{l|}{Solve Rate (\%)} & \multicolumn{1}{l|}{Avg Time (ms)} \\ \midrule
+Atlas 2013 Arm                     & 6                     & 75.54                                & 1.35                               & 97.13                                & 0.39                               & 99.97                                & 0.33                               \\ \midrule
+Atlas 2015 Arm                     & 7                     & 75.71                                & 1.50                               & 93.13                                & 0.81                               & 99.18                                & 0.48                               \\ \midrule
+Baxter Arm                         & 7                     & 61.07                                & 2.21                               & 89.52                                & 1.02                               & 99.17                                & 0.60                               \\ \midrule
+Denso VS-068                       & 6                     & 27.92                                & 3.69                               & 98.13                                & 0.42                               & 99.78                                & 0.38                               \\ \midrule
+Fanuc M-430iA/2F                   & 5                     & 21.07                                & 3.99                               & 88.34                                & 0.92                               & 99.16                                & 0.58                               \\ \midrule
+Fetch Arm                          & 7                     & 92.49                                & 0.73                               & 93.82                                & 0.72                               & 99.96                                & 0.44                               \\ \midrule
+Jaco2                              & 6                     & 26.23                                & 3.79                               & 97.66                                & 0.58                               & 99.51                                & 0.58                               \\ \midrule
+LBR IIWA 14 R820                   & 7                     & 37.71                                & 3.37                               & 94.02                                & 0.73                               & 99.63                                & 0.56                               \\ \midrule
+KUKA LWR 4+                        & 7                     & 67.80                                & 1.88                               & 95.40                                & 0.62                               & 99.95                                & 0.38                               \\ \midrule
+PR2 Arm                            & 7                     & 83.14                                & 1.37                               & 86.96                                & 1.27                               & 99.84                                & 0.59                               \\ \midrule
+NASA Robonaut2 'Grasping Leg'      & 7                     & 61.27                                & 2.29                               & 87.57                                & 1.10                               & 99.31                                & 0.67                               \\ \midrule
+NASA Robonaut2 'Leg + Waist + Arm' & 15                    & 97.99                                & 0.80                               & 98.00                                & 0.84                               & 99.86                                & 0.79                               \\ \midrule
+NASA Robonaut2 Arm                 & 7                     & 86.28                                & 1.02                               & 94.26                                & 0.73                               & 99.25                                & 0.50                               \\ \midrule
+NASA Robosimian Arm                & 7                     & 61.74                                & 2.44                               & 99.87                                & 0.36                               & 99.93                                & 0.44                               \\ \midrule
+TRACLabs Modular Arm               & 7                     & 79.11                                & 1.35                               & 95.12                                & 0.63                               & 99.80                                & 0.53                               \\ \midrule
+UR10                               & 6                     & 36.16                                & 3.29                               & 88.05                                & 0.82                               & 99.47                                & 0.49                               \\ \midrule
+UR5                                & 6                     & 35.88                                & 3.30                               & 88.69                                & 0.78                               & 99.55                                & 0.42                               \\ \midrule
+NASA Valkyrie Arm                  & 7                     & 45.18                                & 3.01                               & 90.05                                & 1.29                               & 99.63                                & 0.61                               \\ \bottomrule
+\end{tabular}}
+\end{table}
+-->
 
 ### SMACH
 
@@ -214,7 +248,7 @@ Insert Text Explaining the Basics of State Machine and How They are Implemented 
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \includegraphics[width=\linewidth]{graphical_view_of_state_machine_using_smach.png}
   \caption{Graphical View of State Machine using SMACH}
   \label{fig:graphical_view_of_state_machine_using_smach}
 \end{figure}
@@ -364,9 +398,117 @@ Insert Text Explaining the Basic Intuition Behind Good Feature.
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{placeholder_fig.png}
+  \includegraphics[width=\linewidth]{good_feature_basic_intuition.png}
   \caption{Summary of Good Feature detector.}
   \label{fig:summary_of_good_feature_detector}
+\end{figure}
+-->
+
+Insert Text Explaining an Image Gradient/Derivative and Why We Look for Them.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{image_gradient_example.png}
+  \caption{Image Gradient Example.}
+  \label{fig:image_gradient_example}
+\end{figure}
+-->
+
+Insert Text Explaining Math.
+
+<!--
+\begin{equation}
+E(u,v) = \sum_{x,y}w(x,y)[\textit{I}(x+u,y+v)-\textit{I}(x,y)]^2
+\label{eq:change_of_intensity_for_the_shift_uv}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+\sum_{x,y}[\textit{I}(x+u,y+v)-\textit{I}(x,y)]^2
+\label{eq:maximize_intensity}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+E(u,v)\approx\sum_{x,y}[\textit{I}(x,y)+uI_{x}+vI_{y}-\textit{I}(x,y)]^2
+\label{eq:taylor_series_expansion}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+E(u,v)\approx\sum_{x,y}u^2I_{x}^2+2uvI_{x}I_{y}+v^2I_{y}^2
+\label{eq:expanding_and_cancelling_properly}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+E(u,v)\approx\begin{bmatrix}
+u & v
+\end{bmatrix}\bigg(\sum_{x,y}w(x,y)\begin{bmatrix}
+I_{x}^2 & I_{x}I_{y}\\
+I_{x}I_{y} & I_{y}^2
+\end{bmatrix} \bigg)\begin{bmatrix}
+u\\
+v
+\end{bmatrix}
+\label{eq:express_in_matrix_form}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+E(u,v)\cong\begin{bmatrix}
+u & v
+\end{bmatrix}M\begin{bmatrix}
+u\\
+v
+\end{bmatrix}
+\label{eq:simplify_matrix}
+\end{equation}
+-->
+
+Where $$M=\sum_{x,y}w(x,y)\begin{bmatrix}
+I_{x}^2 & I_{x}I_{y}\\
+I_{x}I_{y} & I_{y}^2
+\end{bmatrix}$$
+
+Insert Text Explaining How Both Harris Corner and Good Feature Scoring Functions Work and Why Good Feature Performs Slightly Higher.
+
+<!--
+\begin{equation}
+R = \textup{det}(M) - k(\textup{trace}(M))^2
+\label{eq:harris_corner_scoring_function}
+\end{equation}
+-->
+
+Where $\textup{det}(M) = \lambda_{1}\lambda_{2}$ and $\textup{trace}(M) = \lambda_{1} + \lambda_{2}$. So,
+
+<!--
+\begin{equation}
+R = \lambda_{1}\lambda_{2} - k(\lambda_{1}+\lambda_{2})^2
+\label{eq:simplified_harris_corner_scoring_function}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+R = \textup{min}(\lambda_{1},\lambda_{2})
+\label{eq:good_feature_scoring_function}
+\end{equation}
+-->
+
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{good_feature_harris_scoring_comparison.png}
+  \caption{Difference Between Good Feature and Harris Corner Scoring Functions.}
+  \label{fig:difference_between_good_feature_and_harris_corner_scoring_functions}
 \end{figure}
 -->
 
@@ -387,22 +529,22 @@ Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tr
 
 <!--
 \begin{equation}
-\sum_{x} [\textit{T}(\textbf{W}(x;\Delta\textbf{p}))-\textit{I}(\textbf{W}(x;\textbf{p}))]^2
+\sum_{x} [\textit{T}(\textbf{W}(\textbf{x;}\Delta\textbf{p}))-\textit{I}(\textbf{W(x;p}))]^2
 \label{eq:klt1}
 \end{equation}
 -->
 
 <!--
 \begin{equation}
-\sum_{x} [\textit{T}(\textbf{W}(x;0))+\nabla T\frac{\partial\textbf{W}}{\partial\textbf{p}}\Delta\textbf{p}-\textit{I}(\textbf{W}(x;p))]^2
+\sum_{x} \bigg[\textit{T}(\textbf{W}(\textbf{x;0}))+\nabla \textbf{T}\frac{\partial\textbf{W}}{\partial\textbf{p}}\Delta\textbf{p}-\textit{I}(\textbf{W}(\textbf{x;p}))\bigg]^2
 \label{eq:klt2}
 \end{equation}
 -->
 
 <!--
 \begin{equation}
-\sum_{x} [\textit{T}(\textbf{W}(x;0))+\nabla T\frac{\partial\textbf{W}}{\partial\textbf{p}}\Delta\textbf{p}-\textit{I}(\textbf{W}(x;p))]^2
-\label{eq:klt2}
+\Delta\textbf{p}=\textit{H}^{-1}\sum_{x} \bigg[\nabla \textbf{T}\frac{\partial\textbf{W}}{\partial\textbf{p}} \bigg]^T[\textit{I}(\textbf{W}(\textbf{x;p}))-\textit{T}(\textbf{x})]
+\label{eq:klt3}
 \end{equation}
 -->
 
@@ -414,6 +556,8 @@ Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tr
   \label{fig:summary_of_Kanade-Lucas-Tomasi_feature_tracker}
 \end{figure}
 -->
+
+### Augmented Reality Tags
 
 # Related Work
 
@@ -622,45 +766,69 @@ Insert Text Regarding the Sealant Application Experimental Setup.
 
 Insert Text Regarding Accuracy of Navigation System and Ways To Improve Accuracy.
 
-|                              | Distance from Global Position | x (mm) | y (mm) | z (mm) |
-|:----------------------------:|:-----------------------------:|:------:|:------:|:------:|
-| Global Position Localization |               5               |    0   |    0   |    0   |
-|                              |               10              |    0   |    0   |    0   |
-|                              |               20              |    0   |    0   |    0   |
-|                              |               40              |    0   |    0   |    0   |
-[Global Localization Accuracy Comparison Given Distance From Global Location.]
+<!--
+\begin{table}[H]
+\centering
+\caption{Global Localization Accuracy Comparison Given Distance From Global Location.}
+\label{global_localization_accuracy_comparison_given_distance_from_global_location}
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|@{}}
+\cmidrule(l){2-6}
+                                                                    & Distance from Global Position & x (mm) & y (mm) & z (mm) & $\psi$ (rad) \\ \midrule
+\multicolumn{1}{|c|}{\multirow{4}{*}{Global Position Localization}} & 5                             & 0      & 0      & 0      & 0            \\ \cmidrule(l){2-6}
+\multicolumn{1}{|c|}{}                                              & 10                            & 0      & 0      & 0      & 0            \\ \cmidrule(l){2-6}
+\multicolumn{1}{|c|}{}                                              & 20                            & 0      & 0      & 0      & 0            \\ \cmidrule(l){2-6}
+\multicolumn{1}{|c|}{}                                              & 40                            & 0      & 0      & 0      & 0            \\ \bottomrule
+\end{tabular}}
+\end{table}
+-->
 
 ### Discussion of Drilling Operation Accuracy
 
 Insert Text Regarding Accuracy of Drilling Operations and Ways To Improve Accuracy.
 
-|                      | Distance from Work Surface (m) | x (mm) | y (mm) | z (mm) |
-|:--------------------:|:------------------------------:|:------:|:------:|:------:|
-| AR Tag Localization  |                5               |    0   |    0   |    0   |
-|                      |               10               |    0   |    0   |    0   |
-|                      |               20               |    0   |    0   |    0   |
-|                      |               40               |    0   |    0   |    0   |
-| Feature Localization |                5               |    0   |    0   |    0   |
-|                      |               10               |    0   |    0   |    0   |
-|                      |               20               |    0   |    0   |    0   |
-|                      |               40               |    0   |    0   |    0   |
-[Drilling Operation Accuracy Comparison Given Distance From Work Surface.]
+<!--
+\begin{table}[H]
+\centering
+\caption{Drilling Operation Accuracy Comparison Given Distance From Work Surface.}
+\label{drilling_operation_accuracy_comparison_given_distance_from_work_surface}
+\resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|@{}}
+\cmidrule(l){2-5}
+                                                            & Distance from Global Position (m) & x (mm) & y (mm) & z (mm) \\ \midrule
+\multicolumn{1}{|c|}{\multirow{4}{*}{AR Tag Localization}}  & 5                                 & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 10                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 20                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \midrule
+\multicolumn{1}{|c|}{\multirow{4}{*}{Feature Localization}} & 5                                 & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 10                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 20                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \bottomrule
+\end{tabular}}
+\end{table}
+-->
 
 ### Discussion of Sealant Application Accuracy
 
 Insert Text Regarding Accuracy of Sealant Application and Ways To Improve Accuracy.
 
-|                      | Distance from Work Surface (m) | x (mm) | y (mm) | z (mm) |
-|:--------------------:|:------------------------------:|:------:|:------:|:------:|
-| AR Tag Localization  |                5               |    0   |    0   |    0   |
-|                      |               10               |    0   |    0   |    0   |
-|                      |               20               |    0   |    0   |    0   |
-|                      |               40               |    0   |    0   |    0   |
-| Feature Localization |                5               |    0   |    0   |    0   |
-|                      |               10               |    0   |    0   |    0   |
-|                      |               20               |    0   |    0   |    0   |
-|                      |               40               |    0   |    0   |    0   |
-[Sealant Application Accuracy Comparison Given Distance From Work Surface.]
+<!--
+\begin{table}[H]
+\centering
+\caption{Sealant Application Accuracy Comparison Given Distance From Work Surface.}
+\label{sealant_application_accuracy_comparison_given_distance_from_work_surface}
+\resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|@{}}
+\cmidrule(l){2-5}
+                                                            & Distance from Global Position (m) & x (mm) & y (mm) & z (mm) \\ \midrule
+\multicolumn{1}{|c|}{\multirow{4}{*}{AR Tag Localization}}  & 5                                 & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 10                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 20                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \midrule
+\multicolumn{1}{|c|}{\multirow{4}{*}{Feature Localization}} & 5                                 & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 10                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 20                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
+\multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \bottomrule
+\end{tabular}}
+\end{table}
+-->
 
 # Conclusion and Future Work
 
