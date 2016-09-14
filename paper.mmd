@@ -44,7 +44,7 @@ Insert Text Regarding Node/Topic/Service Communication.
 \end{figure}
 -->
 
-### URDF and TF
+### Unified Robot Description Format and Transformations
 
 Insert Regarding How To Setup Up TFs on a Robot and How TF Communication Works.
 
@@ -57,7 +57,7 @@ Insert Regarding How To Setup Up TFs on a Robot and How TF Communication Works.
 \end{figure}
 -->
 
-### SLAM
+## Simultaneous Localization and Mapping Concepts
 
 Insert Text Outlining the Basic Intuition Behind SLAM.
 
@@ -108,7 +108,7 @@ HectorSLAM & GMapping & KartoSLAM & CoreSLAM & LagoSLAM \\ \midrule
 \end{table}
 -->
 
-### Navigation Stack
+## Localization and Path Planning Concepts
 
 Insert Text Outlining The Navigation Stack's Framework.
 
@@ -183,7 +183,7 @@ Insert Text Explaining How Trajectory Rollout Works for Path Planning.
 \end{figure}
 -->
 
-### Moveit!
+## Manipulation Concepts
 
 Insert Text Outlining Moveit!'s System Architecture.
 
@@ -241,7 +241,7 @@ NASA Valkyrie Arm                  & 7                     & 45.18              
 \end{table}
 -->
 
-### SMACH
+## State Machines Concepts
 
 Insert Text Explaining the Basics of State Machine and How They are Implemented in SMACH.
 
@@ -557,7 +557,18 @@ Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tr
 \end{figure}
 -->
 
-### Augmented Reality Tags
+### Augmented Reality Tag Detection, Pose Estimation, and Tracking
+
+Insert Text Describing How AR Tag Detection, Pose Estimation, and Tracking Works with AR_Track_Alvar.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{ar_track_alvar_framework.png}
+  \caption{Summary of ALVAR AR Tag Detection Framework.}
+  \label{fig:summary_of_alvar_ar_tag_detection_framework}
+\end{figure}
+-->
 
 # Related Work
 
@@ -771,13 +782,13 @@ Insert Text Regarding Accuracy of Navigation System and Ways To Improve Accuracy
 \centering
 \caption{Global Localization Accuracy Comparison Given Distance From Global Location.}
 \label{global_localization_accuracy_comparison_given_distance_from_global_location}
-\resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|@{}}
-\cmidrule(l){2-6}
-                                                                    & Distance from Global Position & x (mm) & y (mm) & z (mm) & $\psi$ (rad) \\ \midrule
-\multicolumn{1}{|c|}{\multirow{4}{*}{Global Position Localization}} & 5                             & 0      & 0      & 0      & 0            \\ \cmidrule(l){2-6}
-\multicolumn{1}{|c|}{}                                              & 10                            & 0      & 0      & 0      & 0            \\ \cmidrule(l){2-6}
-\multicolumn{1}{|c|}{}                                              & 20                            & 0      & 0      & 0      & 0            \\ \cmidrule(l){2-6}
-\multicolumn{1}{|c|}{}                                              & 40                            & 0      & 0      & 0      & 0            \\ \bottomrule
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|@{}}
+\toprule
+                                              & Distance from Global Position & x (mm) & y (mm) & $\psi$ (rad) \\ \midrule
+\multirow{4}{*}{Global Position Localization} & 5                             & 0      & 0      & 0            \\ \cmidrule(l){2-5}
+                                              & 10                            & 0      & 0      & 0            \\ \cmidrule(l){2-5}
+                                              & 20                            & 0      & 0      & 0            \\ \cmidrule(l){2-5}
+                                              & 40                            & 0      & 0      & 0            \\ \bottomrule
 \end{tabular}}
 \end{table}
 -->
