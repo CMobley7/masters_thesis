@@ -637,12 +637,25 @@ This subsection will go through AR tags and how they are used to populate point.
 
 Currently the sponsor of this work uses a hole template on the object to be drilled to ensure accuracy within $\pm$ 0.3 mm. Using the predicted hole locations, given by the AR tag, an inverse kinematic solver is used to move the manipulator to the specified Cartesian location. A camera mounted on the manipulator is then used to further correct the positon of the end-effector. Canny Edge Detection, Hough Transforms, as well as the camera’s intrinsic characteristics and a priori knowledge of each hole’s size is used to output an adjusted Cartesian location of the circle on the templet closest to the predicted position [#Alter1992]. If a hole to be drilled is not found or is outside the range of the manipulator, that hole will be added to a list and the customer notified of all such holes after the operation is completed. In addition to the high precision achieved by the above technique, it can also provide a video log of all work done for inspection.
 
+Insert Text Regarding Computer Vision Detection and Tracking System.
+
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
-  \caption{Feature Location General Correction Framework.}
-  \label{fig:feature_location_general_correction_framework}
+  \includegraphics[width=\linewidth]{figures/feature_detection_and_tracking_pipeline.png}
+  \caption{Feature Detection and Tracking Pipeline.}
+  \label{fig:feature_detection_and_tracking_pipeline}
+\end{figure}
+-->
+
+Insert Text Regarding Control Loop.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/manipulator_control_loop.png}
+  \caption{Manipulator Correction Control Loop.}
+  \label{fig:manipulator_correction_control_loop}
 \end{figure}
 -->
 
@@ -703,7 +716,7 @@ Insert Text Regarding Upcoming Sections.
 
 ### Camera Calibration Setup
 
-Insert text regarding methods used for camera calibration (citing paper).
+Insert text setup for camera calibration.
 
 <!--
 \begin{figure}[H]
@@ -714,14 +727,25 @@ Insert text regarding methods used for camera calibration (citing paper).
 \end{figure}
 -->
 
+Insert text regarding methods used for camera calibration (citing paper)
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/image_extracted_corners.png}
+  \caption{Extracted Corners of Calibration Pattern.}
+  \label{fig:extracted_corners_of_calibration_pattern.}
+\end{figure}
+-->
+
 Insert Text and Math Regarding Calibration of Laser.
 
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
-  \caption{Laser Calibration Setup.}
-  \label{fig:laser_calibration_setup}
+  \includegraphics[width=\linewidth]{figures/laser_extracted_corners_laser_center.png}
+  \caption{Extracted Corners and Laser Center}
+  \label{fig:extracted_corners_and_laser_center}
 \end{figure}
 -->
 
