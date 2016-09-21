@@ -1,7 +1,7 @@
 Base Header Level: 2
 latex input: metadata
 latex author: Christopher James Mobley
-latex title: TITLE OF THESIS
+latex title: Multistage Localization for High Precision Mobile Manipulation Tasks
 bibtex: masters_thesis
 myreporttype: Thesis
 mydegree: Masters of Science
@@ -27,7 +27,7 @@ Unlike the substantial benefits seen in the manufacturing industry through autom
 
 This section will discuss related work.
 
-# Background
+# Fundamentals of Autonomous Robotics
 
 Insert text outlining upcoming sections.
 
@@ -149,7 +149,7 @@ s = \frac{\sum_{m}\sum_{n}(A_{mn} - \bar{A})(B_{mn} - \bar{B})}{\sqrt{(\sum_{m}\
 
 <!--
 \begin{equation}
-W_t \leftarrow W_{t-1}s
+W_k \leftarrow W_{k-1}s
 \label{eq:laser_scan_correlation}
 \end{equation}
 -->
@@ -177,6 +177,15 @@ Explain KLD Sampling and Why it is Used.
 -->
 
 Insert Text Explaining How Trajectory Rollout Works for Path Planning.
+
+<!--
+\begin{equation}
+C(\textit{k}) = \alpha{} Obs + \beta{} Gdist +\gamma{} Pdist + \delta{} \frac{1}{\dot{x}^2}
+\label{eq:trajectory_rollout_cost_function}
+\end{equation}
+-->
+
+Where *Obs* is the sum of grid cell cost through which the trajectory passes (taking account of the robot's actual footprint in the grid); *Gdist* and *Pdist* are the estimated shortest distance from the endpoint of the trajectory to the goal and the optimal path, respectively; and $\dot{x}$ is the translation component of the velocity command that produces the trajectory.
 
 <!--
 \begin{figure}[H]
@@ -211,7 +220,7 @@ Insert Text Explaining the Basic Intuition Behind Forward and Inverse Kinematics
 \end{figure}
 -->
 
-Insert Test Explaining the Difference Between KDL, KDL-RR and Trac_IK and Why Trac_IK was chosen to be used.
+Insert Test Explaining the Difference Between The Numerical Solvers available in ROS (KDL, KDL-RR and Trac_IK) and Why Trac_IK was chosen to be used.
 
 <!--
 \begin{table}[H]
@@ -358,7 +367,7 @@ Insert Text Explaining the Basics behind Binary Operations, Which Ones Were Chos
 \end{figure}
 -->
 
-### Hough Circle
+### Hough Circle Detection
 
 Insert Text Explaining The Basic Preprocessing Operation Performed by Hough Circle Transform In Order to Get Edges.
 
@@ -561,7 +570,7 @@ Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tr
 \end{figure}
 -->
 
-### Augmented Reality Tag Detection, Pose Estimation, and Tracking
+### Pose Estimation and Tracking Through Augmented Reality Tag Detection,
 
 Insert Text Describing How AR Tag Detection, Pose Estimation, and Tracking Works with AR_Track_Alvar.
 
@@ -574,20 +583,20 @@ Insert Text Describing How AR Tag Detection, Pose Estimation, and Tracking Works
 \end{figure}
 -->
 
-# System Overview and Implementation
+# Multistage Localization for High Precision Mobile Manipulation Tasks
 
 Insert Text Outlining the Upcoming Sections.
 
-## System Overview
+## Approach Overview
 
-The generic framework of the system is depicted in Figure <!--\ref{fig:system_overview}-->. The system allows the user to input predefined tasks. Given a priori knowledge of each tasks and their global start locations, the mobile system navigates to and performs the requested operation(s) while monitoring its battery level to ensure mission completion. The framework shown was implemented using a hierarchical state machine and was written in such a way as to make it compatible with the Robot Operating System (ROS) to ensure ease of use across differing robotic platforms.
+Insert Text Outlining the Steps of the Approach.
 
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/general_system_overview.png}
-  \caption{General system overview.}
-  \label{fig:system_overview}
+  \includegraphics[width=\linewidth]{figures/placeholder_fig.png}
+  \caption{Multistage Localization Approach Overview.}
+  \label{fig:multistage_localization_approach_overview}
 \end{figure}
 -->
 
@@ -659,9 +668,22 @@ Insert Text Regarding Control Loop.
 \end{figure}
 -->
 
-## Specific Task Implementation
+## Approach Implementation
 
 Outline the upcoming sections.
+
+### System Overview
+
+The generic framework of the system is depicted in Figure <!--\ref{fig:system_overview}-->. The system allows the user to input predefined tasks. Given a priori knowledge of each tasks and their global start locations, the mobile system navigates to and performs the requested operation(s) while monitoring its battery level to ensure mission completion. The framework shown was implemented using a hierarchical state machine and was written in such a way as to make it compatible with the Robot Operating System (ROS) to ensure ease of use across differing robotic platforms.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/general_system_overview.png}
+  \caption{General system overview.}
+  \label{fig:system_overview}
+\end{figure}
+-->
 
 ### Drilling Framework
 
