@@ -570,7 +570,7 @@ Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tr
 \end{figure}
 -->
 
-### Pose Estimation and Tracking Through Augmented Reality Tag Detection,
+### Pose Estimation and Tracking Through Augmented Reality Tag Detection
 
 Insert Text Describing How AR Tag Detection, Pose Estimation, and Tracking Works with AR_Track_Alvar.
 
@@ -582,6 +582,10 @@ Insert Text Describing How AR Tag Detection, Pose Estimation, and Tracking Works
   \label{fig:summary_of_alvar_ar_tag_detection_framework}
 \end{figure}
 -->
+
+## Conclusion
+
+Insert Text Summarizing This Chapter and Transiting to the Next.
 
 # Multistage Localization for High Precision Mobile Manipulation Tasks
 
@@ -674,7 +678,7 @@ Outline the upcoming sections.
 
 ### System Overview
 
-The generic framework of the system is depicted in Figure <!--\ref{fig:system_overview}-->. The system allows the user to input predefined tasks. Given a priori knowledge of each tasks and their global start locations, the mobile system navigates to and performs the requested operation(s) while monitoring its battery level to ensure mission completion. The framework shown was implemented using a hierarchical state machine and was written in such a way as to make it compatible with the Robot Operating System (ROS) to ensure ease of use across differing robotic platforms.
+The generic framework of the system is depicted in Figure <!--\ref{fig:general_system_overview}-->. The system allows the user to input predefined tasks. Given a priori knowledge of each tasks and their global start locations, the mobile system navigates to and performs the requested operation(s) while monitoring its battery level to ensure mission completion. The framework shown was implemented using a hierarchical state machine and was written in such a way as to make it compatible with the Robot Operating System (ROS) to ensure ease of use across differing robotic platforms.
 
 <!--
 \begin{figure}[H]
@@ -710,6 +714,10 @@ This section will go in depth into how the robot simulates sealant application.
   \label{fig:sealant_application_framework.}
 \end{figure}
 -->
+
+## Conclusion
+
+Insert Text Summarizing This Chapter and Transiting to the Next.
 
 # Experiments and Results
 
@@ -825,10 +833,19 @@ Insert Text Regarding Pixel Error of Laser Calibration.
 Insert Text Regarding Accuracy of Navigation System and Ways To Improve Accuracy.
 
 <!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
+  \caption{Navigation System Test Images.}
+  \label{fig:navigation_system_test_images}
+\end{figure}
+-->
+
+<!--
 \begin{table}[H]
 \centering
-\caption{Global Localization Accuracy Comparison Given Distance From Global Location.}
-\label{global_localization_accuracy_comparison_given_distance_from_global_location}
+\caption{Global Localization Accuracy Given Distance From Start.}
+\label{global_localization_accuracy_given_distance_from_start}
 \resizebox{\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|@{}}
 \toprule
                                               & Distance from Global Position & x (mm) & y (mm) & $\psi$ (rad) \\ \midrule
@@ -840,15 +857,33 @@ Insert Text Regarding Accuracy of Navigation System and Ways To Improve Accuracy
 \end{table}
 -->
 
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
+  \caption{Global Localization Accuracy Given Distance From Start.}
+  \label{fig:global_localization_accuracy_given_distance_from_start}
+\end{figure}
+-->
+
 ### Discussion of Drilling Operation Accuracy
 
 Insert Text Regarding Accuracy of Drilling Operations and Ways To Improve Accuracy.
 
 <!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
+  \caption{Drilling Operation System Test Images.}
+  \label{fig:navigation_system_test_images}
+\end{figure}
+-->
+
+<!--
 \begin{table}[H]
 \centering
-\caption{Drilling Operation Accuracy Comparison Given Distance From Work Surface.}
-\label{drilling_operation_accuracy_comparison_given_distance_from_work_surface}
+\caption{Drilling Operation Accuracy Given Distance From Work Surface.}
+\label{drilling_operation_accuracy_given_distance_from_work_surface}
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|@{}}
 \cmidrule(l){2-5}
                                                             & Distance from Global Position (m) & x (mm) & y (mm) & z (mm) \\ \midrule
@@ -862,6 +897,15 @@ Insert Text Regarding Accuracy of Drilling Operations and Ways To Improve Accura
 \multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \bottomrule
 \end{tabular}}
 \end{table}
+-->
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
+  \caption{Drilling Operation Accuracy Given Distance From Work Surface.}
+  \label{fig:drilling_operation_accuracy_given_distance_from_work_surface}
+\end{figure}
 -->
 
 ### Discussion of Sealant Application Accuracy
@@ -869,10 +913,19 @@ Insert Text Regarding Accuracy of Drilling Operations and Ways To Improve Accura
 Insert Text Regarding Accuracy of Sealant Application and Ways To Improve Accuracy.
 
 <!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
+  \caption{Sealant Application System Test Images.}
+  \label{fig:navigation_system_test_images}
+\end{figure}
+-->
+
+<!--
 \begin{table}[H]
 \centering
-\caption{Sealant Application Accuracy Comparison Given Distance From Work Surface.}
-\label{sealant_application_accuracy_comparison_given_distance_from_work_surface}
+\caption{Sealant Application Accuracy Given Distance From Work Surface.}
+\label{sealant_application_accuracy_given_distance_from_work_surface}
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|@{}}
 \cmidrule(l){2-5}
                                                             & Distance from Global Position (m) & x (mm) & y (mm) & z (mm) \\ \midrule
@@ -887,6 +940,19 @@ Insert Text Regarding Accuracy of Sealant Application and Ways To Improve Accura
 \end{tabular}}
 \end{table}
 -->
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
+  \caption{Sealant Application Accuracy Given Distance From Work Surface.}
+  \label{fig:sealant_application_accuracy_given_distance_from_work_surface}
+\end{figure}
+-->
+
+## Conclusion
+
+Insert Text Summarizing This Chapter and Transiting to the Next.
 
 # Conclusion and Future Work
 
