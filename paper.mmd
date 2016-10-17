@@ -12,6 +12,8 @@ latex footer: vtthesis/footer.tex
 
 # Introduction
 
+## Background
+
 Unlike the substantial benefits seen in the manufacturing industry through automation and robotics, automation and robotics in construction (ARC) has lagged far behind in adoption [#Balaguer]. Consequently, when compared with other industries, construction has seen a significant decrease in productivity, as well as an increase in workplace injuries/fatalities over the last several decades [#Rojas2003]. While several technical complexities inherent in construction have hindered the development and adoption of field construction robots [4], through the capitalization of advances made by other industries, ARC can quickly close this gap. Thereby allowing dangerous and or mundane repetitive tasks to be accomplished autonomously. Thus, causing an increase in productivity and a decrease in workplace injuries/fatalities [1]. However, ARC faces two unique challenges when compared to other industries. Unlike manufacturing environments, which are tightly controlled, typical construction sites tend to lack structure and are continuously evolving. In addition, the reversal in relationship between the part and manipulator has dramatically increased the complexity of the problem to be solved [#Feng2015]. Instead of the part appearing at a fixed manipulator, the manipulator must now move to and localize itself with respect to the part. The remainder of this paper is structured as follows: In Section 2, the author’s technical approach is outlined, with particular focus on problem two, and experimental results are shown. Conclusions are then drawn and future work discussed in Section 3.
 
 <!--
@@ -23,9 +25,35 @@ Unlike the substantial benefits seen in the manufacturing industry through autom
 \end{figure}
 -->
 
-# Related Work
+## Objectives
 
-This section will discuss related work.
+Insert Text Regarding the Objectives of This Work.
+
+## Summary of Original Contributions
+
+Insert Text Regarding the Originals Contributions Presented in this Work.
+
+## Outline
+
+Insert Text Outlining the Upcoming Chapters.
+
+# Literature Review
+
+## Localization and Mapping For Autonomous Mobile Manipulators in Manufacturing and Construction
+
+Insert Text Summarizing Current SLAM and Localization Techniques Used.
+
+## Task Association and A Priori Knowledge for Mobile Manipulators
+
+Insert Text Summarizing Current Methods Used to Associate Mobile Manipulator to a Specific Task and How Prior Knowledge is Conveyed About the Task to be Performed.
+
+## Feature Localization Techniques for Mobile Manipulators
+
+Insert Text Summarizing Current Methods Used to Localize a Feature and Have a Mobile Manipulator Perform a Set Operation.
+
+## Summary
+
+Insert Text Summarizing This Chapter and Transiting to the Next.
 
 # Fundamentals of Autonomous Robotics
 
@@ -48,9 +76,40 @@ Insert Text Regarding Node/Topic/Service Communication.
 \end{figure}
 -->
 
-### Unified Robot Description Format and Transformations
+### Rigid Body Transformations
 
-Insert Regarding How To Setup Up TFs on a Robot and How TF Communication Works.
+Insert Text Explaining Rigid Body Transformations.
+
+<!--
+\begin{equation}
+x_a=T_{b}^{a}x_b
+\label{eq:conversion_from_coordinate_frame_a_to_b}
+\end{equation}
+-->
+
+where $T_{b}^{a}$ is equal to
+<!--
+\begin{equation}
+\begin{bmatrix}
+R_{b}^{a} & t_{b}^{a}\\
+0^T & 1
+\end{bmatrix}
+\label{eq:simplified_transformation_matrix}
+\end{equation}
+-->
+
+where $R_{b}^{a}$ is the rotation matrix, which performs the rotation part of moving frame $b$ into alignment with frame $a$ and $t_{b}^{a}$ is the translation matrix, which performs the translation part of moving frame $b$ origin to frame $a$.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/conversion_from_frame_a_b.png}
+  \caption{Conversion from Coordinate Frame A to B}
+  \label{fig:conversion_from_coordinate_frame_a_to_b}
+\end{figure}
+-->
+
+Insert Text Regarding How a URDF is Setup in ROS so that Transformation Between Coordinates can be Managed with the Package TF.
 
 <!--
 \begin{figure}[H]
@@ -269,14 +328,23 @@ Insert Text Explaining the Basics of State Machine and How They are Implemented 
 
 ## Camera Concepts
 
-Insert Text Explaining How Digital Image Are Recorded and Stored.
+Insert Text Explaining How Digital Image Are Formed and Stored.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/photometric_image_formation.png}
+  \caption{Photmetric Image Formation.}
+  \label{fig:photmetric_image_formation}
+\end{figure}
+-->
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/digital_camera_diagram.png}
-  \caption{Digital Image Formation.}
-  \label{fig:digital_image_formation}
+  \caption{Digital Camera Diagram.}
+  \label{fig:digital_camera_diagram}
 \end{figure}
 -->
 
@@ -583,7 +651,7 @@ Insert Text Describing How AR Tag Detection, Pose Estimation, and Tracking Works
 \end{figure}
 -->
 
-## Conclusion
+## Summary
 
 Insert Text Summarizing This Chapter and Transiting to the Next.
 
@@ -598,7 +666,7 @@ Insert Text Outlining the Steps of the Approach.
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/placeholder_fig.png}
+  \includegraphics[width=\linewidth]{figures/multistage_localization_approach.png}
   \caption{Multistage Localization Approach Overview.}
   \label{fig:multistage_localization_approach_overview}
 \end{figure}
@@ -624,6 +692,15 @@ First, a Simultaneous Localization and Mapping (SLAM) technique named KartoSLAM 
 ## Autonomous Localization and Navigation
 
 Adaptive Monte Carlo localization (amcl) is used to localize the system within the map. Subsequently, odometry data is combined with a global and local cost map, in which obstacles and a specific distance around them represent a cost. These maps are used to plan optimal and obstacle free paths through the environment. The global path is computed before the system begins moving and takes into account all known obstacles, while the local path monitors incoming sensor data to compute suitable linear and angular velocities for the system to complete the current section of the global path. The local path is typically computed at a rate of 20 Hz; however, this parameter is adjustable given the needs of the system.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/robot_localization_framework.png}
+  \caption{Robot Localization Framework.}
+  \label{fig:robot_localization_framework}
+\end{figure}
+-->
 
 ## Task Association and A Priori Knowledge
 
@@ -655,7 +732,7 @@ Insert Text Regarding Computer Vision Detection and Tracking System.
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/feature_detection_and_tracking_pipeline.png}
+  \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{figures/feature_detection_and_tracking_pipeline.png}
   \caption{Feature Detection and Tracking Pipeline.}
   \label{fig:feature_detection_and_tracking_pipeline}
 \end{figure}
@@ -715,7 +792,7 @@ This section will go in depth into how the robot simulates sealant application.
 \end{figure}
 -->
 
-## Conclusion
+## Summary
 
 Insert Text Summarizing This Chapter and Transiting to the Next.
 
@@ -833,26 +910,16 @@ Insert Text Regarding Pixel Error of Laser Calibration.
 Insert Text Regarding Accuracy of Navigation System and Ways To Improve Accuracy.
 
 <!--
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
-  \caption{Navigation System Test Images.}
-  \label{fig:navigation_system_test_images}
-\end{figure}
--->
-
-<!--
 \begin{table}[H]
 \centering
-\caption{Global Localization Accuracy Given Distance From Start.}
-\label{global_localization_accuracy_given_distance_from_start}
-\resizebox{\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|@{}}
-\toprule
-                                              & Distance from Global Position & x (mm) & y (mm) & $\psi$ (rad) \\ \midrule
-\multirow{4}{*}{Global Position Localization} & 5                             & 0      & 0      & 0            \\ \cmidrule(l){2-5}
-                                              & 10                            & 0      & 0      & 0            \\ \cmidrule(l){2-5}
-                                              & 20                            & 0      & 0      & 0            \\ \cmidrule(l){2-5}
-                                              & 40                            & 0      & 0      & 0            \\ \bottomrule
+\caption{Global Localization Accuracy Given Distance From Start - Clearpath Robotics' Husky.}
+\label{global_localization_accuracy_given_distance_from_start_clearpath_robotics_husky}
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|l|l|c|@{}}
+\cmidrule(l){2-7}
+                           & x (cm) & x std (cm) & y (cm) & y std (cm) & $\psi$ (rad) & $\psi$ std (rad) \\ \midrule
+\multicolumn{1}{|c|}{5 m}  & 6.29   & 4.20       & 4.50   & 3.58       & 0.03         & 0.02             \\ \midrule
+\multicolumn{1}{|c|}{10 m} & 4.16   & 3.16       & 2.88   & 2.97       & 0.03         & 0.03             \\ \midrule
+\multicolumn{1}{|c|}{20 m} & 6.35   & 4.55       & 2.37   & 1.89       & 0.02         & 0.01             \\ \bottomrule
 \end{tabular}}
 \end{table}
 -->
@@ -860,41 +927,125 @@ Insert Text Regarding Accuracy of Navigation System and Ways To Improve Accuracy
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
-  \caption{Global Localization Accuracy Given Distance From Start.}
-  \label{fig:global_localization_accuracy_given_distance_from_start}
+  \includegraphics[width=\linewidth]{figures/husky_navigation_xy_accuracy.png}
+  \caption{Global X and Y Localization Accuracy Given Distance From Start - Clearpath Robotics' Husky.}
+  \label{fig:global_x_and_y_localization_accuracy_given_distance_from_start_clearpath_robotics_husky}
 \end{figure}
 -->
-
-### Discussion of Drilling Operation Accuracy
-
-Insert Text Regarding Accuracy of Drilling Operations and Ways To Improve Accuracy.
 
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
-  \caption{Drilling Operation System Test Images.}
-  \label{fig:navigation_system_test_images}
+  \includegraphics[width=\linewidth]{figures/husky_navigation_yaw_accuracy.png}
+  \caption{Global $\psi$ Localization Accuracy Given Distance From Start - Clearpath Robotics' Husky.}
+  \label{fig:global_psi_localization_accuracy_given_distance_from_start_clearpath_robotics_husky}
 \end{figure}
 -->
+
+<!--
+\begin{table}[H]
+\centering
+\caption{Global Localization Accuracy Given Distance From Start - Fetch Robotics' Fetch.}
+\label{global_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|l|l|c|@{}}
+\cmidrule(l){2-7}
+                           & x (cm) & x std (cm) & y (cm) & y std (cm) & $\psi$ (rad) & $\psi$ std (rad) \\ \midrule
+\multicolumn{1}{|c|}{5 m}  & 4.25   & 2.50       & 1.48   & 1.23       & 0.03         & 0.02             \\ \midrule
+\multicolumn{1}{|c|}{10 m} & 3.93   & 2.62       & 2.57   & 1.66       & 0.03         & 0.02             \\ \midrule
+\multicolumn{1}{|c|}{20 m} & 5.82   & 3.43       & 1.52   & 1.11       & 0.03         & 0.02             \\ \bottomrule
+\end{tabular}}
+\end{table}
+-->
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fetch_navigation_xy_accuracy.png}
+  \caption{Global X and Y Localization Accuracy Given Distance From Start - Fetch Robotics' Fetch.}
+  \label{fig:global_x_and_y_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}
+\end{figure}
+-->
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fetch_navigation_yaw_accuracy.png}
+  \caption{Global $\psi$ Localization Accuracy Given Distance From Start - Fetch Robotics' Fetch.}
+  \label{fig:global_psi_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}
+\end{figure}
+-->
+
+### Augmented Reality Tag Accuracy Achieved
+
+<!--
+\begin{table}[H]
+\centering
+\caption{Augmented Reality Accuracy Given Specific Start Conditions - Primesense Carmine 1.09.}
+\label{augmented_reality_accuracy_given_specific_start_conditions_primesense_carmine_1_09}
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
+\cmidrule(l){2-7}
+                        & x     & x std (mm) & y      & y std (mm) & z      & z std (mm) \\ \midrule
+\multicolumn{1}{|c|}{1} & 50.41 & 22.81      & 148.87 & 12.33      & 150.96 & 12.61      \\ \midrule
+\multicolumn{1}{|c|}{2} & 23.71 & 16.06      & 151.82 & 6.86       & 117.57 & 12.81      \\ \midrule
+\multicolumn{1}{|c|}{3} & 23.06 & 14.85      & 128.39 & 11.48      & 173.24 & 23.24      \\ \midrule
+\multicolumn{1}{|c|}{4} & 37.19 & 14.85      & 183.21 & 7.30       & 115.85 & 16.27      \\ \midrule
+\multicolumn{1}{|c|}{5} & 24.36 & 17.47      & 138.66 & 6.77       & 42.80  & 16.37      \\ \midrule
+\multicolumn{1}{|c|}{6} & 39.16 & 23.52      & 7.27   & 3.70       & 105.24 & 9.16       \\ \bottomrule
+\end{tabular}}
+\end{table}
+-->
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/ar_tag_accuracy_primesense.png}
+  \caption{Augmented Reality Accuracy Given Specific Start Conditions - Primesense Carmine 1.09.}
+  \label{fig:augmented_reality_accuracy_given_specific_start_conditions_primesense_carmine_1_09}
+\end{figure}
+-->
+
+<!--
+\begin{table}[H]
+\centering
+\caption{Augmented Reality Accuracy Given Specific Start Conditions - Microsoft Kinect V2.}
+\label{augmented_reality_accuracy_given_specific_start_conditions_microsoft_kinect_v2}
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|l|l|c|@{}}
+\cmidrule(l){2-7}
+                             & x (mm) & x std (mm) & y (mm) & y std (mm) & z (mm) & z std (mm) \\ \midrule
+\multicolumn{1}{|c|}{Test 1} & 14.32  & 9.75       & 4.04   & 1.65       & 84.77  & 2.50       \\ \midrule
+\multicolumn{1}{|c|}{Test 2} & 163.85 & 57.58      & 36.32  & 9.65       & 25.31  & 12.46      \\ \midrule
+\multicolumn{1}{|c|}{Test 3} & 84.33  & 44.37      & 50.31  & 5.48       & 55.24  & 8.57       \\ \bottomrule
+\end{tabular}}
+\end{table}
+-->
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/ar_tag_accuracy_kinectv2.png}
+  \caption{Augmented Reality Accuracy Given Specific Start Conditions - Microsoft Kinect V2.}
+  \label{fig:augmented_reality_accuracy_given_specific_start_conditions_microsoft_kinect_v2}
+\end{figure}
+-->
+
+
+### Drilling Operation Accuracy Achieved
+
+Insert Text Regarding Accuracy of Drilling Operations and Ways To Improve Accuracy.
 
 <!--
 \begin{table}[H]
 \centering
 \caption{Drilling Operation Accuracy Given Distance From Work Surface.}
 \label{drilling_operation_accuracy_given_distance_from_work_surface}
-\resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|@{}}
-\cmidrule(l){2-5}
-                                                            & Distance from Global Position (m) & x (mm) & y (mm) & z (mm) \\ \midrule
-\multicolumn{1}{|c|}{\multirow{4}{*}{AR Tag Localization}}  & 5                                 & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 10                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 20                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \midrule
-\multicolumn{1}{|c|}{\multirow{4}{*}{Feature Localization}} & 5                                 & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 10                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 20                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \bottomrule
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
+\cmidrule(l){2-7}
+                                                                                                                 & x (mm) & x std (mm) & y (mm) & y std (mm) & z (mm) & z std (mm) \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Less Than 5 mm from\\   Hole Center\end{tabular}}       & 13.25  & 1.43       & 0.70   & 0.43       & 0.82   & 0.56       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 5 and 10 mm\\   from Hole Center\end{tabular}}  & 13.62  & 2.71       & 0.66   & 0.39       & 1.89   & 0.46       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 10 and 20 mm\\   from Hole Center\end{tabular}} & 10.78  & 2.55       & 0.53   & 0.30       & 4.06   & 0.70       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 20 and 30 mm\\   from Hole Center\end{tabular}} & 10.55  & 2.48       & 0.31   & 0.21       & 10.25  & 1.38       \\ \midrule
+\multicolumn{1}{|c|}{Mean}                                                                                       & 12.05  & 2.55       & 0.55   & 0.38       & 4.25   & 3.75       \\ \bottomrule
 \end{tabular}}
 \end{table}
 -->
@@ -902,41 +1053,29 @@ Insert Text Regarding Accuracy of Drilling Operations and Ways To Improve Accura
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
-  \caption{Drilling Operation Accuracy Given Distance From Work Surface.}
-  \label{fig:drilling_operation_accuracy_given_distance_from_work_surface}
+  \includegraphics[width=\linewidth]{figures/drill_accuracy.png}
+  \caption{Drilling Operation Accuracy Given Distance From Feature Point.}
+  \label{fig:drilling_operation_accuracy_given_distance_from_feature_point}
 \end{figure}
 -->
 
-### Discussion of Sealant Application Accuracy
+### Sealant Application Accuracy Achieved
 
 Insert Text Regarding Accuracy of Sealant Application and Ways To Improve Accuracy.
-
-<!--
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
-  \caption{Sealant Application System Test Images.}
-  \label{fig:navigation_system_test_images}
-\end{figure}
--->
 
 <!--
 \begin{table}[H]
 \centering
 \caption{Sealant Application Accuracy Given Distance From Work Surface.}
 \label{sealant_application_accuracy_given_distance_from_work_surface}
-\resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|@{}}
-\cmidrule(l){2-5}
-                                                            & Distance from Global Position (m) & x (mm) & y (mm) & z (mm) \\ \midrule
-\multicolumn{1}{|c|}{\multirow{4}{*}{AR Tag Localization}}  & 5                                 & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 10                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 20                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \midrule
-\multicolumn{1}{|c|}{\multirow{4}{*}{Feature Localization}} & 5                                 & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 10                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 20                                & 0      & 0      & 0      \\ \cmidrule(l){2-5}
-\multicolumn{1}{|c|}{}                                      & 40                                & 0      & 0      & 0      \\ \bottomrule
+\resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
+\cmidrule(l){2-7}
+                                                                                                            & x (mm) & x std (mm) & y (mm) & y std (mm) & z (mm) & z std (mm) \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Less Than 5 mm from\\   Corner\end{tabular}}       & 10.90  & 2.44       & 1.46   & 0.21       & 1.17   & 0.71       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 5 and 10 mm\\   from Corner\end{tabular}}  & 11.95  & 3.21       & 1.27   & 0.22       & 1.48   & 0.91       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 10 and 20 mm\\   from Corner\end{tabular}} & 16.32  & 2.56       & 0.78   & 0.34       & 3.81   & 0.32       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 20 and 30 mm\\   from Corner\end{tabular}} & 13.92  & 3.34       & 0.79   & 0.60       & 8.21   & 0.40       \\ \midrule
+\multicolumn{1}{|c|}{Mean}                                                                                  & 13.27  & 3.33       & 1.08   & 0.48       & 3.67   & 2.88       \\ \bottomrule
 \end{tabular}}
 \end{table}
 -->
@@ -944,13 +1083,13 @@ Insert Text Regarding Accuracy of Sealant Application and Ways To Improve Accura
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/placeholder_fig.png}
-  \caption{Sealant Application Accuracy Given Distance From Work Surface.}
-  \label{fig:sealant_application_accuracy_given_distance_from_work_surface}
+  \includegraphics[width=\linewidth]{figures/seal_accuracy.png}
+  \caption{Sealant Application Accuracy Given Distance From Feature Point.}
+  \label{fig:sealant_application_accuracy_given_distance_from_feature_point}
 \end{figure}
 -->
 
-## Conclusion
+## Summary
 
 Insert Text Summarizing This Chapter and Transiting to the Next.
 
