@@ -140,7 +140,7 @@ Insert Text Explaining How ROS Uses SLAM to Create 2-D Occupancy Grid Maps and W
   \centering
   \includegraphics[width=\linewidth]{figures/2d_occupancy_grid_map.png}
   \caption{Example of 2-D Occupancy Grid Map Produced.}
-  \label{fig:example_of 2-D Occupancy Grid Map Produced}
+  \label{fig:example_of_2d_cccupancy_grid_map_produced}
 \end{figure}
 -->
 
@@ -184,20 +184,47 @@ Insert Text Outlining The Navigation Stack's Framework.
 \end{figure}
 -->
 
-Insert Text Explaining How Adaptive Monte Carlo Localization Works. Specifically Start With An Overall Review.
+After building a two-dimensional occupancy grid map, shown in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->, using SLAM, it becomes crucial to accurately localize the robot within
+this predefined map; so that, the robot can both plan and execute appropriate trajectories to its next destination. Localization involves
+estimating the position and orientation of the robot, known collectively as pose, while the robot moves throughout its environment. One routine
+localization technique used involves tracking the robot from an initial known starting pose. Through the measurement of wheel rotation and the
+integration of accelerations provided by an inertial measurement unit (IMU), the distance traveled by the robot from the initial position can be
+calculated and the robot’s pose in the map estimated with some certainty. However, these methods do not account for wheel slippage or measurement
+error. As a result, the accuracy of the pose estimate will degrade over time. Consequently, a solution which can compensate for the accumulated
+odometry error and inaccuracies in the initial starting pose is needed. One accepted solution to this problem is Monte Carlo Localization (MCL),
+which utilizes a particle filters to keep track of the robot’s pose. However, additional options include Kalman Filters and Markov Localization,
+which employ Gaussian distributions and histograms respectively.
 
-Explain the Basics of a Particle Filter in 1D.
+Figure <!--\ref{fig:one_Dimensional_monte_carlo_localization_example}--> depicts MCL using a one-dimensional corridor with a few doors. The robot
+initially has no information about where it is in this corridor. As a result, the graph of the robot’s belief states, which defines the probability
+of the robot being at a particular position, is drawn from a uniform distribution of discretely sampled positions along the corridor. A measurement
+update is performed at each time step. A measurement update involves convolving the measurement model, the probability of receiving a specific sensor
+measurement in the corridor, with the belief states to get an updated belief state. The updated belief state is the same as the pervious belief state;
+however, the weight of each particle have been updated based on the sensor reading. At step k=1 the robot senses a door; so, the weight of particles at
+the three door are increased. At the next step, a motion model update is performed. The odometry indicated that the robot moved forward a specified
+distance d. As a result, the belief state is updated by moving the particles forward that specific distance with noise added to account for the
+aforementioned odometry errors. It should be noted that the particles at this stage in Figure <!--\ref{fig:one_Dimensional_monte_carlo_localization_example}--> were also resampled, which will be covered in the
+following paragraphs. The motion model update is followed by a measurement update. The robot again senses a door. As a result, the measurement model is
+the same as the pervious time step. After convolving the current measurement model with the current belief state, the cumulative probability mass is
+centered at door two indicating that the robot is likely at this location[#opac-b1102986].
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/particle_filter_1d_example.png}
-  \caption{1D Particle Filter Example}
-  \label{fig:1d_particle_filter_example}
+  \caption{One-Dimensional Monte Carlo Localization Example.}
+  \label{fig:one_Dimensional_monte_carlo_localization_example}
 \end{figure}
 -->
 
-Explain How the Particle Filter works in 2D. Refer to 2D Map Figure. The Equations Below are Used to Calculated Scan Correlation and Then How to Weight Each Particle.
+Two-dimensional MCL follows the same format of a motion model and then measurement update. The initial particles are drawn from the current odometry
+with added noise. At each step, the particles are updated via the odometry and then corrected via a measurement update. For each particle, the correlation
+between the two-dimensional occupancy grid map, seen in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->, and laser scan is calculated using
+Equation <!--\ref{eq:weight_each_particle}-->, where $A$ is the predefined map, $B$ is the map created by the current laser scan, and $\bar{A}$ and $\bar{B}$ are the mean
+values of the pixels of both maps respectively. Note that while obstacle pixels are black and have a value of 1, free space pixels are grey and have a value of 0. While $m$ and $n$
+are the x and y pixel values. The particle (pose) with the highest correlations score is chosen as the pose for the current step. The weight of each
+particles at step $k$ is found by multiplying the particles weight at step $k-1$ by its normalized correlation score at time step $k$, as seen in Equation <!--\ref{eq:laser_scan_correlation}-->.
+
 
 <!--
 \begin{equation}
@@ -213,7 +240,11 @@ W_k \leftarrow W_{k-1}s
 \end{equation}
 -->
 
-Explain the Basics of Resampling in a Particle Filter and Why It is Done.
+As weights are multiplied over steps, the particles with consecutive small correlation scores are reduced to very small values. As a result, the particles
+filter eventually has every few effective particles to ensure that good results are produced. Consequently, re-sampling, show in Figure <!--\ref{fig:particle_filter_resampling_example}-->, is performed when
+the number of effective particles become too small. This is done by drawing samples close to the particles that have a higher weights, indicated by their size.
+Thus the new sample have a higher density near the position where the particle with higher weight existed. Each particle after resampling has same weight.
+As a result, the particle filter begins from scratch.
 
 <!--
 \begin{figure}[H]
@@ -224,7 +255,14 @@ Explain the Basics of Resampling in a Particle Filter and Why It is Done.
 \end{figure}
 -->
 
-Explain KLD Sampling and Why it is Used.
+Due to the computational complexity inherent in iteratively having to calculate the correlation score for each particle, an optimization technique known as
+*KLD-sampling* is used. *KLD-sampling*, derived from *Kullback-Leibler divergence*, is a technique that determine the number of particles needed such that
+the error between the sample and true posterior is less than $\epsilon$[#opac-b1102986]. KLD-sampling basically control the number of particles based on the difference
+in odometry and particle base location.
+
+Figure <!--\ref{fig:visual_of_amcl_in_rviz}--> shows how KLD-sampling effectively work. Initially when the position is unknown, the particle cloud is large due to the uncertainty in the position
+and orientation of the robot. However, as the robot moves, the particle converges and the particle cloud size reduces as KLD-sampling removes the redundant
+particles and improves computational performance.
 
 <!--
 \begin{figure}[H]
