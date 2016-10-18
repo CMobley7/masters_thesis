@@ -173,19 +173,27 @@ HectorSLAM & GMapping & KartoSLAM & CoreSLAM & LagoSLAM \\ \midrule
 
 ## Localization and Path Planning Concepts
 
-Insert Text Outlining The Navigation Stack's Framework.
+ROS’s Navigation Stack is a collection of packages, which uses odometry and laser scan data, as well as a goal position and orientation in
+order to output the velocity commands needed to reach the specified goal. Figure <!--\ref{fig:ros_navigation_stack_setup}--> shows an overview of how the individual packages work
+together to achieve this objective. The Map_Server node loads a previously generated two-dimensional grid map. Once the AMCL node receives the map,
+odometry, and laser scan data, it is able to localize the robot within the provided map, using the Adaptive Monte Carlo Localization technique
+for which it gets its name. The Move_Base node maintains both global and local planners and costmaps. Information about obstacles in the world
+are stores in these costmap. The global costmap is used for long-term planning, while the local costmap is used for short-term planning and obstacle
+avoidance. The global planner computes an optimal path to the goal given the starting state of robot and the global costmap. While the local planner
+computes shorter trajectories given the current state of the robot and the local costmap. Once a path is developed, Move_Base outputs the necessary
+velocity commands needed in order to reach the specified destination.[# EitanMarder-Eppstein2016]
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/ros_navigation_stack_setup.png}
   \caption{ROS Navigation Stack setup.}
-  \label{ros_navigation_stack_setup}
+  \label{fig:ros_navigation_stack_setup}
 \end{figure}
 -->
 
 After building a two-dimensional occupancy grid map, shown in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->, using SLAM, it becomes crucial to accurately localize the robot within
-this predefined map; so that, the robot can both plan and execute appropriate trajectories to its next destination. Localization involves
+this predefined map; so that, the robot can both plan and execute appropriate trajectories to reach its destination. Localization involves
 estimating the position and orientation of the robot, known collectively as pose, while the robot moves throughout its environment. One routine
 localization technique used involves tracking the robot from an initial known starting pose. Through the measurement of wheel rotation and the
 integration of accelerations provided by an inertial measurement unit (IMU), the distance traveled by the robot from the initial position can be
@@ -195,7 +203,7 @@ odometry error and inaccuracies in the initial starting pose is needed. One acce
 which utilizes a particle filters to keep track of the robot’s pose. However, additional options include Kalman Filters and Markov Localization,
 which employ Gaussian distributions and histograms respectively.
 
-Figure <!--\ref{fig:one_Dimensional_monte_carlo_localization_example}--> depicts MCL using a one-dimensional corridor with a few doors. The robot
+Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}--> depicts MCL using a one-dimensional corridor with a few doors. The robot
 initially has no information about where it is in this corridor. As a result, the graph of the robot’s belief states, which defines the probability
 of the robot being at a particular position, is drawn from a uniform distribution of discretely sampled positions along the corridor. A measurement
 update is performed at each time step. A measurement update involves convolving the measurement model, the probability of receiving a specific sensor
@@ -203,17 +211,17 @@ measurement in the corridor, with the belief states to get an updated belief sta
 however, the weight of each particle have been updated based on the sensor reading. At step k=1 the robot senses a door; so, the weight of particles at
 the three door are increased. At the next step, a motion model update is performed. The odometry indicated that the robot moved forward a specified
 distance d. As a result, the belief state is updated by moving the particles forward that specific distance with noise added to account for the
-aforementioned odometry errors. It should be noted that the particles at this stage in Figure <!--\ref{fig:one_Dimensional_monte_carlo_localization_example}--> were also resampled, which will be covered in the
+aforementioned odometry errors. It should be noted that the particles at this stage in Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}--> were also resampled, which will be covered in the
 following paragraphs. The motion model update is followed by a measurement update. The robot again senses a door. As a result, the measurement model is
 the same as the pervious time step. After convolving the current measurement model with the current belief state, the cumulative probability mass is
-centered at door two indicating that the robot is likely at this location[#opac-b1102986].
+centered at door two indicating that the robot is likely at this location. [#ThrunSebastianandBurgardWolframandFox2005]
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/particle_filter_1d_example.png}
   \caption{One-Dimensional Monte Carlo Localization Example.}
-  \label{fig:one_Dimensional_monte_carlo_localization_example}
+  \label{fig:one_dimensional_monte_carlo_localization_example}
 \end{figure}
 -->
 
@@ -222,7 +230,7 @@ with added noise. At each step, the particles are updated via the odometry and t
 between the two-dimensional occupancy grid map, seen in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->, and laser scan is calculated using
 Equation <!--\ref{eq:weight_each_particle}-->, where $A$ is the predefined map, $B$ is the map created by the current laser scan, and $\bar{A}$ and $\bar{B}$ are the mean
 values of the pixels of both maps respectively. Note that while obstacle pixels are black and have a value of 1, free space pixels are grey and have a value of 0. While $m$ and $n$
-are the x and y pixel values. The particle (pose) with the highest correlations score is chosen as the pose for the current step. The weight of each
+are the x and y values of the pixel. The particle (pose) with the highest correlations score is chosen as the pose for the current step. The weight of each
 particles at step $k$ is found by multiplying the particles weight at step $k-1$ by its normalized correlation score at time step $k$, as seen in Equation <!--\ref{eq:laser_scan_correlation}-->.
 
 
@@ -257,8 +265,8 @@ As a result, the particle filter begins from scratch.
 
 Due to the computational complexity inherent in iteratively having to calculate the correlation score for each particle, an optimization technique known as
 *KLD-sampling* is used. *KLD-sampling*, derived from *Kullback-Leibler divergence*, is a technique that determine the number of particles needed such that
-the error between the sample and true posterior is less than $\epsilon$[#opac-b1102986]. KLD-sampling basically control the number of particles based on the difference
-in odometry and particle base location.
+the error between the sample and true posterior is less than $\epsilon$. KLD-sampling basically control the number of particles based on the difference
+in odometry and particle base location. [#ThrunSebastianandBurgardWolframandFox2005]
 
 Figure <!--\ref{fig:visual_of_amcl_in_rviz}--> shows how KLD-sampling effectively work. Initially when the position is unknown, the particle cloud is large due to the uncertainty in the position
 and orientation of the robot. However, as the robot moves, the particle converges and the particle cloud size reduces as KLD-sampling removes the redundant
@@ -273,7 +281,11 @@ particles and improves computational performance.
 \end{figure}
 -->
 
-Insert Text Explaining How Trajectory Rollout Works for Path Planning.
+After calculating the local and global costmaps, as well as the location of the robot within the given map, the robot must now both plan and execute appropriate trajectories to its destination.
+Two frequent techniques used are the Dynamic Window Approach (DWA) and Trajectory Rollout. Both sample the space of feasible controls. For a differential drive robot, such as Clearpath Robotics’
+Husky and Fetch Robotics’ Fetch, this controls space is 2D and consists of translations and rotational velocities, $\dot{x}, \dot{\theta}$, which are limited by the robot’s capabilities. Each
+sampled velocity is forward simulated from the robot’s current for a short period of time in order to generate simulated trajectories as shown in Figure <!--\ref{fig:trajectory_rollout_path_planning_framework}-->. These simulated trajectories are then
+scored using the cost function in Equation <!--\ref{eq:trajectory_rollout_cost_function}-->.
 
 <!--
 \begin{equation}
@@ -282,7 +294,11 @@ C(\textit{k}) = \alpha{} Obs + \beta{} Gdist +\gamma{} Pdist + \delta{} \frac{1}
 \end{equation}
 -->
 
-Where *Obs* is the sum of grid cell cost through which the trajectory passes (taking account of the robot's actual footprint in the grid); *Gdist* and *Pdist* are the estimated shortest distance from the endpoint of the trajectory to the goal and the optimal path, respectively; and $\dot{x}$ is the translation component of the velocity command that produces the trajectory.
+Where *Obs* is the sum of grid cell cost through which the trajectory passes (taking account of the robot's actual footprint in the grid); *Gdist* and *Pdist* are the estimated shortest distance from
+the endpoint of the trajectory to the goal and the optimal path, respectively; and $\dot{x}$ is the translation component of the velocity command that produces the trajectory.
+
+The simulated trajectory that minimizes this cost function is chosen. As a result, chosen trajectories tend to keep obstacles at a distance, proceed towards the goal, remain near the optimal path, as well
+as have higher velocities. [#Gerkey2008] DWA and Trajectory Rollout differ in that Trajectory Rollout samples achievable velocities over the entire forward simulation, while DWA sample only from achievable velocities for just one simulation step[#EitanMarder-Eppstein2014].
 
 <!--
 \begin{figure}[H]
