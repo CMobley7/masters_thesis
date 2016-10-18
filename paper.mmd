@@ -57,15 +57,27 @@ Insert Text Summarizing This Chapter and Transiting to the Next.
 
 # Fundamentals of Autonomous Robotics
 
-Insert text outlining upcoming sections.
+The purpose of this chapter is to briefly explain all concepts needed to understand the work presented in the chapters thereafter. The following subsection will explain
+the basic concepts of the Robot Operating System, Simultaneous Localization and Mapping (SLAM), Localization and Path Planning, as well as Manipulation. In addition,
+Task Execution using State Machines and the specific Computer Vision Algorithms implemented will be expanded upon.
 
 ## ROS Concepts
 
-Insert Text Defining ROS.
+The Robot Operating System (ROS) [#Quigley2009] is an open-source set of software libraries and tools that aim to simplify the task of creating robotics applications that can
+be used across a wide variety of platforms. ROS was originally developed in 2007 by Willow Garage as an extension of switchyard, a collection
+of robotics software developed by Stanford Artificial Intelligence Laboratory in support of the Stanford AI Robot (STAIR) and Personal Robotics (PR) projects.
+The first distribution of ROS, Box Turtle, was released in 2010. ROS currently has had ten major releases. The most current being Kinetic Kame Turtle, which was released
+on 23MAY16. In addition ROS boasts tens of thousands of users around the world ranging from hobbyists and researcher to the commercial and industrial industries, as well
+as hundreds of packages which provide everything from hardware drivers to algorithms for autonomous navigations and manipulation [#ROSWebsite]. ROS’s large support base act as a force
+multiplier allows individuals, Labs, or company to concentrate on one particular aspect while capitalizing on work that has already been done.
+
 
 ### ROS Communication
 
-Insert Text Regarding Node/Topic/Service Communication.
+ROS uses a name server, called the ROS Master, to maintain a list of nodes and available topics. Nodes communicate with the master server using the XML-RPC protocol. While
+peer-to-peer communications generally use TCP/IP sockets through the TCPROS protocol. Figure _ shows a simple diagram of two ROS nodes communicating with messages and service topics.
+In addition to the concepts of messages and services, ROS also employs actions. Actions are similar to service calls, but are designed for long duration tasks that are capable of
+providing feedback. These communication interfaces provide ROS a great deal of flexibility for robotic applications [#ROSConcepts] [#Burton2015].
 
 <!--
 \begin{figure}[H]
@@ -98,7 +110,8 @@ R_{b}^{a} & t_{b}^{a}\\
 \end{equation}
 -->
 
-where $R_{b}^{a}$ is the rotation matrix, which performs the rotation part of moving frame $b$ into alignment with frame $a$ and $t_{b}^{a}$ is the translation matrix, which performs the translation part of moving frame $b$ origin to frame $a$.
+where $R_{b}^{a}$ is the rotation matrix, which performs the rotation part of moving frame $b$ into alignment with frame $a$ and $t_{b}^{a}$ is the translation matrix, which performs
+the translation part of moving frame $b$ origin to frame $a$.
 
 <!--
 \begin{figure}[H]
@@ -181,7 +194,7 @@ for which it gets its name. The Move_Base node maintains both global and local p
 are stores in these costmap. The global costmap is used for long-term planning, while the local costmap is used for short-term planning and obstacle
 avoidance. The global planner computes an optimal path to the goal given the starting state of robot and the global costmap. While the local planner
 computes shorter trajectories given the current state of the robot and the local costmap. Once a path is developed, Move_Base outputs the necessary
-velocity commands needed in order to reach the specified destination.[# EitanMarder-Eppstein2016]
+velocity commands needed in order to reach the specified destination [#Navigation].
 
 <!--
 \begin{figure}[H]
@@ -214,7 +227,7 @@ distance d. As a result, the belief state is updated by moving the particles for
 aforementioned odometry errors. It should be noted that the particles at this stage in Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}--> were also resampled, which will be covered in the
 following paragraphs. The motion model update is followed by a measurement update. The robot again senses a door. As a result, the measurement model is
 the same as the pervious time step. After convolving the current measurement model with the current belief state, the cumulative probability mass is
-centered at door two indicating that the robot is likely at this location. [#ThrunSebastianandBurgardWolframandFox2005]
+centered at door two indicating that the robot is likely at this location [#Thrun2005].
 
 <!--
 \begin{figure}[H]
@@ -265,8 +278,8 @@ As a result, the particle filter begins from scratch.
 
 Due to the computational complexity inherent in iteratively having to calculate the correlation score for each particle, an optimization technique known as
 *KLD-sampling* is used. *KLD-sampling*, derived from *Kullback-Leibler divergence*, is a technique that determine the number of particles needed such that
-the error between the sample and true posterior is less than $\epsilon$. KLD-sampling basically control the number of particles based on the difference
-in odometry and particle base location. [#ThrunSebastianandBurgardWolframandFox2005]
+the error between the sample and true posterior is less than $\epsilon$ [#Thrun2005]. KLD-sampling basically control the number of particles based on the difference
+in odometry and particle base location.
 
 Figure <!--\ref{fig:visual_of_amcl_in_rviz}--> shows how KLD-sampling effectively work. Initially when the position is unknown, the particle cloud is large due to the uncertainty in the position
 and orientation of the robot. However, as the robot moves, the particle converges and the particle cloud size reduces as KLD-sampling removes the redundant
@@ -298,7 +311,8 @@ Where *Obs* is the sum of grid cell cost through which the trajectory passes (ta
 the endpoint of the trajectory to the goal and the optimal path, respectively; and $\dot{x}$ is the translation component of the velocity command that produces the trajectory.
 
 The simulated trajectory that minimizes this cost function is chosen. As a result, chosen trajectories tend to keep obstacles at a distance, proceed towards the goal, remain near the optimal path, as well
-as have higher velocities. [#Gerkey2008] DWA and Trajectory Rollout differ in that Trajectory Rollout samples achievable velocities over the entire forward simulation, while DWA sample only from achievable velocities for just one simulation step[#EitanMarder-Eppstein2014].
+as have higher velocities [#Gerkey2008].  DWA and Trajectory Rollout differ in that Trajectory Rollout samples achievable velocities over the entire forward simulation, while DWA sample only from achievable
+velocities for just one simulation step [#BaseLocalPlanner].
 
 <!--
 \begin{figure}[H]
