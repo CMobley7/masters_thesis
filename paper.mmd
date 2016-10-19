@@ -90,7 +90,8 @@ providing feedback. These communication interfaces provide ROS a great deal of f
 
 ### Rigid Body Transformations
 
-Insert Text Explaining Rigid Body Transformations.
+Figure <!--\ref{fig:conversion_from_coordinate_frame_a_to_b}--> shows a purple dot, which represent a point in space. The dot’s coordinates in frames a and b are different. A rigid body
+transform, which can be performed using Equation <!--\ref{eq:conversion_from_coordinate_frame_a_to_b}-->, can be used to convert one set of coordinates to another coordinate frame.
 
 <!--
 \begin{equation}
@@ -99,7 +100,7 @@ x_a=T_{b}^{a}x_b
 \end{equation}
 -->
 
-where $T_{b}^{a}$ is equal to
+where $T_{b}^{a}$ is equal to Equation <!--\ref{eq:simplified_transformation_matrix}-->
 <!--
 \begin{equation}
 \begin{bmatrix}
@@ -111,7 +112,7 @@ R_{b}^{a} & t_{b}^{a}\\
 -->
 
 where $R_{b}^{a}$ is the rotation matrix, which performs the rotation part of moving frame $b$ into alignment with frame $a$ and $t_{b}^{a}$ is the translation matrix, which performs
-the translation part of moving frame $b$ origin to frame $a$.
+the translation part of moving frame $b$ origin to frame $a$ [#Kelly2013].
 
 <!--
 \begin{figure}[H]
@@ -122,7 +123,10 @@ the translation part of moving frame $b$ origin to frame $a$.
 \end{figure}
 -->
 
-Insert Text Regarding How a URDF is Setup in ROS so that Transformation Between Coordinates can be Managed with the Package TF.
+A robotic system, such as Clearpath Robotics’ Husky and Fetch Robotics’ Fetch shows in Figure _, typical has many three dimensional coordinate frames that change over time as the robot
+performs different functions. ROS’s TF [#TF] and TF2 [#TF2] package keep track of coordinate frames and allow for data to be easily convert between these coordinate frames using rigid
+body transforms. These coordinate frames, as well as robot’s links/joints they correspond to, and the rigid transformations between them are set up in the Robot’s Unified Robot Description
+Format (URDF) File [#URDF].
 
 <!--
 \begin{figure}[H]
