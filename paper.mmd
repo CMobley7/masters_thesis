@@ -83,7 +83,7 @@ providing feedback. These communication interfaces provide ROS a great deal of f
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{figures/simple_ros_node_diagram.png}
-  \caption{Simple ROS Node Flowchart}
+  \caption{Simple ROS Node Flowchart. Adapted from \protect\cite{Burton2015}.}
   \label{fig:simple_ros_node_flowchart}
 \end{figure}
 -->
@@ -118,7 +118,7 @@ the translation part of moving frame $b$ origin to frame $a$ [#Kelly2013].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/conversion_from_frame_a_b.png}
-  \caption{Conversion from Coordinate Frame A to B}
+  \caption{Conversion from Coordinate Frame A to B.}
   \label{fig:conversion_from_coordinate_frame_a_to_b}
 \end{figure}
 -->
@@ -132,25 +132,46 @@ Format (URDF) File [#URDF].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/robots_with_without_tfs.png}
-  \caption{Robot Model with TFs}
+  \caption{Robot Model with TFs.}
   \label{fig:robot_model_with_tfs}
 \end{figure}
 -->
 
 ## Simultaneous Localization and Mapping Concepts
 
-Insert Text Outlining the Basic Intuition Behind SLAM.
+In order for a mobile robot to operate and perform intricate tasks within a complex, GPS-denied environments, such as that of manufacturing facilities, without modifying said environment,
+the robot must be able to create an accurate map of its environment while simultaneously localizing itself within this map using only on-board sensors. Simultaneous localization and mapping
+(SLAM) is the problem of building and/or updating a map of an unknown environment while simultaneously localizing the robot within this map [#OpenSLAM]. SLAM was pioneered in the early 1990s by
+Hugh F. Durrant-Whyte and John J. Leonard [#Leonard1991], who based their work on research done by Smith and P. Cheeseman in the mid to late-1980s [#Smith1986] [#Smith1990].
+
+Several techniques exist to solve the SLAM problem. Most of these techniques can be categorized into two main paradigms: filtering and optimization-based smoothing [#Grisetti2010a] [#Latif2013]. Filtering techniques
+model the SLAM problem as an incremental state estimation, where the state of the system is composed of the robot’s current pose and the map. These estimates are refined at each step by incorporating
+current sensor measurements. Due to their incremental nature, these SLAM techniques are typically referred to as on-line SLAM approaches. Popular filtering SLAM techniques include the extended kalman filter, particle filter, and information filters. Filtering SLAM techniques have been used widely in past years
+due to their ability to model different sources of noise and their effect on sensor measurements. However, in recent years optimization-based smoothing techniques have proven to be more efficient, scalable,
+and robust than that of filtering techniques [#Latif2013]. Unlike filtering techniques, optimization-based smoothing techniques estimate the robot’s entire trajectory and the map. Due to the fact that the final map
+is based off the robot’s entire trajectory and world features instead of the most recent pose and map, these techniques are known as full SLAM approaches. These SLAM techniques incorporate a graph-based structure, where
+graph nodes represent the robot’s pose and world features, while edges represent a spatial constraint relation between two robot poses given by sensor measurements [#Konolige2010]. The graph is optimized using error
+minimization techniques, such as least-squares, in order to refine the robot’s trajectory and map.
+
+In addition to a variety of techniques which can be used to solve the SLAM problem, a wide range of sensors can also be used. Typically sensors include that of a LIDARs, stereo cameras, monocular camera,
+and RGB-D sensors.
+
+Figure <!--\ref{fig:overview_of_slam_framework}--> shows the generic framework to solving the SLAM problem. In the front-end, raw sensor inputs are processed in order to extract features and perform scan matching; so that, necessary parameters
+and/or constraints, as well as systems state can be estimated. The systems states and necessary parameters and/or constraints are sent to the back-end of the SLAM algorithm where the systems state is
+refined and returned based on the parameters and/or constraints.
+
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/overview_of_slam_framework.png}
-  \caption{Overview of SLAM Framework. [Riisgaard et al. 2005]}
+  \caption{Overview of SLAM Framework.}
   \label{fig:overview_of_slam_framework}
 \end{figure}
 -->
 
-Insert Text Explaining How ROS Uses SLAM to Create 2-D Occupancy Grid Maps and What How They Are Used.
+ROS includes several 2-D SLAM packages. These packages are used to build accurate 2-D occupancy grid maps, seen in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->. These maps are then used to localize the robot within its environment,
+as well as to plan and execute appropriate trajectories in order to reach its destination.
 
 <!--
 \begin{figure}[H]
@@ -161,13 +182,21 @@ Insert Text Explaining How ROS Uses SLAM to Create 2-D Occupancy Grid Maps and W
 \end{figure}
 -->
 
-Insert Text Specifying Available 2-D SLAM Techniques and Why KartoSLAM was Chosen.
+Five of the most common 2-D SLAM ROS packages include HectorSLAM, GMapping, KartoSLAM, CoreSLAM, and LagoSLAM. HectorSLAM [#HectorSLAM] is neither a filtering nor an optimization-based smoothing techniques and
+relies solely on robust scan matching [#Kohlbrecher2011]. CoreSLAM [#CoreSLAM] and GMapping [#GMapping] are filtering SLAM techniques. Both CoreSLAM and GMapping utilize a particle filter. While CoreSLAM employs a very simple particle
+filter [#Steux2010], GMapping uses a more complex and efficient Rao-Blackwellized particle filter [#Grisetti2007]. Both KartoSLAM [#KartoSLAM] and LagoSLAM [#LagoSLAM] are optimization-based smoothing SLAM techniques. However, KartoSLAM, which
+was developed by SRI robotics, uses a highly-optimized and non-iterative Cholesky matrix decomposition for sparse linear systems, known as Sparse Pose Adjustment (SPA) [#Konolige2010] [#Vincent2010], while LagoSLAM uses LAGO optimizer developed by
+Carlone et al [#Carlone2011].
+
+Figure <!--\ref{fig:real_world_performance_analysis_of_ros_available_slam_algorithms}--> and Table <!--\ref{table:real_world_error_estimation_for_ros_available_slam_algorithms}--> show the aforementioned 2-D SLAM ROS packages real world performance based on testing done by Santos et al [#Santos2013]. KartoSLAM achieved the smallest error demonstrating the robustness of
+its sparse pose adjustment (SPA) and that of full SLAM techniques in general. As a result, KartoSLAM was used to generate Figure _ as well as the maps used during testing of the multistage localization
+approach presented in this paper.
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/real_world_performance_analysis_ros_slam_algorithms.png}
-  \caption{Real World Performance Analysis of ROS Available SLAM Algorithms. [Santos et al. 2013]}
+  \caption{Real World Performance Analysis of ROS Available SLAM Algorithms. Adapted from \protect\cite{Santos2013}.}
   \label{fig:real_world_performance_analysis_of_ros_available_slam_algorithms}
 \end{figure}
 -->
@@ -175,8 +204,8 @@ Insert Text Specifying Available 2-D SLAM Techniques and Why KartoSLAM was Chose
 <!--
 \begin{table}[H]
 \centering
-\caption{Real World Error Estimation for ROS Available SLAM Algorithm. [Santos et al. 2013]}
-\label{real_world_error_estimation_for_ros_available_slam_algorithm}
+\caption{Real World Error Estimation for ROS Available SLAM Algorithm. Adapted from \protect\cite{Santos2013}.}
+\label{table:real_world_error_estimation_for_ros_available_slam_algorithms}
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|@{}}
 \toprule
 \multicolumn{5}{|c|}{Real World Experiments}            \\ \midrule
@@ -204,7 +233,7 @@ velocity commands needed in order to reach the specified destination [#Navigatio
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/ros_navigation_stack_setup.png}
-  \caption{ROS Navigation Stack setup.}
+  \caption{ROS Navigation Stack setup \protect\cite{Navigation}.}
   \label{fig:ros_navigation_stack_setup}
 \end{figure}
 -->
@@ -237,7 +266,7 @@ centered at door two indicating that the robot is likely at this location [#Thru
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/particle_filter_1d_example.png}
-  \caption{One-Dimensional Monte Carlo Localization Example.}
+  \caption{One-Dimensional Monte Carlo Localization Example. Adapted from \protect\cite{Thrun2005}.}
   \label{fig:one_dimensional_monte_carlo_localization_example}
 \end{figure}
 -->
@@ -322,7 +351,7 @@ velocities for just one simulation step [#BaseLocalPlanner].
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{figures/trajectory_rollout_depiction.png}
-  \caption{Trajectory Rollout Path Planning Framework}
+  \caption{Trajectory Rollout Path Planning Framework.}
   \label{fig:trajectory_rollout_path_planning_framework}
 \end{figure}
 -->
