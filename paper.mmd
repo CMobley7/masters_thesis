@@ -741,13 +741,31 @@ Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tr
 
 ### Pose Estimation and Tracking Through Augmented Reality Tag Detection
 
-Insert Text Describing How AR Tag Detection, Pose Estimation, and Tracking Works with AR_Track_Alvar.
+AR tags, which are also known as fiducial markers, are artificial landmarks which are designed to be easy to detect and identify under most circumstances [#Olson2011]. Consequently, the detection
+method much be robust to changes in luminance (brightness), chrominance (color), and resolution, as well as be scale and rotationally invariant. Once detected and identified, AR tags can be used to
+accurately calculate the pose (location and orientation) of a camera, as well as to encode information or associate it with each tag’s specific identity [#Sanni2012]. Using AR tag to calculate the
+relative pose of a camera in real-time is called marker-based tracking. Several straightforward and robust maker-based tracking toolkits exists, such as ARToolKit [#ARToolKit], ALVAR [#ALVAR], and
+AprilTags [#Olson2011]. The multistage localization approach presented in this paper will use a ROS implementation of ALVAR [#ARTrackAlvar] to both calculate the pose of an AR tag in the camera’s
+frame and associate information with that tag’s specific identity.
+
+Figure <!--\ref{fig:summary_of_alvar_ar_tag_detection_framework}--> shows ALVAR’s marker-based tracking framework. The system first acquires a greyscale image, either directly or through conversion
+from another image format. After which, adaptive thresholding, which can handle local changes in luminance, is used to create a binary image. A binary image consists of a background, black pixels,
+and objects, sections of white pixels. Subsequently, the contours of each object are found. Due to the fact that AR systems, like ALVAR, aim for real-time processing and fast performance, time cannot
+be wasted processing non-markers. As a result, fast acceptance/rejection tests are run. ALVAR uses two fast accept/reject tests including size and the four-corner test. The number of pixels in an
+object’s perimeter can be efficiently used to estimate the object’s area. Objects with areas that are either too large or too small can be rejected. Even if an object, whose area is too small, is a
+marker, it is too far from the camera to either be correctly identified or the pose of the camera accurately calculated. Objects, whose area is too large, can be rejected given some background knowledge
+about the upper and lower range of the camera from the marker, as well as the marker’s size. The contours of all remaining markers are fitted with lines. A quadrilateral has exactly four straight lines
+and four corners. The number of lines and corners of each object are calculated. Those that fail the four-corner test are dropped. After determining that an object is a marker, it is identified and the
+corner locations are optimized to sub-pixel accuracy for further calculations. Even small errors in the detected 2-D locations of edges and corners can significantly affect the calculated pose of the
+camera [#Sanni2012]. The pose of a calibrated camera can be uniquely determined from a minimum of four coplanar but non-collinear points [#Hartley2004]. Thus, the system can calculated a marker’s pose (relative to camera)
+in 3-D coordinates using the four corner points of the marker in image coordinates.
+
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/ar_track_alvar_framework.png}
-  \caption{Summary of ALVAR AR Tag Detection Framework.}
+  \caption{Summary of ALVAR AR Tag Detection Framework. Adapted from \protect\cite{Sanni2012}.}
   \label{fig:summary_of_alvar_ar_tag_detection_framework}
 \end{figure}
 -->
