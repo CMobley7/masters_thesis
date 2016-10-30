@@ -477,7 +477,16 @@ Insert Text Regarding Upcoming Sections.
 
 ### Color Spaces
 
-Insert Text Explaining Both RGB Color Space and HSV/HSL Color Space and Why One Would Be Chosen Over The Other.
+While the RGB color space is the primary color space used to describe spectral content of color signals, a variety of other representations have been developed
+[#Szeliski2010]. Each color space has unique advantages and disadvantages that must be considered before using a specific color space for a given application.
+The two color spaces used in the multistage localization approach presented in this paper are the RGB and the HSV color spaces, depicted in Figure
+<!--\ref{fig:RGB_and_HSV_color_space_models}-->. The RGB color space is an additive color space based on the RGB color model, in which red, green, and blue
+light is added together to produce any color that is the triangle defined by those three primary colors [#RGBColorSpace], [#RGBColorModel]. The HSV color space,
+which was developed by Alvy Ray Smith in 1978, is a cylindrical-coordinate representations of points in the RGB color model [#HSVColorSpace]. In some situations,
+such as color picking, the HSV model is more intuitive, as it mirror traditional color mixing methods [#Smith1978]. HSV stands for hue, saturation, and value.
+Hue represent angular position on the color wheel, where red starts at $0^{\circ}$, green at $120^{\circ}$, and blue at $240^{\circ}$. Saturation, or distance from the center axis, indicates
+the amount of grey in a color, where 0 is the color grey and 1 is the primary color. Value, or distance along the center axis, represent the brightness of a color,
+where 0 is black and 1 is white [#HSVColorSpace].
 
 <!--
 \begin{figure}[H]
@@ -488,7 +497,7 @@ Insert Text Explaining Both RGB Color Space and HSV/HSL Color Space and Why One 
 \end{figure}
 -->
 
-### Linear and Non-Linear Filters
+### Linear Filters
 
 Insert Text Explaining the Basics behind Linear Filters, Which Ones Were Chosen and Why.
 
