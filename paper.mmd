@@ -58,7 +58,7 @@ Insert Text Summarizing This Chapter and Transiting to the Next.
 # Fundamentals of Autonomous Robotics
 
 The purpose of this chapter is to briefly explain all concepts needed to understand the work presented in the chapters thereafter. The following subsection will explain
-the basic concepts of the Robot Operating System, Simultaneous Localization and Mapping (SLAM), Localization and Path Planning, as well as Manipulation. In addition,
+the basic concepts of the Robot Operating System (ROS), Simultaneous Localization and Mapping (SLAM), Localization and Path Planning, as well as Manipulation. In addition,
 Task Execution using State Machines and the specific Computer Vision Algorithms implemented will be expanded upon.
 
 ## ROS Concepts
@@ -77,7 +77,7 @@ multiplier allows individuals, Labs, or company to concentrate on one particular
 ROS uses a name server, called the ROS Master, to maintain a list of nodes and available topics. Nodes communicate with the master server using the XML-RPC protocol. While
 peer-to-peer communications generally use TCP/IP sockets through the TCPROS protocol. Figure _ shows a simple diagram of two ROS nodes communicating with messages and service topics.
 In addition to the concepts of messages and services, ROS also employs actions. Actions are similar to service calls, but are designed for long duration tasks that are capable of
-providing feedback. These communication interfaces provide ROS a great deal of flexibility for robotic applications [#ROSConcepts] [#Burton2015].
+providing feedback. These communication interfaces provide ROS a great deal of flexibility for robotic applications [#ROSConcepts], [#Burton2015].
 
 <!--
 \begin{figure}[H]
@@ -142,9 +142,9 @@ Format (URDF) File [#URDF].
 In order for a mobile robot to operate and perform intricate tasks within a complex, GPS-denied environments, such as that of manufacturing facilities, without modifying said environment,
 the robot must be able to create an accurate map of its environment while simultaneously localizing itself within this map using only on-board sensors. Simultaneous localization and mapping
 (SLAM) is the problem of building and/or updating a map of an unknown environment while simultaneously localizing the robot within this map [#OpenSLAM]. SLAM was pioneered in the early 1990s by
-Hugh F. Durrant-Whyte and John J. Leonard [#Leonard1991], who based their work on research done by Smith and P. Cheeseman in the mid to late-1980s [#Smith1986] [#Smith1990].
+Hugh F. Durrant-Whyte and John J. Leonard [#Leonard1991], who based their work on research done by Smith and P. Cheeseman in the mid to late-1980s [#Smith1986], [#Smith1990].
 
-Several techniques exist to solve the SLAM problem. Most of these techniques can be categorized into two main paradigms: filtering and optimization-based smoothing [#Grisetti2010a] [#Latif2013]. Filtering techniques
+Several techniques exist to solve the SLAM problem. Most of these techniques can be categorized into two main paradigms: filtering and optimization-based smoothing [#Grisetti2010a], [#Latif2013]. Filtering techniques
 model the SLAM problem as an incremental state estimation, where the state of the system is composed of the robot’s current pose and the map. These estimates are refined at each step by incorporating
 current sensor measurements. Due to their incremental nature, these SLAM techniques are typically referred to as on-line SLAM approaches. Popular filtering SLAM techniques include the extended kalman filter, particle filter, and information filters. Filtering SLAM techniques have been used widely in past years
 due to their ability to model different sources of noise and their effect on sensor measurements. However, in recent years optimization-based smoothing techniques have proven to be more efficient, scalable,
@@ -185,7 +185,7 @@ as well as to plan and execute appropriate trajectories in order to reach its de
 Five of the most common 2-D SLAM ROS packages include HectorSLAM, GMapping, KartoSLAM, CoreSLAM, and LagoSLAM. HectorSLAM [#HectorSLAM] is neither a filtering nor an optimization-based smoothing techniques and
 relies solely on robust scan matching [#Kohlbrecher2011]. CoreSLAM [#CoreSLAM] and GMapping [#GMapping] are filtering SLAM techniques. Both CoreSLAM and GMapping utilize a particle filter. While CoreSLAM employs a very simple particle
 filter [#Steux2010], GMapping uses a more complex and efficient Rao-Blackwellized particle filter [#Grisetti2007]. Both KartoSLAM [#KartoSLAM] and LagoSLAM [#LagoSLAM] are optimization-based smoothing SLAM techniques. However, KartoSLAM, which
-was developed by SRI robotics, uses a highly-optimized and non-iterative Cholesky matrix decomposition for sparse linear systems, known as Sparse Pose Adjustment (SPA) [#Konolige2010] [#Vincent2010], while LagoSLAM uses LAGO optimizer developed by
+was developed by SRI robotics, uses a highly-optimized and non-iterative Cholesky matrix decomposition for sparse linear systems, known as Sparse Pose Adjustment (SPA) [#Konolige2010], [#Vincent2010], while LagoSLAM uses LAGO optimizer developed by
 Carlone et al [#Carlone2011].
 
 Figure <!--\ref{fig:real_world_performance_analysis_of_ros_available_slam_algorithms}--> and Table <!--\ref{table:real_world_error_estimation_for_ros_available_slam_algorithms}--> show the aforementioned 2-D SLAM ROS packages real world performance based on testing done by Santos et al [#Santos2013]. KartoSLAM achieved the smallest error demonstrating the robustness of
@@ -219,7 +219,7 @@ HectorSLAM & GMapping & KartoSLAM & CoreSLAM & LagoSLAM \\ \midrule
 
 ## Localization and Path Planning Concepts
 
-ROS’s Navigation Stack is a collection of packages, which uses odometry and laser scan data, as well as a goal position and orientation in
+ROS’s Navigation Stack [#Navigation] is a collection of packages, which uses odometry and laser scan data, as well as a goal position and orientation in
 order to output the velocity commands needed to reach the specified goal. Figure <!--\ref{fig:ros_navigation_stack_setup}--> shows an overview of how the individual packages work
 together to achieve this objective. The Map_Server node loads a previously generated two-dimensional grid map. Once the AMCL node receives the map,
 odometry, and laser scan data, it is able to localize the robot within the provided map, using the Adaptive Monte Carlo Localization technique
@@ -238,16 +238,16 @@ velocity commands needed in order to reach the specified destination [#Navigatio
 \end{figure}
 -->
 
-After building a two-dimensional occupancy grid map, shown in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->, using SLAM, it becomes crucial to accurately localize the robot within
-this predefined map; so that, the robot can both plan and execute appropriate trajectories to reach its destination. Localization involves
-estimating the position and orientation of the robot, known collectively as pose, while the robot moves throughout its environment. One routine
-localization technique used involves tracking the robot from an initial known starting pose. Through the measurement of wheel rotation and the
-integration of accelerations provided by an inertial measurement unit (IMU), the distance traveled by the robot from the initial position can be
-calculated and the robot’s pose in the map estimated with some certainty. However, these methods do not account for wheel slippage or measurement
-error. As a result, the accuracy of the pose estimate will degrade over time. Consequently, a solution which can compensate for the accumulated
-odometry error and inaccuracies in the initial starting pose is needed. One accepted solution to this problem is Monte Carlo Localization (MCL),
-which utilizes a particle filters to keep track of the robot’s pose. However, additional options include Kalman Filters and Markov Localization,
-which employ Gaussian distributions and histograms respectively.
+After building a two-dimensional occupancy grid map, shown in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->, using SLAM, it
+becomes crucial to accurately localize the robot within this predefined map; so that, the robot can both plan and execute appropriate trajectories
+to reach its destination. Localization involves estimating the position and orientation of the robot, known collectively as pose, while the robot
+moves throughout its environment. One routine localization technique used involves tracking the robot from an initial known starting pose. Through
+the measurement of wheel rotation and the integration of accelerations provided by an inertial measurement unit (IMU), the distance traveled by the
+robot from the initial position can be calculated and the robot’s pose in the map estimated with some certainty. However, these methods do not account
+for wheel slippage or measurement error. As a result, the accuracy of the pose estimate will degrade over time. Consequently, a solution which can
+compensate for the accumulated odometry error and inaccuracies in the initial starting pose is needed. One accepted solution to this problem is Monte
+Carlo Localization (MCL), which utilizes a particle filters to keep track of the robot’s pose. However, additional options include Kalman Filters and
+Markov Localization, which employ Gaussian distributions and histograms respectively.
 
 Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}--> depicts MCL using a one-dimensional corridor with a few doors. The robot
 initially has no information about where it is in this corridor. As a result, the graph of the robot’s belief states, which defines the probability
@@ -257,10 +257,10 @@ measurement in the corridor, with the belief states to get an updated belief sta
 however, the weight of each particle have been updated based on the sensor reading. At step k=1 the robot senses a door; so, the weight of particles at
 the three door are increased. At the next step, a motion model update is performed. The odometry indicated that the robot moved forward a specified
 distance d. As a result, the belief state is updated by moving the particles forward that specific distance with noise added to account for the
-aforementioned odometry errors. It should be noted that the particles at this stage in Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}--> were also resampled, which will be covered in the
-following paragraphs. The motion model update is followed by a measurement update. The robot again senses a door. As a result, the measurement model is
-the same as the pervious time step. After convolving the current measurement model with the current belief state, the cumulative probability mass is
-centered at door two indicating that the robot is likely at this location [#Thrun2005].
+aforementioned odometry errors. It should be noted that the particles at this stage in Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}-->
+were also resampled, which will be covered in the following paragraphs. The motion model update is followed by a measurement update. The robot again senses a
+door. As a result, the measurement model is the same as the pervious time step. After convolving the current measurement model with the current belief state,
+the cumulative probability mass is centered at door two indicating that the robot is likely at this location [#Thrun2005].
 
 <!--
 \begin{figure}[H]
@@ -295,10 +295,10 @@ W_k \leftarrow W_{k-1}s
 -->
 
 As weights are multiplied over steps, the particles with consecutive small correlation scores are reduced to very small values. As a result, the particles
-filter eventually has every few effective particles to ensure that good results are produced. Consequently, re-sampling, show in Figure <!--\ref{fig:particle_filter_resampling_example}-->, is performed when
-the number of effective particles become too small. This is done by drawing samples close to the particles that have a higher weights, indicated by their size.
-Thus the new sample have a higher density near the position where the particle with higher weight existed. Each particle after resampling has same weight.
-As a result, the particle filter begins from scratch.
+filter eventually has every few effective particles to ensure that good results are produced. Consequently, re-sampling, show in Figure <!--\ref{fig:particle_filter_resampling_example}-->,
+is performed when the number of effective particles become too small. This is done by drawing samples close to the particles that have a higher weights,
+indicated by their size. Thus the new sample have a higher density near the position where the particle with higher weight existed. Each particle after
+resampling has same weight. As a result, the particle filter begins from scratch.
 
 <!--
 \begin{figure}[H]
@@ -330,8 +330,8 @@ particles and improves computational performance.
 After calculating the local and global costmaps, as well as the location of the robot within the given map, the robot must now both plan and execute appropriate trajectories to its destination.
 Two frequent techniques used are the Dynamic Window Approach (DWA) and Trajectory Rollout. Both sample the space of feasible controls. For a differential drive robot, such as Clearpath Robotics’
 Husky and Fetch Robotics’ Fetch, this controls space is 2D and consists of translations and rotational velocities, $\dot{x}, \dot{\theta}$, which are limited by the robot’s capabilities. Each
-sampled velocity is forward simulated from the robot’s current for a short period of time in order to generate simulated trajectories as shown in Figure <!--\ref{fig:trajectory_rollout_path_planning_framework}-->. These simulated trajectories are then
-scored using the cost function in Equation <!--\ref{eq:trajectory_rollout_cost_function}-->.
+sampled velocity is forward simulated from the robot’s current for a short period of time in order to generate simulated trajectories as shown in Figure <!--\ref{fig:trajectory_rollout_path_planning_framework}-->.
+These simulated trajectories are then scored using the cost function in Equation <!--\ref{eq:trajectory_rollout_cost_function}-->.
 
 <!--
 \begin{equation}
@@ -358,7 +358,16 @@ velocities for just one simulation step [#BaseLocalPlanner].
 
 ## Manipulation Concepts
 
-Insert Text Outlining Moveit!'s System Architecture.
+ROS’s MoveIt! [MoveIt!] is a collection of packages for mobile manipulation, which incorporate the latest advances in motion planning, manipulation, 3-D perception, kinematics, control, and navigation.
+Figure <!--\ref{fig:moveit!'s_system_architecture}--> shows Moveit’s overall system architecture. The move_group node integrates all individual packages together in order to provide the user a set of
+ROS actions and services. The user interface allows the user to interact with the move_group node through the ROS interface by using C++, Python, or RVIZ [#RVIZ], which is ROS’s graphical user interface
+and 3-D visualization tool. ROS’s Parameter Server [#ParamServer] provides the move_group node the robot’s URDF and Semantic Robot Description Format (SRDF) files, as well as Moveit! specific configuration
+files. The SRDF is used to represent information about the robot that is not included in the URDF file, such as a set of links or joints, known collectively as a group, that make up the manipulator,
+predefined group states, and a lists of links between which collision checking should be disabled [#SRDF]. Moveit! configuration files include ones that set joint limits, as well as kinematics, motion
+planning and perception parameters. The SRDF, as well as necessary Moveit! configuration files are setup through Moveit!’s Setup Assistant, which is Moveit!’s graphical user interface for configuring any
+robot for use with Moveit!. The robot interface allows Moveit! to send command to and receive feedback from the robot. Moveit!’s Planning Scene Monitor, which monitors information from the robot’s sensors,
+is used to maintain a planning scene, which represent the world around the robot and stores the state of the robot itself. This information is used by Moveit!’s Flexible Collision Library, as well as the
+motion and kinematic planning plugins to plan and execute obstacle free paths for the manipulator [#MoveItConcepts].
 
 <!--
 \begin{figure}[H]
@@ -369,7 +378,11 @@ Insert Text Outlining Moveit!'s System Architecture.
 \end{figure}
 -->
 
-Insert Text Explaining the Basic Intuition Behind Forward and Inverse Kinematics.
+Moveit! allows the user to plan trajectories either in joint space, forward kinematic (FK), or Cartesian space, inverse kinematics (IK). Forward kinematics uses the manipulator’s kinematic equations to compute
+the positon of the end-effector given specific predetermined joint angles [#FK]. Whereas, inverse kinematics uses the manipulator’s kinematic equation to determine the joint angles necessary for the end-effector
+to arrive at the desired position [#IK]. Figure <!--\ref{fig:forward_and_inverse_kinematics_example}--> illustrated the difference between forward and inverse kinematics. In most cases, including the multistage
+localization approach presented in this paper, the target joint angles are not known ahead of time. As a result, a target pose is specified for the manipulator’s end-effector in Cartesian space and Moveit!’s IK
+solver will determine the appropriate joint angles to reach the desired pose [#Goebel2015].
 
 <!--
 \begin{figure}[H]
@@ -380,13 +393,35 @@ Insert Text Explaining the Basic Intuition Behind Forward and Inverse Kinematics
 \end{figure}
 -->
 
-Insert Test Explaining the Difference Between The Numerical Solvers available in ROS (KDL, KDL-RR and Trac_IK) and Why Trac_IK was chosen to be used.
+There are two main approaches for solving IK problems: numerical and analytical (close form) solutions. Due to the recursive nature of numerical solvers, they tend to be slower than that of analytical solvers
+and are prone to get trapped in local minima [#Asadi2015]. However, analytical solvers require that a separate kinematic solver be created for each manipulator and manipulator configuration. In order to ensure
+cross platform functionality with minimum overhead, only available numerical kinematic solvers were examined. However, OpenRAVE (Open Robotics Automation Virtual Environment ) [#Diankov2008], which is software
+for simulating and deploying planning algorithm, does provided a tool called IKFast [#IKFast], which allows users to generate custom analytical kinematic solver, which can produce solution on the order of
+approximately four microseconds. Table <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}--> shows three common ROS Moveit! numerical kinematic solvers implementations, Orocos
+KDL [#KDL], as well as the TRACLab’s [#TRACLab] KDL-RR and TRAC_IK [#TracIK]. Orocos Kinematics and Dynamics Library (KDL) is a joint-limit-constrained pseudoinverse Jacobian solver, whose convergence algorithms
+are based on Newton’s method. However, KDL suffers from the following issues, which results in the high failure rates and slow average speed seen in Table
+<!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->.
+
+1. Frequent convergence failures due to manipulators with joint limits
+2. No action is taken when the search gets trapped in a local minima
+3. Lack of tolerance support and/or utilization in the solver itself
+
+The TRACLab’s KDL-RR kinematic solver implementation attempts to solve issues two and three by altering Orocos’s KDL implementation to detect and “untick” the iterative convergence algorithms, as well as to loop
+for a maximum time versus a maximum number of iteration. KDL-RR is able to detect local minima by monitoring when the difference between joint angles across iterations become approximately zero. When this situation
+occurs, random seed angles are introduced, which “unstick” the convergence algorithms. In addition, KDL-RR loops for maximum time versus maximum iteration due to the fact that the maximum number of iteration is an
+arbitrary number, while maximum time can be computed based on the size and complexity of the each manipulator. In addition, using maximum time makes comparing implementations easier. Table
+<!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}--> shows that KDL-RR had a dramatic increase in solve rate percentage, as well as a modest decrease in runtime compared to KDL.
+However, KDL-RR’s doesn’t solve issue one. Consequently, the failure rate is still unacceptably high. TRACLab TRAC-IK kinematic solver attempts to solve issue one by using two separate IK solvers concurrently.
+It uses KLD-RR, as well as a sequential quadratic programming (SQP) IK implementation, which is an iterative algorithm for nonlinear optimization. The SQP implementation, which incorporates the same local minimum
+detection, is able to deal with issue one. However, SQP can have a much longer solve rate than KDL or KDL-RR. As a result, TRAC-IK implement both of these IK method concurrently and waiting for either to converge.
+As a result, the solve rate range between 99.1% and 99.9 % and the average convergence times are well below one millisecond [#Beeson2015].
+
 
 <!--
 \begin{table}[H]
 \centering
 \caption{Comparison Between ROS Available Moveit! Inverse Kinematic Plugins. [Beeson et al. 2015]}
-\label{comparison_between_ros_available_moveit!_inverse_kinematic_plugins}
+\label{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}
 \resizebox{\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|c|c|c|@{}}
 \toprule
 \multicolumn{2}{|c|}{Kinematics Chain}                     & \multicolumn{6}{c|}{IK Technique}                                                                                                                                                                                                 \\ \midrule
@@ -497,7 +532,7 @@ where 0 is black and 1 is white [#HSVColorSpace].
 \end{figure}
 -->
 
-### Linear Filters
+### Linear and Non-Linear Filters
 
 Insert Text Explaining the Basics behind Linear Filters, Which Ones Were Chosen and Why.
 
@@ -507,28 +542,6 @@ Insert Text Explaining the Basics behind Linear Filters, Which Ones Were Chosen 
   \includegraphics[width=\linewidth]{figures/common_linear_filters.png}
   \caption{Effects of common linear filters.}
   \label{fig:common_linear_filters}
-\end{figure}
--->
-
-Insert Text Explaining the Basics behind Histogram Equalization.
-
-<!--
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{figures/histogram_equalization.png}
-  \caption{Histogram equalization depiction.}
-  \label{fig:histogram_equalization_depiction}
-\end{figure}
--->
-
-Insert Text Explaining The Effect of Histogram Equalization on Images.
-
-<!--
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{figures/image_equalization.png}
-  \caption{Effect of histogram equalization on an image.}
-  \label{fig:effects_of_histogram_equalization_on_an_image}
 \end{figure}
 -->
 
