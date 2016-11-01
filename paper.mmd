@@ -373,7 +373,7 @@ motion and kinematic planning plugins to plan and execute obstacle free paths fo
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/moveit_system_architecture.png}
-  \caption{Moveit!'s System Architecture.}
+  \caption{Moveit!'s System Architecture. Adapted from \protect\cite{MoveItConcepts}}
   \label{fig:moveit!'s_system_architecture}
 \end{figure}
 -->
@@ -420,7 +420,7 @@ As a result, the solve rate range between 99.1% and 99.9 % and the average conve
 <!--
 \begin{table}[H]
 \centering
-\caption{Comparison Between ROS Available Moveit! Inverse Kinematic Plugins. [Beeson et al. 2015]}
+\caption{Comparison Between ROS Available Moveit! Inverse Kinematic Plugins. Adapted from \protect\cite{Beeson2015}.}
 \label{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}
 \resizebox{\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|c|c|c|@{}}
 \toprule
@@ -449,9 +449,29 @@ NASA Valkyrie Arm                  & 7                     & 45.18              
 \end{table}
 -->
 
-## State Machines Concepts
+## Task Execution Concepts
 
-Insert Text Explaining the Basics of State Machine and How They are Implemented in SMACH.
+It is relatively straightforward to program a robot to execute an individual action. However, programming a fully autonomous robot that will be expected to select which individual action it will
+perform depending upon the task at hand and the current conditions isn’t so straight forward. The task execution system must be able to rank tasks by priority, break down tasks into subtasks,
+execute tasks in parallel, monitor conditions and react according, as well as pause and resume tasks at a later if necessary [#Goebel2015]. A commonly used construct to achieve the aforementioned
+requirements is a hierarchical state machine.
+
+Finite state machines are used to model control and sequences in a system [#Gomaa2016]. In a state machine, the robot occupies one state, which has set behaviors or tasks associated with it. As
+long as the robot remains in that states, it will continue to carry out the same behavior or tasks. States are connected together by transitions. When certain predefined conditions are met, a
+transition is triggered and the system changes from its current state to the target state. State machines are a powerful tool; however, it can be difficult to express some behaviors, such as
+“alarm behaviors”. Image an autonomous industrial mobile manipulator (AIMM) that is responsible for drilling specific patterns on different sections of plane wings. This can be easily implemented
+using a normal state machine. The AIMM will need to navigate to the specific starting location of each wing, determine the appropriate drill locations based on the associated pattern, and finally
+carry out the individual drilling operations. This can be easily implemented using a normal state machine. Unfortunately, the AIMM’s battery does not provide power indefinitely. When the AIMM’s
+power level drops to a certain level, it will need to stop and navigate to the nearest charging location to be recharged, regardless of what it is doing at the time. When it is fully recharged,
+it will need to pick up exactly where it left off. The recharging periods is an alarm mechanics: something that interrupts normal behavior to respond to something important. Representing this in
+a state machine leads to a doubling the number of states. With only one level of “alarm behaviors’, this is no problem; however, if we add levels of “alarm behaviors”, the number of states will
+increase exponentially. So, rather than combining all the logic into a single state machine, the logic can be separated it into several. Each alarm mechanism should have its own state machine,
+along with the original behavior. These individual state machines are arrange into a hierarchy, so the next state machine down is only considered when the higher level state machine is not responding
+to its alarm. The nesting of states machines inside another makes what is called a hierarchical state machine [#Millington2016].
+
+ROS’s SMACH [#SMACH] package includes a standalone python library for programming hierarchical state machines, as well as a ROS wrapper for integrating the library with ROS topics, services, and actions.
+Figure <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}--> shows a graphical view of a hierarchical state machine set up using SMACH. This hierarchical state machine
+simulates a robot performing tasks such as drilling and sealing in a manufacturing environment while having the option to change its tool or recharge if necessary.
 
 <!--
 \begin{figure}[H]
@@ -464,7 +484,7 @@ Insert Text Explaining the Basics of State Machine and How They are Implemented 
 
 ## Camera Concepts
 
-Insert Text Explaining How Digital Image Are Formed and Stored.
+Insert Text Explaining How Photometric Images Are Formed.
 
 <!--
 \begin{figure}[H]
@@ -474,6 +494,8 @@ Insert Text Explaining How Digital Image Are Formed and Stored.
   \label{fig:photmetric_image_formation}
 \end{figure}
 -->
+
+Insert Text Explaining How Digital Image Are Formed and Stored.
 
 <!--
 \begin{figure}[H]
