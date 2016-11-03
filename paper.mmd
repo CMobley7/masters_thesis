@@ -484,18 +484,7 @@ simulates a robot performing tasks such as drilling and sealing in a manufacturi
 
 ## Camera Concepts
 
-Insert Text Explaining How Digital Image Are Formed and Stored.
-
-<!--
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\linewidth]{figures/digital_camera_diagram.png}
-  \caption{Digital Camera Diagram. Adapted from \protect\cite{DigitalCamera}.}
-  \label{fig:digital_camera_diagram}
-\end{figure}
--->
-
-Insert Text Explaining How Photometric Images Are Formed.
+An image is the optical representation of an object illuminated by a radiating source. Figure <!--\ref{fig:photmetric_image_formation}--> shows a simplified model of how photometric images are formed.
 
 <!--
 \begin{figure}[H]
@@ -506,8 +495,26 @@ Insert Text Explaining How Photometric Images Are Formed.
 \end{figure}
 -->
 
-In order for the multistage localization technique presented in this paper to achieve the desired accuracy, an RGB camera with the appropriate sensor size, resolution, focal length, frame rate,
-and shutter type must be chosen. The focal length, which is the distance between the optical center point of a lens to the focal plane [#Jacobs2012], and sensor size of the RGB camera are used
+Visible light is emitted by one or more sources, which is then reflected off an object’s surface. This reflected light, is the optical image which is the input of a digital image formation systems [#Pitas2000],
+such as a digital camera, depicted in Figure <!--\ref{fig:digital_camera_diagram}-->.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/digital_camera_diagram.png}
+  \caption{Digital Camera Diagram. Adapted from \protect\cite{DigitalCamera}.}
+  \label{fig:digital_camera_diagram}
+\end{figure}
+-->
+
+The light passes through a convex lens which focuses all of the rays through the optical center point of the lens and onto a silicon sensor. This sensor, also referred to as the sensor plane, is essentially
+a 2-D array, which consists of thousands to millions of solar cells that convert the light into electrons. The accumulated charge of each cell is transmitted to an onboard computer which digitizes this
+information; so that, a computer can render the digital image of the world [#HowDigitalCamerasWork]. Since the sensor plane is vertically rotated $180^{\circ}$, due to the principle of the pinhole camera model
+[#Hartley2004], the image plane is introduced for mathematically convenience. The image plane, also known as the focal plane, is a virtual plane that is located in front of the optical center of the camera lens
+and is equivalent to the sensor plane, in that it represents a projection of the world that is mapped onto a plane. In addition, it accounts for the rotation of the image in the sensor plane.
+
+In order for the multistage localization technique presented in this paper to achieve the desired accuracy, a digital RGB camera with the appropriate sensor size, resolution, focal length, frame rate,
+and shutter type must be chosen. The focal length, which is the distance between the optical center point of the camera lens to the image plane [#Jacobs2012], and sensor size of the RGB camera are used
 to determine both the angular horizontal and vertical field of view (FOV), which can be calculated using Equations <!--\ref{eq:angular_horizontal_field_of_view}--> and
 <!--\ref{eq:angular_vertical_field_of_view}--> respectively,
 
@@ -526,7 +533,7 @@ VFOV_{angular} = 2\tan^{-1}(\frac{h_{s}}{2f})
 -->
 
 where $w_{s}$ and $h_{s}$ are the weight and heights of the sensor, and $f$ is the focal length. These angular FOVs can be converted from angular to distance measurements, using Equations
-<!--\ref{ eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:distance_vertical_field_of_view }-->,
+<!--\ref{eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:distance_vertical_field_of_view}-->,
 
 <!--
 \begin{equation}
@@ -543,7 +550,7 @@ VFOV_{distance} = 2d\tan(\frac{VFOV_{angular}}{2})
 -->
 
 where $d$ is distance from camera to work surface. In addition, Equations <!--\ref{eq:horizontal_ground_sample_distance}--> and <!--\ref{eq:vertical_ground_sample_distance}-->, where
-$r_{h}$ and $r_{v}$ is horizontal and vertical resolution respectively, can be used to calculate the horizontal and vertical ground sample distance (GSD) respectively. GSD is the distance
+$r_{h}$ and $r_{v}$ is horizontal and vertical resolution respectively, can be used to calculate the horizontal and vertical ground sample distance (GSD). GSD is the distance
 between two consecutive pixels centers. Whereas, spatial resolution is the area of each pixels, which is a function of the horizontal and vertical GSD [#Schowengerdt2012]. The ground sample
 distance is the highest accuracy a localization system can achieve. Figure <!--\ref{fig:ground_sample_distance_effects_on_image_quality}--> shows the effect that GSD can have on the detail
 of an image and consequently the accuracy of a localization system.
@@ -575,7 +582,7 @@ Equations <!--\ref{eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:vert
 as well as horizontal and vertical FOV of a certain application, an appropriate $d$ can be calculated by rearranging the equations above.
 
 In order for the localization technique to be able to update in real time, even as the systems moves, two additional camera features much be considered, frame rate and shutter type. An appropriate
-frame rate is necessary to ensure an adequate image overlap; so that, features points can be tracked using optical flow, which will be discussed in Section 3.7.6, instead of having to redetect the
+frame rate is necessary to ensure an adequate image overlap; so that, features points can be tracked using optical flow, which will be discussed in Section 3.7.7, instead of having to redetect the
 feature each frame. The required frame rate can be calculated using Equation <!--\ref{eq:required_frame_rate}-->,
 
 <!--
@@ -596,8 +603,8 @@ FR = \sqrt[]{\frac{v_{h}}{HFOV_{distance}(1-o_{h})}+\frac{v_{v}}{VFOV_{distance}
 -->
 
 There are two types of camera shutters, rolling shutter (RS), in which the horizontal rows of the sensor array are scanned at different time, and global shutter (GS), in which all pixel are exposed at the same time.
-Due to the RS not exposing all pixels simultaneously, they are susceptible to motion blur as seen in Figure <!--\ref{fig:shutter_type_effects_on_image_quality}--> [#Fleet2014]. Consequently, in order to ensure
-features are not lost between frames as the system move, a GS camera is needed.
+Due to the RS not exposing all pixels simultaneously, they are susceptible to motion blur [#Fleet2014] as seen in Figure <!--\ref{fig:shutter_type_effects_on_image_quality}-->. Consequently, in order to ensure
+features are not lost between frames as the system move, a digital RGB camera with a GS is needed.
 
 <!--
 \begin{figure}[H]
