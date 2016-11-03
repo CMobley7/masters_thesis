@@ -75,9 +75,9 @@ multiplier allows individuals, Labs, or company to concentrate on one particular
 ### ROS Communication
 
 ROS uses a name server, called the ROS Master, to maintain a list of nodes and available topics. Nodes communicate with the master server using the XML-RPC protocol. While
-peer-to-peer communications generally use TCP/IP sockets through the TCPROS protocol. Figure _ shows a simple diagram of two ROS nodes communicating with messages and service topics.
-In addition to the concepts of messages and services, ROS also employs actions. Actions are similar to service calls, but are designed for long duration tasks that are capable of
-providing feedback. These communication interfaces provide ROS a great deal of flexibility for robotic applications [#ROSConcepts], [#Burton2015].
+peer-to-peer communications generally use TCP/IP sockets through the TCPROS protocol. Figure <!--\ref{fig:simple_ros_node_flowchart}--> shows a simple diagram of two ROS nodes
+communicating with messages and service topics. In addition to the concepts of messages and services, ROS also employs actions. Actions are similar to service calls, but are
+designed for long duration tasks that are capable of providing feedback. These communication interfaces provide ROS a great deal of flexibility for robotic applications [#ROSConcepts], [#Burton2015].
 
 <!--
 \begin{figure}[H]
@@ -123,7 +123,7 @@ the translation part of moving frame $b$ origin to frame $a$ [#Kelly2013].
 \end{figure}
 -->
 
-A robotic system, such as Clearpath Robotics’ Husky and Fetch Robotics’ Fetch shows in Figure _, typical has many three dimensional coordinate frames that change over time as the robot
+A robotic system, such as Clearpath Robotics’ Husky and Fetch Robotics’ Fetch shows in Figure <!--\ref{fig:robot_model_with_tfs}-->, typical has many three dimensional coordinate frames that change over time as the robot
 performs different functions. ROS’s TF [#TF] and TF2 [#TF2] package keep track of coordinate frames and allow for data to be easily convert between these coordinate frames using rigid
 body transforms. These coordinate frames, as well as robot’s links/joints they correspond to, and the rigid transformations between them are set up in the Robot’s Unified Robot Description
 Format (URDF) File [#URDF].
@@ -484,49 +484,130 @@ simulates a robot performing tasks such as drilling and sealing in a manufacturi
 
 ## Camera Concepts
 
-Insert Text Explaining How Photometric Images Are Formed.
-
-<!--
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{figures/photometric_image_formation.png}
-  \caption{Photmetric Image Formation.}
-  \label{fig:photmetric_image_formation}
-\end{figure}
--->
-
 Insert Text Explaining How Digital Image Are Formed and Stored.
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/digital_camera_diagram.png}
-  \caption{Digital Camera Diagram.}
+  \caption{Digital Camera Diagram. Adapted from \protect\cite{DigitalCamera}.}
   \label{fig:digital_camera_diagram}
 \end{figure}
 -->
 
-Insert Text Explaining Ground Sample Distance and It's Effects on Image Quality Thereby Effecting Ones Camera Choice.
+Insert Text Explaining How Photometric Images Are Formed.
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/photometric_image_formation.png}
+  \caption{Photmetric Image Formation. Adapted from \protect\cite{Szeliski2010}.}
+  \label{fig:photmetric_image_formation}
+\end{figure}
+-->
+
+In order for the multistage localization technique presented in this paper to achieve the desired accuracy, an RGB camera with the appropriate sensor size, resolution, focal length, frame rate,
+and shutter type must be chosen. The focal length, which is the distance between the optical center point of a lens to the focal plane [#Jacobs2012], and sensor size of the RGB camera are used
+to determine both the angular horizontal and vertical field of view (FOV), which can be calculated using Equations <!--\ref{eq:angular_horizontal_field_of_view}--> and
+<!--\ref{eq:angular_vertical_field_of_view}--> respectively,
+
+<!--
+\begin{equation}
+HFOV_{angular} = 2\tan^{-1}(\frac{w_{s}}{2f})
+\label{eq:angular_horizontal_field_of_view}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+VFOV_{angular} = 2\tan^{-1}(\frac{h_{s}}{2f})
+\label{eq:angular_vertical_field_of_view}
+\end{equation}
+-->
+
+where $w_{s}$ and $h_{s}$ are the weight and heights of the sensor, and $f$ is the focal length. These angular FOVs can be converted from angular to distance measurements, using Equations
+<!--\ref{ eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:distance_vertical_field_of_view }-->,
+
+<!--
+\begin{equation}
+HFOV_{distance} = 2d\tan(\frac{HFOV_{angular}}{2})
+\label{eq:distance_horizontal_field_of_view}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+VFOV_{distance} = 2d\tan(\frac{VFOV_{angular}}{2})
+\label{eq:distance_vertical_field_of_view}
+\end{equation}
+-->
+
+where $d$ is distance from camera to work surface. In addition, Equations <!--\ref{eq:horizontal_ground_sample_distance}--> and <!--\ref{eq:vertical_ground_sample_distance}-->, where
+$r_{h}$ and $r_{v}$ is horizontal and vertical resolution respectively, can be used to calculate the horizontal and vertical ground sample distance (GSD) respectively. GSD is the distance
+between two consecutive pixels centers. Whereas, spatial resolution is the area of each pixels, which is a function of the horizontal and vertical GSD [#Schowengerdt2012]. The ground sample
+distance is the highest accuracy a localization system can achieve. Figure <!--\ref{fig:ground_sample_distance_effects_on_image_quality}--> shows the effect that GSD can have on the detail
+of an image and consequently the accuracy of a localization system.
+
+<!--
+\begin{equation}
+HGSD = \frac{w_{s}d}{f*r_{h}}
+\label{eq:horizontal_ground_sample_distance}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+VGSD = \frac{h_{s}d}{f*r_{v}}
+\label{eq:vertical_ground_sample_distance}
+\end{equation}
+-->
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/spatial_resolution.png}
-  \caption{Ground Sample Distance Effects on Image Quality.}
+  \caption{Ground Sample Distance Effects on Image Quality. Adapted from \protect\cite{Quadri}.}
   \label{fig:ground_sample_distance_effects_on_image_quality}
 \end{figure}
 -->
 
-Insert Text Explaining The Effects of Different Shutter Type on Image Quality Thereby Effecting Ones Camera Choice.
+Equations <!--\ref{eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:vertical_ground_sample_distance}-->, all depend on $d$, the distance from the work surface. Knowing the desired accuracy,
+as well as horizontal and vertical FOV of a certain application, an appropriate $d$ can be calculated by rearranging the equations above.
+
+In order for the localization technique to be able to update in real time, even as the systems moves, two additional camera features much be considered, frame rate and shutter type. An appropriate
+frame rate is necessary to ensure an adequate image overlap; so that, features points can be tracked using optical flow, which will be discussed in Section 3.7.6, instead of having to redetect the
+feature each frame. The required frame rate can be calculated using Equation <!--\ref{eq:required_frame_rate}-->,
+
+<!--
+\begin{equation}
+FR = \frac{v}{FOV_{distance}(1-o)}
+\label{eq:required_frame_rate}
+\end{equation}
+-->
+
+where $v$ is velocity and $o$ is percent overlap. However, due to the fact that while localizing the system may move in both the horizontal and vertical planes, Equation <!--\ref{eq:required_frame_rate_both_planes}-->,
+where $v_{h}$ and $v_{v}$ are horizontal and vertical velocity respectively and $o_{h}$ is horizontal percent overlap, while $o_{v}$ is vertical percent overlap, should be used to ensure an adequate frame rate in both planes [#Smith2016].
+
+<!--
+\begin{equation}
+FR = \sqrt[]{\frac{v_{h}}{HFOV_{distance}(1-o_{h})}+\frac{v_{v}}{VFOV_{distance}(1-o_{v})}}
+\label{eq:required_frame_rate_both_planes}
+\end{equation}
+-->
+
+There are two types of camera shutters, rolling shutter (RS), in which the horizontal rows of the sensor array are scanned at different time, and global shutter (GS), in which all pixel are exposed at the same time.
+Due to the RS not exposing all pixels simultaneously, they are susceptible to motion blur as seen in Figure <!--\ref{fig:shutter_type_effects_on_image_quality}--> [#Fleet2014]. Consequently, in order to ensure
+features are not lost between frames as the system move, a GS camera is needed.
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/global_vs_rolling_shutter.png}
-  \caption{Shutter Type Effects on Image Quality.}
+  \caption{Shutter Type Effects on Image Quality. Adapted from \protect\cite{RSGSDiff}.}
   \label{fig:shutter_type_effects_on_image_quality}
 \end{figure}
 -->
+
 
 ## Computer Vision Concepts
 
@@ -577,6 +658,55 @@ Insert Text Explaining the Basics behind Binary Operations, Which Ones Were Chos
   \includegraphics[width=0.5\linewidth]{figures/binary_operations.png}
   \caption{Effects of common binary operations.}
   \label{fig:common_binary_operations}
+\end{figure}
+-->
+
+### Canny Edge Detection
+
+Insert Text Explaining the Basic Intuition Behind Canny Edge Detection.
+
+<!--
+\begin{equation}
+G_{x} = \begin{bmatrix}
+-1 & 0 & +1\\
+-2 & 0 & +2\\
+-1 & 0 & +1
+\end{bmatrix}
+\label{eq:sobel_x}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+G_{y} = \begin{bmatrix}
+-1 & -2 & -1\\
+ 0 & 0 & 0\\
++1 & +2 & +1
+\end{bmatrix}
+\label{eq:sobel_y}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+G = \sqrt{G_{x}^2+G_{y}^2}
+\label{eq:edge_gradient}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+\theta = \tan^{-1}(\frac{G_{y}}{G_{x}})
+\label{eq:edge_direction}
+\end{equation}
+-->
+
+<!--
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/canny_edge_detection.png}
+  \caption{Summary of Canny Edge Detection Framework.}
+  \label{fig:summary_of_canny_edge_detection_framework}
 \end{figure}
 -->
 
