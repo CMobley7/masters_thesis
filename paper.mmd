@@ -646,18 +646,26 @@ where 0 is black and 1 is white [#HSVColorSpace].
 
 ### Linear and Non-Linear Filters
 
-Insert Text Explaining the Basics behind Linear Filters, Which Ones Were Chosen and Why.
+Images are often corrupted by random variations in intensity, illumination, as well poor contrast that must be dealt with in the early stages of image processing [#Jain1995] before higher
+level computer vision techniques, such as feature detection and tracking, can be reliably used. Random variations in intensity of an image is called noise. Common types of image noise include
+salt and pepper, impulse, and Gaussian noise. While salt and pepper noise is the random occurrence of both black and white pixels, impulse noise is merely the random occurrence of white pixels.
+Gaussian noise on the other hand contains variation in intensities drawn from a Gaussian distribution, which can be used to model many kinds of sensor noise [#Parikh2015]. In most cases,
+convolving an image with a linear low-pass filter, a filter which replaces each pixel value with the weighted sum of all pixel values in its neighborhood, or a spatially invariant non-linear
+filter, which does not use a weighted sum but rather preforms the same operation at each pixel, is able to remove these types of noise. Figure <!--\ref{fig:common_filters}--> shows that a
+Gaussian filter is apt at removing noise drawn from a Gaussian distribution, such as white noise. While a median filter, which replaces each pixel with the median value in its neighborhood,
+is suitable for removing salt and pepper, as well as impulse noise. In addition to removing noise, filters can be used to enhance an image, such as sharpen it as seen in Figure <!--\ref{fig:common_filters}-->,
+extract information, like edges and texture, as well as detect patterns through template matching [#Parikh2015].
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/common_linear_filters.png}
-  \caption{Effects of common linear filters.}
-  \label{fig:common_linear_filters}
+  \caption{Effects of common filters.}
+  \label{fig:common_filters}
 \end{figure}
 -->
 
-### Binary Operations
+### Morphological Operations
 
 Insert Text Explaining the Basics behind Binary Operations, Which Ones Were Chosen and Why.
 
