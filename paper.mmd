@@ -667,7 +667,15 @@ extract information, like edges and texture, as well as detect patterns through 
 
 ### Morphological Operations
 
-Insert Text Explaining the Basics behind Binary Operations, Which Ones Were Chosen and Why.
+In addition, to enhancing images, non-linear filters are also used extensively to process binary images [#Szeliski2010]. A binary image is an image with only two possible values for each
+pixel, typically black, background pixels with a value of 0, and white, foreground pixels with a value of 1. Binary images often result after operations such as segmentation, thresholding,
+and dithering [#BinaryImage]. The most common binary image operations are called morphological operations, since they change the shape of the underlying binary objects [#Szeliski2010].
+Whether or not a given foreground or background pixel value changes depend on the image, as well as the morphological operations and the structuring element chosen. The structuring element
+is a rectangular array of pixels, which contain values of either 1 or 0. When the structuring element is centered on the pixel under consideration, that pixel’s neighborhood is determined
+by the pixels in the structuring element that have a value of 1 [#Solomon2011]. The two fundamental morphological operations are dilation, which thickens foreground pixels, and erosion,
+which thins foreground pixels. These two operations can be applied in different combinations in order to obtain more sophisticated operations, such as closing, dilation then erosion, and
+opening, erosion then dilation [#Wilson2000]. The morphological operations, depicted in Figure <!--\ref{fig:common_binary_operations}-->, are typically used to clean up binary images;
+so that, higher level computer vision techniques can be used robustly [#Szeliski2010].
 
 <!--
 \begin{figure}[H]
