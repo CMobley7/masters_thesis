@@ -189,7 +189,7 @@ was developed by SRI robotics, uses a highly-optimized and non-iterative Cholesk
 Carlone et al [#Carlone2011].
 
 Figure <!--\ref{fig:real_world_performance_analysis_of_ros_available_slam_algorithms}--> and Table <!--\ref{table:real_world_error_estimation_for_ros_available_slam_algorithms}--> show the aforementioned 2-D SLAM ROS packages real world performance based on testing done by Santos et al [#Santos2013]. KartoSLAM achieved the smallest error demonstrating the robustness of
-its sparse pose adjustment (SPA) and that of full SLAM techniques in general. As a result, KartoSLAM was used to generate Figure _ as well as the maps used during testing of the multistage localization
+its sparse pose adjustment (SPA) and that of full SLAM techniques in general. As a result, KartoSLAM was used to generate Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}--> as well as the maps used during testing of the multistage localization
 approach presented in this paper.
 
 <!--
@@ -221,9 +221,9 @@ HectorSLAM & GMapping & KartoSLAM & CoreSLAM & LagoSLAM \\ \midrule
 
 ROS’s Navigation Stack [#Navigation] is a collection of packages, which uses odometry and laser scan data, as well as a goal position and orientation in
 order to output the velocity commands needed to reach the specified goal. Figure <!--\ref{fig:ros_navigation_stack_setup}--> shows an overview of how the individual packages work
-together to achieve this objective. The Map_Server node loads a previously generated two-dimensional grid map. Once the AMCL node receives the map,
+together to achieve this objective. The Map_Server node [#MapServer] loads a previously generated two-dimensional grid map. Once the AMCL [#AMCL] node receives the map,
 odometry, and laser scan data, it is able to localize the robot within the provided map, using the Adaptive Monte Carlo Localization technique
-for which it gets its name. The Move_Base node maintains both global and local planners and costmaps. Information about obstacles in the world
+for which it gets its name. The Move_Base [#MoveBase] node maintains both global and local planners and costmaps. Information about obstacles in the world
 are stores in these costmap. The global costmap is used for long-term planning, while the local costmap is used for short-term planning and obstacle
 avoidance. The global planner computes an optimal path to the goal given the starting state of robot and the global costmap. While the local planner
 computes shorter trajectories given the current state of the robot and the local costmap. Once a path is developed, Move_Base outputs the necessary
@@ -314,7 +314,7 @@ Due to the computational complexity inherent in iteratively having to calculate 
 the error between the sample and true posterior is less than $\epsilon$ [#Thrun2005]. KLD-sampling basically control the number of particles based on the difference
 in odometry and particle base location.
 
-Figure <!--\ref{fig:visual_of_amcl_in_rviz}--> shows how KLD-sampling effectively work. Initially when the position is unknown, the particle cloud is large due to the uncertainty in the position
+Figure <!--\ref{fig:visual_of_amcl_in_rviz}--> shows how KLD-sampling effectively works. Initially when the position is unknown, the particle cloud is large due to the uncertainty in the position
 and orientation of the robot. However, as the robot moves, the particle converges and the particle cloud size reduces as KLD-sampling removes the redundant
 particles and improves computational performance.
 
@@ -330,8 +330,8 @@ particles and improves computational performance.
 After calculating the local and global costmaps, as well as the location of the robot within the given map, the robot must now both plan and execute appropriate trajectories to its destination.
 Two frequent techniques used are the Dynamic Window Approach (DWA) and Trajectory Rollout. Both sample the space of feasible controls. For a differential drive robot, such as Clearpath Robotics’
 Husky and Fetch Robotics’ Fetch, this controls space is 2D and consists of translations and rotational velocities, $\dot{x}, \dot{\theta}$, which are limited by the robot’s capabilities. Each
-sampled velocity is forward simulated from the robot’s current for a short period of time in order to generate simulated trajectories as shown in Figure <!--\ref{fig:trajectory_rollout_path_planning_framework}-->.
-These simulated trajectories are then scored using the cost function in Equation <!--\ref{eq:trajectory_rollout_cost_function}-->.
+sampled velocity is forward simulated from the robot’s current position for a short period of time in order to generate simulated trajectories as shown in Figure <!--\ref{fig:trajectory_rollout_path_planning_framework}-->.
+These simulated trajectories are then scored using the cost function in Equation <!--\ref{eq:trajectory_rollout_cost_function}-->,
 
 <!--
 \begin{equation}
@@ -340,7 +340,7 @@ C(\textit{k}) = \alpha{} Obs + \beta{} Gdist +\gamma{} Pdist + \delta{} \frac{1}
 \end{equation}
 -->
 
-Where *Obs* is the sum of grid cell cost through which the trajectory passes (taking account of the robot's actual footprint in the grid); *Gdist* and *Pdist* are the estimated shortest distance from
+where *Obs* is the sum of grid cell cost through which the trajectory passes (taking account of the robot's actual footprint in the grid); *Gdist* and *Pdist* are the estimated shortest distance from
 the endpoint of the trajectory to the goal and the optimal path, respectively; and $\dot{x}$ is the translation component of the velocity command that produces the trajectory.
 
 The simulated trajectory that minimizes this cost function is chosen. As a result, chosen trajectories tend to keep obstacles at a distance, proceed towards the goal, remain near the optimal path, as well
@@ -358,7 +358,7 @@ velocities for just one simulation step [#BaseLocalPlanner].
 
 ## Manipulation Concepts
 
-ROS’s MoveIt! [MoveIt!] is a collection of packages for mobile manipulation, which incorporate the latest advances in motion planning, manipulation, 3-D perception, kinematics, control, and navigation.
+ROS’s MoveIt! [#MoveIt] is a collection of packages for mobile manipulation, which incorporate the latest advances in motion planning, manipulation, 3-D perception, kinematics, control, and navigation.
 Figure <!--\ref{fig:moveit!'s_system_architecture}--> shows Moveit’s overall system architecture. The move_group node integrates all individual packages together in order to provide the user a set of
 ROS actions and services. The user interface allows the user to interact with the move_group node through the ROS interface by using C++, Python, or RVIZ [#RVIZ], which is ROS’s graphical user interface
 and 3-D visualization tool. ROS’s Parameter Server [#ParamServer] provides the move_group node the robot’s URDF and Semantic Robot Description Format (SRDF) files, as well as Moveit! specific configuration
@@ -413,7 +413,7 @@ arbitrary number, while maximum time can be computed based on the size and compl
 <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}--> shows that KDL-RR had a dramatic increase in solve rate percentage, as well as a modest decrease in runtime compared to KDL.
 However, KDL-RR’s doesn’t solve issue one. Consequently, the failure rate is still unacceptably high. TRACLab TRAC-IK kinematic solver attempts to solve issue one by using two separate IK solvers concurrently.
 It uses KLD-RR, as well as a sequential quadratic programming (SQP) IK implementation, which is an iterative algorithm for nonlinear optimization. The SQP implementation, which incorporates the same local minimum
-detection, is able to deal with issue one. However, SQP can have a much longer solve rate than KDL or KDL-RR. As a result, TRAC-IK implement both of these IK method concurrently and waiting for either to converge.
+detection, is able to deal with issue one. However, SQP can have a much longer solve rate than KDL or KDL-RR. As a result, TRAC-IK implements both of these IK method concurrently and waits for either to converge.
 As a result, the solve rate range between 99.1% and 99.9 % and the average convergence times are well below one millisecond [#Beeson2015].
 
 
@@ -975,11 +975,31 @@ Insert Text Summarizing This Chapter and Transiting to the Next.
 
 # Multistage Localization for High Precision Mobile Manipulation Tasks
 
-Insert Text Outlining the Upcoming Sections.
+The purpose of this chapter is to thoroughly explain each component of the multistage
+localization approach presented in this paper, as well as how these individual
+components fit together in order to enable high precision 3-D feature point localization.
+In addition, this chapter will expound upon the implementation of this approach
+to two tasks which are prevalent in both manufacturing and construction, drilling
+and sealant application operations.
 
 ## Approach Overview
 
-Insert Text Outlining the Steps of the Approach.
+Figure <!--\ref{fig:multistage_localization_approach_overview}--> summaries the
+multistage localization approach’s framework. The mobile manipulator first localizes
+itself within the area of operation (AO) using adaptive Monte Carlo localization,
+which relies on the fused odometry and sensor messages published by the robot, as
+well as a 2-D map of the AO, normally generated using an optimization-based smoothing
+simultaneous localization and mapping (SLAM) technique. The robot navigates to a
+predefined start location in the map using a technique called trajectory rollout.
+Once there, the robot uses an RGB-D sensor to localize an augmented reality (AR)
+tag in the map frame. One localized, the identity and the 3-D position and orientation,
+collectively known as pose, of the tag are used to generate a list of initial feature
+points and their locations based off of a priori knowledge. After the end-effector
+moves to the rough location of a feature point provided by the AR localization,
+the feature point’s location, as well as the end-effector positon and orientation are
+refined to within a user specified tolerance through the use of a control loop,
+which utilized images from a calibrated machine vision camera and a laser pointer,
+simulating stereo vision, to localize the feature point in 3-D using computer vision.
 
 <!--
 \begin{figure}[H]
@@ -992,11 +1012,25 @@ Insert Text Outlining the Steps of the Approach.
 
 ## Global Map Creation and Task Location Specification
 
-The purpose of this section is reiterate why KartoSLAM was chosen, as well as describe how maps are created, the map files themselves, and how global locations are specified.
-
-Before the manipulator can localize itself with respect to the part, the system must first navigate to the general vicinity in which the work will take place. In order to achieve this, the system utilizes odometry data, given by wheel encoders and an onboard inertial measurement unit (IMU), as well as sensor data, such as laser scans from a LIDAR or point clouds from an RGB-D sensor, to output safe velocity commands that will be sent to the mobile base of the system.
-
-First, a Simultaneous Localization and Mapping (SLAM) technique named KartoSLAM uses the system’s odometry and laser scan or point cloud data, to create a 2-D map of the environment in which the operation(s) will take place. After which, the global location of specific operation(s) are defined, as shown in Figure <!--\ref{fig:global_map}-->.
+In order for a mobile manipulator to operate and perform intricate tasks within
+a complex, GPS-denied environments, such as that of manufacturing facilities or
+construction site, without modifying said environment, the robot must create an
+accurate map of its environment. Simultaneous localization and mapping (SLAM) is
+the process of building or updating a map of an unknown environment while simultaneously
+localizing the robot within this map. Most SLAM techniques can be categorized into
+two main paradigms: filtering and optimization-based smoothing. While filtering
+SLAM techniques have been widely used in the past due to their ability to model
+different sources of sensor noise, in recent years optimization-based smoothing
+techniques have proven to be more efficient, scalable, and robust than that of filtering
+techniques [#Latif2013]. ROS [#Quigley2009], through which the multistage localization
+approach was implemented, includes several 2-D SLAM packages. Santos et al. performed
+a thorough real world evaluation of these available 2-D SLAM techniques in [#Santos2013],
+in which KartoSLAM[#KartoSLAM][#Konolige2010], an optimization-based smoothing SLAM
+technique, outperformed the other ROS implemented SLAM algorithms in terms of accuracy
+and computational efficiency. As a result, optimization-based smoothing techniques,
+such as KartoSLAM, should be used to generate a 2-D occupancy grid map of the robot’s
+environment. After which, start positions and orientations of the specific operations
+are defined in the map as seen in Figure <!--\ref{fig:global_map}-->.
 
 <!--
 \begin{figure}[H]
@@ -1009,7 +1043,22 @@ First, a Simultaneous Localization and Mapping (SLAM) technique named KartoSLAM 
 
 ## Autonomous Localization and Navigation
 
-Adaptive Monte Carlo localization (amcl) is used to localize the system within the map. Subsequently, odometry data is combined with a global and local cost map, in which obstacles and a specific distance around them represent a cost. These maps are used to plan optimal and obstacle free paths through the environment. The global path is computed before the system begins moving and takes into account all known obstacles, while the local path monitors incoming sensor data to compute suitable linear and angular velocities for the system to complete the current section of the global path. The local path is typically computed at a rate of 20 Hz; however, this parameter is adjustable given the needs of the system.
+After building a 2-D occupancy grid map, shown in Figure <!--\ref{fig:global_map}-->,
+using an optimization-based smoothing SLAM technique, it becomes crucial to accurately
+localize the robot within this predefined map; so that, the robot can both plan
+and execute appropriate trajectories to reach its destination. Figure <!--\ref{fig:robot_localization_framework}-->
+shows how the multistage localization approach localizes the robot within the map
+frame. Through the measurement of wheel rotation and the integration of accelerations
+provided by an inertial measurement unit (IMU), the distance traveled by the robot
+from its initial position can be calculated and the robot's pose in the map estimated.
+However, these methods do not account for wheel slippage or measurement error. As a result,
+the accuracy of the pose estimation will degrade over time. Consequently, the odometry
+measurements from these two sources are fused together through an Extended Kalman
+filter to provide an accurate pose estimate [#Moore2014]. The corrected odometry,
+as well laser scan measurements from a LIDAR and the prebuilt map are used by Adaptive
+Monte Carlo Localization (AMCL) [#AMCL] to localize the robot within this prebuilt
+map. AMCL utilizes a particle filter to keep track of the robot’s pose and *KLD-sampling*
+to improve computational complexity by removing redundant particles.
 
 <!--
 \begin{figure}[H]
@@ -1020,9 +1069,49 @@ Adaptive Monte Carlo localization (amcl) is used to localize the system within t
 \end{figure}
 -->
 
-## Task Association and A Priori Knowledge
+After localizing the robot within the predefined map, and computing local and global
+costmaps, in which obstacles and a specified distance around them represent a cost,
+the robot must now both plan and execute appropriate trajectories to reach its destination.
+Trajectory Rollout [#BaseLocalPlanner] samples the space of feasible controls. For
+a differential drive robot, this controls space is 2D and consists of translations
+and rotational velocities, $\dot{x}, \dot{\theta}$, which are limited by the robot’s
+capabilities. This sampled velocity is forward simulated from the robot’s current
+position for a short period of time in order to generate simulated trajectories.
+These simulated trajectories are then scored using the cost function in Equation
+<!--\ref{eq:trajectory_rollout_cost_function}-->,
 
-Once arriving in the general vicinity of the task to be accomplished, the system then locates an augmented reality (AR) tag [#Siltanen], which allows it to localize and transform points of interest (POIs) associated with the AR tag into the system’s frame of reference. This general localization framework is presented in Figure <!--\ref{fig:task_association}-->.
+<!--
+\begin{equation}
+C(\textit{k}) = \alpha{} Obs + \beta{} Gdist +\gamma{} Pdist + \delta{} \frac{1}{\dot{x}^2}
+\label{eq:trajectory_rollout_cost_function}
+\end{equation}
+-->
+
+where *Obs* is the sum of grid cell cost through which the trajectory passes, *Gdist*
+and *Pdist* are the estimated shortest distance from the endpoint of the trajectory
+to the goal and the optimal path, respectively, and $\dot{x}$ is the translation
+component of the velocity command that produces the trajectory. The simulated trajectory
+that minimizes this cost function is chosen. As a result, chosen trajectories tend
+to keep obstacles at a distance, proceed towards the goal, remain near the optimal
+path, as well as have higher velocities [#Gerkey2008].
+
+ROS’s Navigation Stack [#Navigation] is a collection of packages, which the aforementioned
+techniques can be implemented in, in order to localize the robot within a prebuild map,
+as well as plan and execute trajectories by outputting the velocity commands needed;
+so that the robot can reach the specified goal.
+
+## Initial Feature Localization Framework
+
+Each Augmented Reality (AR) tag has a unique identity. As a result, relevant information,
+such as feature locations relative to the AR tag’s pose for a specific operation,
+can be associated with a predetermined AR tag identity. So, once the robot has arrived
+at the operation’s specified start positions and orientation, the robot uses the
+ALVAR package [#ARTrackAlvar] and an RGB-D sensor to detect, identify, and calculated
+the Augmented Reality (AR) tag pose. Upon identification of the AR tag at the operation
+start position, the feature locations for that operation are populated and then
+localized on the work surface given the AR tag’s pose in the map frame. Figure
+<!--\ref{fig:initial_feature_localization_framework}--> shows this initial feature
+localization framework.
 
 <!--
 \begin{figure}[H]
@@ -1033,17 +1122,36 @@ Once arriving in the general vicinity of the task to be accomplished, the system
 \end{figure}
 -->
 
-## Generic Framework for Multi-Stage Computer Vision Algorithm
+## Motion Planning and the Feature Correction Framework
 
-Insert Text Outlining the Upcoming Sections.
+The manipulator’s motion planning is done through ROS’s Moveit! package [#MoveIt],
+which was set up to use TRACLabs numerical inverse kinematic (IK) solver, TRAC_IK
+[#TracIK]. Due to the recursive nature of numerical solvers, they tend to be slower
+than that of analytical solvers and are prone to get trapped in local minima. However,
+analytical solvers require a separate kinematic solver be created for each manipulator
+and manipulator configuration. Consequently, in order to ensure cross platform functionality
+with minimum overhead, numerical solvers were used. Orocos Kinematics and Dynamics
+Library (KDL) [#KDL], Moveit! default numerical solver, as well as arguably the
+most widely-used generic numerical solver worldwide, suffers from an unacceptably
+high failure rate and slow average speed. Beeson et al. determined in [#Beeson2015]
+the causes behind the high failure rates and slow average speed, as well as developed
+TRAC-IK to overcome them. Beeson et al. revealed KDL had following flaws:
 
-### Initial Feature Location Prediction
+1. Frequent convergence failures due to manipulators with joint limit
+2. No action is taken when the search gets trapped in a local minima
+3. Lack of tolerance support and/or utilization in the solver itself
 
-This subsection will go through AR tags and how they are used to populate point.
-
-### Corrected Feature Locations
-
-Currently the sponsor of this work uses a hole template on the object to be drilled to ensure accuracy within $\pm$ 0.3 mm. Using the predicted hole locations, given by the AR tag, an inverse kinematic solver is used to move the manipulator to the specified Cartesian location. A camera mounted on the manipulator is then used to further correct the positon of the end-effector. Canny Edge Detection, Hough Transforms, as well as the camera’s intrinsic characteristics and a priori knowledge of each hole’s size is used to output an adjusted Cartesian location of the circle on the templet closest to the predicted position [#Alter1992]. If a hole to be drilled is not found or is outside the range of the manipulator, that hole will be added to a list and the customer notified of all such holes after the operation is completed. In addition to the high precision achieved by the above technique, it can also provide a video log of all work done for inspection.
+TRAC-IK solves these issues by using two separate IK solvers concurrently, as well
+as incorporating local minimum detection in both. It uses KDL-RR, a rewrite of KDL
+which incorporation local minimum detection in order to solve problems two and three
+by “unsticking” the convergence algorithm through the introduction of random seed
+angles when a local minimum is detected, as well as a sequential quadratic programming
+(SQP) IK implementation, which is an iterative algorithm for nonlinear optimization.
+The SQP implementation, which incorporates the same local minimum detection as KLD-RR,
+is able to deal with issue one. However, SQP can have a much longer solve rate than
+KDL or KDL-RR. As a result, TRAC-IK implements both of these IK methods concurrently
+and waits for either IK to converge. As a result, the solve rate range between 99.1%
+and 99.9 % and the average convergence times are well below one millisecond.
 
 Insert Text Regarding Computer Vision Detection and Tracking System.
 
