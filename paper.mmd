@@ -57,27 +57,41 @@ Insert Text Summarizing This Chapter and Transiting to the Next.
 
 # Fundamentals of Autonomous Robotics
 
-The purpose of this chapter is to briefly explain all concepts needed to understand the work presented in the chapters thereafter. The following subsection will explain
-the basic concepts of the Robot Operating System (ROS), Simultaneous Localization and Mapping (SLAM), Localization and Path Planning, as well as Manipulation. In addition,
-Task Execution using State Machines and the specific Computer Vision Algorithms implemented will be expounded upon.
+The purpose of this chapter is to briefly explain all concepts needed to understand
+the work presented in the chapters thereafter. The following subsection will explain
+the basic concepts of the Robot Operating System (ROS), Simultaneous Localization
+and Mapping (SLAM), Localization and Path Planning, as well as Manipulation. In addition,
+Task Execution using State Machines and the specific Computer Vision Algorithms
+implemented will be expounded upon.
 
 ## ROS Concepts
 
-The Robot Operating System (ROS) [#Quigley2009] is an open-source set of software libraries and tools that aim to simplify the task of creating robotics applications that can
-be used across a wide variety of platforms. ROS was originally developed in 2007 by Willow Garage as an extension of switchyard, a collection
-of robotics software developed by Stanford Artificial Intelligence Laboratory in support of the Stanford AI Robot (STAIR) and Personal Robotics (PR) projects.
-The first distribution of ROS, Box Turtle, was released in 2010. ROS currently has had ten major releases. The most current being Kinetic Kame Turtle, which was released
-on 23MAY16. In addition ROS boasts tens of thousands of users around the world ranging from hobbyists and researcher to the commercial and industrial industries, as well
-as hundreds of packages which provide everything from hardware drivers to algorithms for autonomous navigations and manipulation [#ROSWebsite]. ROS’s large support base act as a force
-multiplier allows individuals, Labs, or company to concentrate on one particular aspect while capitalizing on work that has already been done.
+The Robot Operating System (ROS) [#Quigley2009] is an open-source set of software
+libraries and tools that aim to simplify the task of creating robotics applications that can
+be used across a wide variety of platforms. ROS was originally developed in 2007
+by Willow Garage as an extension of switchyard, a collection of robotics software
+developed by Stanford Artificial Intelligence Laboratory in support of the Stanford
+AI Robot (STAIR) and Personal Robotics (PR) projects. The first distribution of
+ROS, Box Turtle, was released in 2010. ROS currently has had ten major releases.
+The most current being Kinetic Kame Turtle, which was released on 23MAY16. In addition
+ROS boasts tens of thousands of users around the world ranging from hobbyists and
+researcher to the commercial and industrial industries, as well as hundreds of packages
+which provide everything from hardware drivers to algorithms for autonomous navigations
+and manipulation [#ROSWebsite]. ROS’s large support base act as a force multiplier
+allows individuals, Labs, or company to concentrate on one particular aspect while
+capitalizing on work that has already been done.
 
 
 ### ROS Communication
 
-ROS uses a name server, called the ROS Master, to maintain a list of nodes and available topics. Nodes communicate with the master server using the XML-RPC protocol. While
-peer-to-peer communications generally use TCP/IP sockets through the TCPROS protocol. Figure <!--\ref{fig:simple_ros_node_flowchart}--> shows a simple diagram of two ROS nodes
-communicating with messages and service topics. In addition to the concepts of messages and services, ROS also employs actions. Actions are similar to service calls, but are
-designed for long duration tasks that are capable of providing feedback. These communication interfaces provide ROS a great deal of flexibility for robotic applications [#ROSConcepts], [#Burton2015].
+ROS uses a name server, called the ROS Master, to maintain a list of nodes and available
+topics. Nodes communicate with the master server using the XML-RPC protocol. While
+peer-to-peer communications generally use TCP/IP sockets through the TCPROS protocol.
+Figure <!--\ref{fig:simple_ros_node_flowchart}--> shows a simple diagram of two ROS nodes
+communicating with messages and service topics. In addition to the concepts of messages
+and services, ROS also employs actions. Actions are similar to service calls, but are
+designed for long duration tasks that are capable of providing feedback. These communication
+interfaces provide ROS a great deal of flexibility for robotic applications [#ROSConcepts], [#Burton2015].
 
 <!--
 \begin{figure}[H]
@@ -90,8 +104,10 @@ designed for long duration tasks that are capable of providing feedback. These c
 
 ### Rigid Body Transformations
 
-Figure <!--\ref{fig:conversion_from_coordinate_frame_a_to_b}--> shows a purple dot, which represent a point in space. The dot’s coordinates in frames a and b are different. A rigid body
-transform, which can be performed using Equation <!--\ref{eq:conversion_from_coordinate_frame_a_to_b}-->, can be used to convert one set of coordinates to another coordinate frame.
+Figure <!--\ref{fig:conversion_from_coordinate_frame_a_to_b}--> shows a purple dot,
+which represent a point in space. The dot’s coordinates in frames a and b are different. A rigid body
+transform, which can be performed using Equation <!--\ref{eq:conversion_from_coordinate_frame_a_to_b}-->,
+can be used to convert one set of coordinates to another coordinate frame.
 
 <!--
 \begin{equation}
@@ -101,6 +117,7 @@ x_a=T_{b}^{a}x_b
 -->
 
 where $T_{b}^{a}$ is equal to Equation <!--\ref{eq:simplified_transformation_matrix}-->
+
 <!--
 \begin{equation}
 \begin{bmatrix}
@@ -111,7 +128,8 @@ R_{b}^{a} & t_{b}^{a}\\
 \end{equation}
 -->
 
-where $R_{b}^{a}$ is the rotation matrix, which performs the rotation part of moving frame $b$ into alignment with frame $a$ and $t_{b}^{a}$ is the translation matrix, which performs
+where $R_{b}^{a}$ is the rotation matrix, which performs the rotation part of moving
+frame $b$ into alignment with frame $a$ and $t_{b}^{a}$ is the translation matrix, which performs
 the translation part of moving frame $b$ origin to frame $a$ [#Kelly2013].
 
 <!--
@@ -123,9 +141,13 @@ the translation part of moving frame $b$ origin to frame $a$ [#Kelly2013].
 \end{figure}
 -->
 
-A robotic system, such as Clearpath Robotics’ Husky and Fetch Robotics’ Fetch shows in Figure <!--\ref{fig:robot_model_with_tfs}-->, typical has many three dimensional coordinate frames that change over time as the robot
-performs different functions. ROS’s TF [#TF] and TF2 [#TF2] package keep track of coordinate frames and allow for data to be easily convert between these coordinate frames using rigid
-body transforms. These coordinate frames, as well as robot’s links/joints they correspond to, and the rigid transformations between them are set up in the Robot’s Unified Robot Description
+A robotic system, such as Clearpath Robotics’ Husky and Fetch Robotics’ Fetch shows
+in Figure <!--\ref{fig:robot_model_with_tfs}-->, typical has many three dimensional
+coordinate frames that change over time as the robot performs different functions.
+ROS’s TF [#TF] and TF2 [#TF2] package keep track of coordinate frames and allow
+for data to be easily convert between these coordinate frames using rigid body transforms.
+These coordinate frames, as well as robot’s links/joints they correspond to, and
+the rigid transformations between them are set up in the Robot’s Unified Robot Description
 Format (URDF) File [#URDF].
 
 <!--
@@ -139,26 +161,48 @@ Format (URDF) File [#URDF].
 
 ## Simultaneous Localization and Mapping Concepts
 
-In order for a mobile robot to operate and perform intricate tasks within a complex, GPS-denied environments, such as that of manufacturing facilities, without modifying said environment,
-the robot must be able to create an accurate map of its environment while simultaneously localizing itself within this map using only on-board sensors. Simultaneous localization and mapping
-(SLAM) is the problem of building and/or updating a map of an unknown environment while simultaneously localizing the robot within this map [#OpenSLAM]. SLAM was pioneered in the early 1990s by
-Hugh F. Durrant-Whyte and John J. Leonard [#Leonard1991], who based their work on research done by Smith and P. Cheeseman in the mid to late-1980s [#Smith1986], [#Smith1990].
+In order for a mobile robot to operate and perform intricate tasks within a complex,
+GPS-denied environments, such as that of manufacturing facilities, without modifying
+said environment, the robot must be able to create an accurate map of its environment
+while simultaneously localizing itself within this map using only on-board sensors.
+Simultaneous localization and mapping (SLAM) is the problem of building and/or updating
+a map of an unknown environment while simultaneously localizing the robot within
+this map [#OpenSLAM]. SLAM was pioneered in the early 1990s by Hugh F. Durrant-Whyte
+and John J. Leonard [#Leonard1991], who based their work on research done by Smith
+and P. Cheeseman in the mid to late-1980s [#Smith1986], [#Smith1990].
 
-Several techniques exist to solve the SLAM problem. Most of these techniques can be categorized into two main paradigms: filtering and optimization-based smoothing [#Grisetti2010a], [#Latif2013]. Filtering techniques
-model the SLAM problem as an incremental state estimation, where the state of the system is composed of the robot’s current pose and the map. These estimates are refined at each step by incorporating
-current sensor measurements. Due to their incremental nature, these SLAM techniques are typically referred to as on-line SLAM approaches. Popular filtering SLAM techniques include the extended kalman filter, particle filter, and information filters. Filtering SLAM techniques have been used widely in past years
-due to their ability to model different sources of noise and their effect on sensor measurements. However, in recent years optimization-based smoothing techniques have proven to be more efficient, scalable,
-and robust than that of filtering techniques [#Latif2013]. Unlike filtering techniques, optimization-based smoothing techniques estimate the robot’s entire trajectory and the map. Due to the fact that the final map
-is based off the robot’s entire trajectory and world features instead of the most recent pose and map, these techniques are known as full SLAM approaches. These SLAM techniques incorporate a graph-based structure, where
-graph nodes represent the robot’s pose and world features, while edges represent a spatial constraint relation between two robot poses given by sensor measurements [#Konolige2010]. The graph is optimized using error
-minimization techniques, such as least-squares, in order to refine the robot’s trajectory and map.
+Several techniques exist to solve the SLAM problem. Most of these techniques can
+be categorized into two main paradigms: filtering and optimization-based smoothing
+[#Grisetti2010a], [#Latif2013]. Filtering techniques model the SLAM problem as an
+incremental state estimation, where the state of the system is composed of the robot’s
+current pose and the map. These estimates are refined at each step by incorporating
+current sensor measurements. Due to their incremental nature, these SLAM techniques
+are typically referred to as on-line SLAM approaches. Popular filtering SLAM techniques
+include the extended Kalman filter, particle filter, and information filters. Filtering
+SLAM techniques have been used widely in past years due to their ability to model
+different sources of noise and their effect on sensor measurements. However, in
+recent years optimization-based smoothing techniques have proven to be more efficient,
+scalable, and robust than that of filtering techniques [#Latif2013]. Unlike filtering
+techniques, optimization-based smoothing techniques estimate the robot’s entire
+trajectory and the map. Due to the fact that the final map is based off the robot’s
+entire trajectory and world features instead of the most recent pose and map, these
+techniques are known as full SLAM approaches. These SLAM techniques incorporate
+a graph-based structure, where graph nodes represent the robot’s pose and world
+features, while edges represent a spatial constraint relation between two robot
+poses given by sensor measurements [#Konolige2010]. The graph is optimized using
+error minimization techniques, such as least-squares, in order to refine the robot’s
+trajectory and map.
 
-In addition to a variety of techniques which can be used to solve the SLAM problem, a wide range of sensors can also be used. Typically sensors include that of a LIDARs, stereo cameras, monocular camera,
-and RGB-D sensors.
+In addition to a variety of techniques which can be used to solve the SLAM problem,
+a wide range of sensors can also be used. Typically sensors include that of a LIDARs,
+stereo cameras, monocular camera, and RGB-D sensors.
 
-Figure <!--\ref{fig:overview_of_slam_framework}--> shows the generic framework to solving the SLAM problem. In the front-end, raw sensor inputs are processed in order to extract features and perform scan matching; so that, necessary parameters
-and/or constraints, as well as systems state can be estimated. The systems states and necessary parameters and/or constraints are sent to the back-end of the SLAM algorithm where the systems state is
-refined and returned based on the parameters and/or constraints.
+Figure <!--\ref{fig:overview_of_slam_framework}--> shows the generic framework to
+solving the SLAM problem. In the front-end, raw sensor inputs are processed in order
+to extract features and perform scan matching; so that, necessary parameters and/or constraints,
+as well as systems state can be estimated. The systems states and necessary parameters
+and/or constraints are sent to the back-end of the SLAM algorithm where the systems
+state is refined and returned based on the parameters and/or constraints.
 
 
 <!--
@@ -170,8 +214,10 @@ refined and returned based on the parameters and/or constraints.
 \end{figure}
 -->
 
-ROS includes several 2-D SLAM packages. These packages are used to build accurate 2-D occupancy grid maps, seen in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->. These maps are then used to localize the robot within its environment,
-as well as to plan and execute appropriate trajectories in order to reach its destination.
+ROS includes several 2-D SLAM packages. These packages are used to build accurate
+2-D occupancy grid maps, seen in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->.
+These maps are then used to localize the robot within its environment, as well as
+to plan and execute appropriate trajectories in order to reach its destination.
 
 <!--
 \begin{figure}[H]
@@ -182,15 +228,26 @@ as well as to plan and execute appropriate trajectories in order to reach its de
 \end{figure}
 -->
 
-Five of the most common 2-D SLAM ROS packages include HectorSLAM, GMapping, KartoSLAM, CoreSLAM, and LagoSLAM. HectorSLAM [#HectorSLAM] is neither a filtering nor an optimization-based smoothing techniques and
-relies solely on robust scan matching [#Kohlbrecher2011]. CoreSLAM [#CoreSLAM] and GMapping [#GMapping] are filtering SLAM techniques. Both CoreSLAM and GMapping utilize a particle filter. While CoreSLAM employs a very simple particle
-filter [#Steux2010], GMapping uses a more complex and efficient Rao-Blackwellized particle filter [#Grisetti2007]. Both KartoSLAM [#KartoSLAM] and LagoSLAM [#LagoSLAM] are optimization-based smoothing SLAM techniques. However, KartoSLAM, which
-was developed by SRI robotics, uses a highly-optimized and non-iterative Cholesky matrix decomposition for sparse linear systems, known as Sparse Pose Adjustment (SPA) [#Konolige2010], [#Vincent2010], while LagoSLAM uses LAGO optimizer developed by
-Carlone et al [#Carlone2011].
+Five of the most common 2-D SLAM ROS packages include HectorSLAM, GMapping, KartoSLAM,
+CoreSLAM, and LagoSLAM. HectorSLAM [#HectorSLAM] is neither a filtering nor an optimization-based
+smoothing techniques and relies solely on robust scan matching [#Kohlbrecher2011].
+CoreSLAM [#CoreSLAM] and GMapping [#GMapping] are filtering SLAM techniques. Both
+CoreSLAM and GMapping utilize a particle filter. While CoreSLAM employs a very simple
+particle filter [#Steux2010], GMapping uses a more complex and efficient Rao-Blackwellized
+particle filter [#Grisetti2007]. Both KartoSLAM [#KartoSLAM] and LagoSLAM [#LagoSLAM]
+are optimization-based smoothing SLAM techniques. However, KartoSLAM, which was
+developed by SRI robotics, uses a highly-optimized and non-iterative Cholesky matrix
+decomposition for sparse linear systems, known as Sparse Pose Adjustment (SPA) [#Konolige2010],
+[#Vincent2010], while LagoSLAM uses LAGO optimizer developed by Carlone et al [#Carlone2011].
 
-Figure <!--\ref{fig:real_world_performance_analysis_of_ros_available_slam_algorithms}--> and Table <!--\ref{table:real_world_error_estimation_for_ros_available_slam_algorithms}--> show the aforementioned 2-D SLAM ROS packages real world performance based on testing done by Santos et al [#Santos2013]. KartoSLAM achieved the smallest error demonstrating the robustness of
-its sparse pose adjustment (SPA) and that of full SLAM techniques in general. As a result, KartoSLAM was used to generate Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}--> as well as the maps used during testing of the multistage localization
-approach presented in this paper.
+Figure <!--\ref{fig:real_world_performance_analysis_of_ros_available_slam_algorithms}-->
+and Table <!--\ref{table:real_world_error_estimation_for_ros_available_slam_algorithms}-->
+show the aforementioned 2-D SLAM ROS packages real world performance based on testing
+done by Santos et al [#Santos2013]. KartoSLAM achieved the smallest error demonstrating
+the robustness of its sparse pose adjustment (SPA) and that of full SLAM techniques
+in general. As a result, KartoSLAM was used to generate Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->
+as well as the maps used during testing of the multistage localization approach
+presented in this paper.
 
 <!--
 \begin{figure}[H]
@@ -219,15 +276,22 @@ HectorSLAM & GMapping & KartoSLAM & CoreSLAM & LagoSLAM \\ \midrule
 
 ## Localization and Path Planning Concepts
 
-ROS’s Navigation Stack [#Navigation] is a collection of packages, which uses odometry and laser scan data, as well as a goal position and orientation in
-order to output the velocity commands needed to reach the specified goal. Figure <!--\ref{fig:ros_navigation_stack_setup}--> shows an overview of how the individual packages work
-together to achieve this objective. The Map_Server node [#MapServer] loads a previously generated two-dimensional grid map. Once the AMCL [#AMCL] node receives the map,
-odometry, and laser scan data, it is able to localize the robot within the provided map, using the Adaptive Monte Carlo Localization technique
-for which it gets its name. The Move_Base [#MoveBase] node maintains both global and local planners and costmaps. Information about obstacles in the world
-are stores in these costmap. The global costmap is used for long-term planning, while the local costmap is used for short-term planning and obstacle
-avoidance. The global planner computes an optimal path to the goal given the starting state of robot and the global costmap. While the local planner
-computes shorter trajectories given the current state of the robot and the local costmap. Once a path is developed, Move_Base outputs the necessary
-velocity commands needed in order to reach the specified destination [#Navigation].
+ROS’s Navigation Stack [#Navigation] is a collection of packages, which uses odometry
+and laser scan data, as well as a goal position and orientation in order to output
+the velocity commands needed to reach the specified goal. Figure <!--\ref{fig:ros_navigation_stack_setup}-->
+shows an overview of how the individual packages work together to achieve this objective.
+The Map_Server node [#MapServer] loads a previously generated two-dimensional grid map.
+Once the AMCL [#AMCL] node receives the map, odometry, and laser scan data, it is
+able to localize the robot within the provided map, using the Adaptive Monte Carlo
+Localization technique for which it gets its name. The Move_Base [#MoveBase] node
+maintains both global and local planners and costmaps. Information about obstacles
+in the world are stores in these costmap. The global costmap is used for long-term
+planning, while the local costmap is used for short-term planning and obstacle avoidance.
+The global planner computes an optimal path to the goal given the starting state
+of robot and the global costmap. While the local planner computes shorter trajectories
+given the current state of the robot and the local costmap. Once a path is developed,
+Move_Base outputs the necessary velocity commands needed in order to reach the specified
+destination [#Navigation].
 
 <!--
 \begin{figure}[H]
@@ -238,29 +302,46 @@ velocity commands needed in order to reach the specified destination [#Navigatio
 \end{figure}
 -->
 
-After building a two-dimensional occupancy grid map, shown in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->, using SLAM, it
-becomes crucial to accurately localize the robot within this predefined map; so that, the robot can both plan and execute appropriate trajectories
-to reach its destination. Localization involves estimating the position and orientation of the robot, known collectively as pose, while the robot
-moves throughout its environment. One routine localization technique used involves tracking the robot from an initial known starting pose. Through
-the measurement of wheel rotation and the integration of accelerations provided by an inertial measurement unit (IMU), the distance traveled by the
-robot from the initial position can be calculated and the robot’s pose in the map estimated with some certainty. However, these methods do not account
-for wheel slippage or measurement error. As a result, the accuracy of the pose estimate will degrade over time. Consequently, a solution which can
-compensate for the accumulated odometry error and inaccuracies in the initial starting pose is needed. One accepted solution to this problem is Monte
-Carlo Localization (MCL), which utilizes a particle filters to keep track of the robot’s pose. However, additional options include Kalman Filters and
-Markov Localization, which employ Gaussian distributions and histograms respectively.
+After building a two-dimensional occupancy grid map, shown in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->,
+using SLAM, it becomes crucial to accurately localize the robot within this predefined
+map; so that, the robot can both plan and execute appropriate trajectories to reach
+its destination. Localization involves estimating the position and orientation of
+the robot, known collectively as pose, while the robot moves throughout its environment.
+One routine localization technique used involves tracking the robot from an initial
+known starting pose. Through the measurement of wheel rotation and the integration
+of accelerations provided by an inertial measurement unit (IMU), the distance traveled
+by the robot from the initial position can be calculated and the robot’s pose in
+the map estimated with some certainty. However, these methods do not account for
+wheel slippage or measurement error. As a result, the accuracy of the pose estimate
+will degrade over time. Consequently, a solution which can compensate for the accumulated
+odometry error and inaccuracies in the initial starting pose is needed. One accepted
+solution to this problem is Monte Carlo Localization (MCL), which utilizes a particle
+filters to keep track of the robot’s pose. However, additional options include Kalman
+Filters and Markov Localization, which employ Gaussian distributions and histograms
+respectively.
 
-Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}--> depicts MCL using a one-dimensional corridor with a few doors. The robot
-initially has no information about where it is in this corridor. As a result, the graph of the robot’s belief states, which defines the probability
-of the robot being at a particular position, is drawn from a uniform distribution of discretely sampled positions along the corridor. A measurement
-update is performed at each time step. A measurement update involves convolving the measurement model, the probability of receiving a specific sensor
-measurement in the corridor, with the belief states to get an updated belief state. The updated belief state is the same as the pervious belief state;
-however, the weight of each particle have been updated based on the sensor reading. At step k=1 the robot senses a door; so, the weight of particles at
-the three door are increased. At the next step, a motion model update is performed. The odometry indicated that the robot moved forward a specified
-distance d. As a result, the belief state is updated by moving the particles forward that specific distance with noise added to account for the
-aforementioned odometry errors. It should be noted that the particles at this stage in Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}-->
-were also resampled, which will be covered in the following paragraphs. The motion model update is followed by a measurement update. The robot again senses a
-door. As a result, the measurement model is the same as the pervious time step. After convolving the current measurement model with the current belief state,
-the cumulative probability mass is centered at door two indicating that the robot is likely at this location [#Thrun2005].
+Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}--> depicts
+MCL using a one-dimensional corridor with a few doors. The robot initially has no
+information about where it is in this corridor. As a result, the graph of the robot’s
+belief states, which defines the probability of the robot being at a particular
+position, is drawn from a uniform distribution of discretely sampled positions along
+the corridor. A measurement update is performed at each time step. A measurement
+update involves convolving the measurement model, the probability of receiving a
+specific sensor measurement in the corridor, with the belief states to get an updated
+belief state. The updated belief state is the same as the pervious belief state;
+however, the weight of each particle have been updated based on the sensor reading.
+At step k=1 the robot senses a door; so, the weight of particles at the three door
+are increased. At the next step, a motion model update is performed. The odometry
+indicated that the robot moved forward a specified distance $d$. As a result, the
+belief state is updated by moving the particles forward that specific distance with
+noise added to account for the aforementioned odometry errors. It should be noted
+that the particles at this stage in Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}-->
+were also resampled, which will be covered in the following paragraphs. The motion
+model update is followed by a measurement update. The robot again senses a door.
+As a result, the measurement model is the same as the pervious time step. After
+convolving the current measurement model with the current belief state, the cumulative
+probability mass is centered at door two indicating that the robot is likely at
+this location [#Thrun2005].
 
 <!--
 \begin{figure}[H]
@@ -271,13 +352,20 @@ the cumulative probability mass is centered at door two indicating that the robo
 \end{figure}
 -->
 
-Two-dimensional MCL follows the same format of a motion model and then measurement update. The initial particles are drawn from the current odometry
-with added noise. At each step, the particles are updated via the odometry and then corrected via a measurement update. For each particle, the correlation
-between the two-dimensional occupancy grid map, seen in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->, and laser scan is calculated using
-Equation <!--\ref{eq:weight_each_particle}-->, where $A$ is the predefined map, $B$ is the map created by the current laser scan, and $\bar{A}$ and $\bar{B}$ are the mean
-values of the pixels of both maps respectively. Note that while obstacle pixels are black and have a value of 1, free space pixels are grey and have a value of 0. While $m$ and $n$
-are the x and y values of the pixel. The particle (pose) with the highest correlations score is chosen as the pose for the current step. The weight of each
-particles at step $k$ is found by multiplying the particles weight at step $k-1$ by its normalized correlation score at time step $k$, as seen in Equation <!--\ref{eq:laser_scan_correlation}-->.
+Two-dimensional MCL follows the same format of a motion model and then measurement
+update. The initial particles are drawn from the current odometry with added noise.
+At each step, the particles are updated via the odometry and then corrected via
+a measurement update. For each particle, the correlation between the two-dimensional
+occupancy grid map, seen in Figure <!--\ref{fig:example_of_2d_cccupancy_grid_map_produced}-->,
+and laser scan is calculated using Equation <!--\ref{eq:weight_each_particle}-->,
+where $A$ is the predefined map, $B$ is the map created by the current laser scan,
+and $\bar{A}$ and $\bar{B}$ are the mean values of the pixels of both maps respectively.
+Note that while obstacle pixels are black and have a value of 1, free space pixels
+are grey and have a value of 0. While $m$ and $n$ are the x and y values of the pixel.
+The particle (pose) with the highest correlations score is chosen as the pose for
+the current step. The weight of each particles at step $k$ is found by multiplying
+the particles weight at step $k-1$ by its normalized correlation score at time step
+$k$, as seen in Equation <!--\ref{eq:laser_scan_correlation}-->.
 
 
 <!--
@@ -294,11 +382,15 @@ W_k \leftarrow W_{k-1}s
 \end{equation}
 -->
 
-As weights are multiplied over steps, the particles with consecutive small correlation scores are reduced to very small values. As a result, the particles
-filter eventually has every few effective particles to ensure that good results are produced. Consequently, re-sampling, show in Figure <!--\ref{fig:particle_filter_resampling_example}-->,
-is performed when the number of effective particles become too small. This is done by drawing samples close to the particles that have a higher weights,
-indicated by their size. Thus the new sample have a higher density near the position where the particle with higher weight existed. Each particle after
-resampling has same weight. As a result, the particle filter begins from scratch.
+As weights are multiplied over steps, the particles with consecutive small correlation
+scores are reduced to very small values. As a result, the particles filter eventually
+has every few effective particles to ensure that good results are produced. Consequently,
+re-sampling, show in Figure <!--\ref{fig:particle_filter_resampling_example}-->,
+is performed when the number of effective particles become too small. This is done
+by drawing samples close to the particles that have a higher weights, indicated
+by their size. Thus the new sample have a higher density near the position where
+the particle with higher weight existed. Each particle after resampling has same
+weight. As a result, the particle filter begins from scratch.
 
 <!--
 \begin{figure}[H]
@@ -309,14 +401,19 @@ resampling has same weight. As a result, the particle filter begins from scratch
 \end{figure}
 -->
 
-Due to the computational complexity inherent in iteratively having to calculate the correlation score for each particle, an optimization technique known as
-*KLD-sampling* is used. *KLD-sampling*, derived from *Kullback-Leibler divergence*, is a technique that determine the number of particles needed such that
-the error between the sample and true posterior is less than $\epsilon$ [#Thrun2005]. KLD-sampling basically control the number of particles based on the difference
-in odometry and particle base location.
+Due to the computational complexity inherent in iteratively having to calculate
+the correlation score for each particle, an optimization technique known as *KLD-sampling*
+is used. *KLD-sampling*, derived from *Kullback-Leibler divergence*, is a technique
+that determine the number of particles needed such that the error between the sample
+and true posterior is less than $\epsilon$ [#Thrun2005]. KLD-sampling basically
+control the number of particles based on the difference in odometry and particle
+base location.
 
-Figure <!--\ref{fig:visual_of_amcl_in_rviz}--> shows how KLD-sampling effectively works. Initially when the position is unknown, the particle cloud is large due to the uncertainty in the position
-and orientation of the robot. However, as the robot moves, the particle converges and the particle cloud size reduces as KLD-sampling removes the redundant
-particles and improves computational performance.
+Figure <!--\ref{fig:visual_of_amcl_in_rviz}--> shows how KLD-sampling effectively
+works. Initially when the position is unknown, the particle cloud is large due to
+the uncertainty in the position and orientation of the robot. However, as the robot
+moves, the particle converges and the particle cloud size reduces as KLD-sampling
+removes the redundant particles and improves computational performance.
 
 <!--
 \begin{figure}[H]
@@ -327,11 +424,17 @@ particles and improves computational performance.
 \end{figure}
 -->
 
-After calculating the local and global costmaps, as well as the location of the robot within the given map, the robot must now both plan and execute appropriate trajectories to its destination.
-Two frequent techniques used are the Dynamic Window Approach (DWA) and Trajectory Rollout. Both sample the space of feasible controls. For a differential drive robot, such as Clearpath Robotics’
-Husky and Fetch Robotics’ Fetch, this controls space is 2D and consists of translations and rotational velocities, $\dot{x}, \dot{\theta}$, which are limited by the robot’s capabilities. Each
-sampled velocity is forward simulated from the robot’s current position for a short period of time in order to generate simulated trajectories as shown in Figure <!--\ref{fig:trajectory_rollout_path_planning_framework}-->.
-These simulated trajectories are then scored using the cost function in Equation <!--\ref{eq:trajectory_rollout_cost_function}-->,
+After calculating the local and global costmaps, as well as the location of the
+robot within the given map, the robot must now both plan and execute appropriate
+trajectories to its destination. Two frequent techniques used are the Dynamic Window
+Approach (DWA) and Trajectory Rollout. Both sample the space of feasible controls.
+For a differential drive robot, such as Clearpath Robotics’ Husky and Fetch Robotics’
+Fetch, this controls space is 2D and consists of translations and rotational velocities,
+$\dot{x}, \dot{\theta}$, which are limited by the robot’s capabilities. Each sampled
+velocity is forward simulated from the robot’s current position for a short period
+of time in order to generate simulated trajectories as shown in Figure <!--\ref{fig:trajectory_rollout_path_planning_framework}-->.
+These simulated trajectories are then scored using the cost function in Equation
+<!--\ref{eq:trajectory_rollout_cost_function}-->,
 
 <!--
 \begin{equation}
@@ -340,11 +443,17 @@ C(\textit{k}) = \alpha{} Obs + \beta{} Gdist +\gamma{} Pdist + \delta{} \frac{1}
 \end{equation}
 -->
 
-where *Obs* is the sum of grid cell cost through which the trajectory passes (taking account of the robot's actual footprint in the grid); *Gdist* and *Pdist* are the estimated shortest distance from
-the endpoint of the trajectory to the goal and the optimal path, respectively; and $\dot{x}$ is the translation component of the velocity command that produces the trajectory.
+where *Obs* is the sum of grid cell cost through which the trajectory passes (taking
+account of the robot's actual footprint in the grid); *Gdist* and *Pdist* are the
+estimated shortest distance from the endpoint of the trajectory to the goal and
+the optimal path, respectively; and $\dot{x}$ is the translation component of the
+velocity command that produces the trajectory.
 
-The simulated trajectory that minimizes this cost function is chosen. As a result, chosen trajectories tend to keep obstacles at a distance, proceed towards the goal, remain near the optimal path, as well
-as have higher velocities [#Gerkey2008].  DWA and Trajectory Rollout differ in that Trajectory Rollout samples achievable velocities over the entire forward simulation, while DWA sample only from achievable
+The simulated trajectory that minimizes this cost function is chosen. As a result,
+chosen trajectories tend to keep obstacles at a distance, proceed towards the goal,
+remain near the optimal path, as well as have higher velocities [#Gerkey2008].
+DWA and Trajectory Rollout differ in that Trajectory Rollout samples achievable
+velocities over the entire forward simulation, while DWA sample only from achievable
 velocities for just one simulation step [#BaseLocalPlanner].
 
 <!--
@@ -358,16 +467,30 @@ velocities for just one simulation step [#BaseLocalPlanner].
 
 ## Manipulation Concepts
 
-ROS’s MoveIt! [#MoveIt] is a collection of packages for mobile manipulation, which incorporate the latest advances in motion planning, manipulation, 3-D perception, kinematics, control, and navigation.
-Figure <!--\ref{fig:moveit!'s_system_architecture}--> shows Moveit’s overall system architecture. The move_group node integrates all individual packages together in order to provide the user a set of
-ROS actions and services. The user interface allows the user to interact with the move_group node through the ROS interface by using C++, Python, or RVIZ [#RVIZ], which is ROS’s graphical user interface
-and 3-D visualization tool. ROS’s Parameter Server [#ParamServer] provides the move_group node the robot’s URDF and Semantic Robot Description Format (SRDF) files, as well as Moveit! specific configuration
-files. The SRDF is used to represent information about the robot that is not included in the URDF file, such as a set of links or joints, known collectively as a group, that make up the manipulator,
-predefined group states, and a lists of links between which collision checking should be disabled [#SRDF]. Moveit! configuration files include ones that set joint limits, as well as kinematics, motion
-planning and perception parameters. The SRDF, as well as necessary Moveit! configuration files are setup through Moveit!’s Setup Assistant, which is Moveit!’s graphical user interface for configuring any
-robot for use with Moveit!. The robot interface allows Moveit! to send command to and receive feedback from the robot. Moveit!’s Planning Scene Monitor, which monitors information from the robot’s sensors,
-is used to maintain a planning scene, which represent the world around the robot and stores the state of the robot itself. This information is used by Moveit!’s Flexible Collision Library, as well as the
-motion and kinematic planning plugins to plan and execute obstacle free paths for the manipulator [#MoveItConcepts].
+ROS’s MoveIt! [#MoveIt] is a collection of packages for mobile manipulation, which
+incorporate the latest advances in motion planning, manipulation, 3-D perception,
+kinematics, control, and navigation. Figure <!--\ref{fig:moveit!'s_system_architecture}-->
+shows Moveit’s overall system architecture. The move_group node integrates all individual
+packages together in order to provide the user a set of ROS actions and services.
+The user interface allows the user to interact with the move_group node through
+the ROS interface by using C++, Python, or RVIZ [#RVIZ], which is ROS’s graphical
+user interface and 3-D visualization tool. ROS’s Parameter Server [#ParamServer]
+provides the move_group node the robot’s URDF and Semantic Robot Description Format
+(SRDF) files, as well as Moveit! specific configuration files. The SRDF is used
+to represent information about the robot that is not included in the URDF file,
+such as a set of links or joints, known collectively as a group, that make up the
+manipulator, predefined group states, and a lists of links between which collision
+checking should be disabled [#SRDF]. Moveit! configuration files include ones that
+set joint limits, as well as kinematics, motion planning and perception parameters.
+The SRDF, as well as necessary Moveit! configuration files are setup through Moveit!’s
+Setup Assistant, which is Moveit!’s graphical user interface for configuring any
+robot for use with Moveit!. The robot interface allows Moveit! to send command to
+and receive feedback from the robot. Moveit!’s Planning Scene Monitor, which monitors
+information from the robot’s sensors, is used to maintain a planning scene, which
+represent the world around the robot and stores the state of the robot itself. This
+information is used by Moveit!’s Flexible Collision Library, as well as the motion
+and kinematic planning plugins to plan and execute obstacle free paths for the
+manipulator [#MoveItConcepts].
 
 <!--
 \begin{figure}[H]
@@ -378,11 +501,17 @@ motion and kinematic planning plugins to plan and execute obstacle free paths fo
 \end{figure}
 -->
 
-Moveit! allows the user to plan trajectories either in joint space, forward kinematic (FK), or Cartesian space, inverse kinematics (IK). Forward kinematics uses the manipulator’s kinematic equations to compute
-the positon of the end-effector given specific predetermined joint angles [#FK]. Whereas, inverse kinematics uses the manipulator’s kinematic equation to determine the joint angles necessary for the end-effector
-to arrive at the desired position [#IK]. Figure <!--\ref{fig:forward_and_inverse_kinematics_example}--> illustrated the difference between forward and inverse kinematics. In most cases, including the multistage
-localization approach presented in this paper, the target joint angles are not known ahead of time. As a result, a target pose is specified for the manipulator’s end-effector in Cartesian space and Moveit!’s IK
-solver will determine the appropriate joint angles to reach the desired pose [#Goebel2015].
+Moveit! allows the user to plan trajectories either in joint space, forward kinematic (FK),
+or Cartesian space, inverse kinematics (IK). Forward kinematics uses the manipulator’s
+kinematic equations to compute the positon of the end-effector given specific predetermined
+joint angles [#FK]. Whereas, inverse kinematics uses the manipulator’s kinematic
+equation to determine the joint angles necessary for the end-effector to arrive at
+the desired position [#IK]. Figure <!--\ref{fig:forward_and_inverse_kinematics_example}-->
+illustrated the difference between forward and inverse kinematics. In most cases,
+including the multistage localization approach presented in this paper, the target
+joint angles are not known ahead of time. As a result, a target pose is specified
+for the manipulator’s end-effector in Cartesian space and Moveit!’s IK solver will
+determine the appropriate joint angles to reach the desired pose [#Goebel2015].
 
 <!--
 \begin{figure}[H]
@@ -393,28 +522,49 @@ solver will determine the appropriate joint angles to reach the desired pose [#G
 \end{figure}
 -->
 
-There are two main approaches for solving IK problems: numerical and analytical (close form) solutions. Due to the recursive nature of numerical solvers, they tend to be slower than that of analytical solvers
-and are prone to get trapped in local minima [#Asadi2015]. However, analytical solvers require that a separate kinematic solver be created for each manipulator and manipulator configuration. In order to ensure
-cross platform functionality with minimum overhead, only available numerical kinematic solvers were examined. However, OpenRAVE (Open Robotics Automation Virtual Environment ) [#Diankov2008], which is software
-for simulating and deploying planning algorithm, does provided a tool called IKFast [#IKFast], which allows users to generate custom analytical kinematic solver, which can produce solution on the order of
-approximately four microseconds. Table <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}--> shows three common ROS Moveit! numerical kinematic solvers implementations, Orocos
-KDL [#KDL], as well as the TRACLab’s [#TRACLab] KDL-RR and TRAC_IK [#TracIK]. Orocos Kinematics and Dynamics Library (KDL) is a joint-limit-constrained pseudoinverse Jacobian solver, whose convergence algorithms
-are based on Newton’s method. However, KDL suffers from the following issues, which results in the high failure rates and slow average speed seen in Table
-<!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->.
+There are two main approaches for solving IK problems: numerical and analytical
+(close form) solutions. Due to the recursive nature of numerical solvers, they
+tend to be slower than that of analytical solvers and are prone to get trapped
+in local minima [#Asadi2015]. However, analytical solvers require that a separate
+kinematic solver be created for each manipulator and manipulator configuration.
+In order to ensure cross platform functionality with minimum overhead, only available
+numerical kinematic solvers were examined. However, OpenRAVE (Open Robotics Automation
+Virtual Environment ) [#Diankov2008], which is software for simulating and deploying
+planning algorithm, does provided a tool called IKFast [#IKFast], which allows users
+to generate custom analytical kinematic solver, which can produce solution on the order of
+approximately four microseconds. Table <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->
+shows three common ROS Moveit! numerical kinematic solvers implementations, Orocos
+KDL [#KDL], as well as the TRACLab’s [#TRACLab] KDL-RR and TRAC_IK [#TracIK]. Orocos
+Kinematics and Dynamics Library (KDL) is a joint-limit-constrained pseudoinverse
+Jacobian solver, whose convergence algorithms are based on Newton’s method. However,
+KDL suffers from the following issues, which results in the high failure rates and
+slow average speed seen in Table <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->.
 
 1. Frequent convergence failures due to manipulators with joint limits
 2. No action is taken when the search gets trapped in a local minima
 3. Lack of tolerance support and/or utilization in the solver itself
 
-The TRACLab’s KDL-RR kinematic solver implementation attempts to solve issues two and three by altering Orocos’s KDL implementation to detect and “untick” the iterative convergence algorithms, as well as to loop
-for a maximum time versus a maximum number of iteration. KDL-RR is able to detect local minima by monitoring when the difference between joint angles across iterations become approximately zero. When this situation
-occurs, random seed angles are introduced, which “unstick” the convergence algorithms. In addition, KDL-RR loops for maximum time versus maximum iteration due to the fact that the maximum number of iteration is an
-arbitrary number, while maximum time can be computed based on the size and complexity of the each manipulator. In addition, using maximum time makes comparing implementations easier. Table
-<!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}--> shows that KDL-RR had a dramatic increase in solve rate percentage, as well as a modest decrease in runtime compared to KDL.
-However, KDL-RR’s doesn’t solve issue one. Consequently, the failure rate is still unacceptably high. TRACLab TRAC-IK kinematic solver attempts to solve issue one by using two separate IK solvers concurrently.
-It uses KLD-RR, as well as a sequential quadratic programming (SQP) IK implementation, which is an iterative algorithm for nonlinear optimization. The SQP implementation, which incorporates the same local minimum
-detection, is able to deal with issue one. However, SQP can have a much longer solve rate than KDL or KDL-RR. As a result, TRAC-IK implements both of these IK method concurrently and waits for either to converge.
-As a result, the solve rate range between 99.1% and 99.9 % and the average convergence times are well below one millisecond [#Beeson2015].
+The TRACLab’s KDL-RR kinematic solver implementation attempts to solve issues two
+and three by altering Orocos’s KDL implementation to detect and “untick” the iterative
+convergence algorithms, as well as to loop for a maximum time versus a maximum number
+of iteration. KDL-RR is able to detect local minima by monitoring when the difference
+between joint angles across iterations become approximately zero. When this situation
+occurs, random seed angles are introduced, which “unstick” the convergence algorithms.
+In addition, KDL-RR loops for maximum time versus maximum iteration due to the fact
+that the maximum number of iteration is an arbitrary number, while maximum time
+can be computed based on the size and complexity of the each manipulator. In addition,
+using maximum time makes comparing implementations easier. Table <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->
+shows that KDL-RR had a dramatic increase in solve rate percentage, as well as a
+modest decrease in runtime compared to KDL. However, KDL-RR’s doesn’t solve issue
+one. Consequently, the failure rate is still unacceptably high. TRACLab TRAC-IK
+kinematic solver attempts to solve issue one by using two separate IK solvers concurrently.
+It uses KLD-RR, as well as a sequential quadratic programming (SQP) IK implementation,
+which is an iterative algorithm for nonlinear optimization. The SQP implementation,
+which incorporates the same local minimum detection, is able to deal with issue one.
+However, SQP can have a much longer solve rate than KDL or KDL-RR. As a result,
+TRAC-IK implements both of these IK method concurrently and waits for either to
+converge. As a result, the solve rate range between 99.1% and 99.9 % and the average
+convergence times are well below one millisecond [#Beeson2015].
 
 
 <!--
@@ -451,27 +601,50 @@ NASA Valkyrie Arm                  & 7                     & 45.18              
 
 ## Task Execution Concepts
 
-It is relatively straightforward to program a robot to execute an individual action. However, programming a fully autonomous robot that will be expected to select which individual action it will
-perform depending upon the task at hand and the current conditions isn’t so straight forward. The task execution system must be able to rank tasks by priority, break down tasks into subtasks,
-execute tasks in parallel, monitor conditions and react according, as well as pause and resume tasks at a later if necessary [#Goebel2015]. A commonly used construct to achieve the aforementioned
+It is relatively straightforward to program a robot to execute an individual action.
+However, programming a fully autonomous robot that will be expected to select which
+individual action it will perform depending upon the task at hand and the current
+conditions isn’t so straight forward. The task execution system must be able to
+rank tasks by priority, break down tasks into subtasks, execute tasks in parallel,
+monitor conditions and react according, as well as pause and resume tasks at a later
+if necessary [#Goebel2015]. A commonly used construct to achieve the aforementioned
 requirements is a hierarchical state machine.
 
-Finite state machines are used to model control and sequences in a system [#Gomaa2016]. In a state machine, the robot occupies one state, which has set behaviors or tasks associated with it. As
-long as the robot remains in that states, it will continue to carry out the same behavior or tasks. States are connected together by transitions. When certain predefined conditions are met, a
-transition is triggered and the system changes from its current state to the target state. State machines are a powerful tool; however, it can be difficult to express some behaviors, such as
-“alarm behaviors”. Image an autonomous industrial mobile manipulator (AIMM) that is responsible for drilling specific patterns on different sections of plane wings. This can be easily implemented
-using a normal state machine. The AIMM will need to navigate to the specific starting location of each wing, determine the appropriate drill locations based on the associated pattern, and finally
-carry out the individual drilling operations. This can be easily implemented using a normal state machine. Unfortunately, the AIMM’s battery does not provide power indefinitely. When the AIMM’s
-power level drops to a certain level, it will need to stop and navigate to the nearest charging location to be recharged, regardless of what it is doing at the time. When it is fully recharged,
-it will need to pick up exactly where it left off. The recharging periods is an alarm mechanics: something that interrupts normal behavior to respond to something important. Representing this in
-a state machine leads to a doubling the number of states. With only one level of “alarm behaviors’, this is no problem; however, if we add levels of “alarm behaviors”, the number of states will
-increase exponentially. So, rather than combining all the logic into a single state machine, the logic can be separated it into several. Each alarm mechanism should have its own state machine,
-along with the original behavior. These individual state machines are arrange into a hierarchy, so the next state machine down is only considered when the higher level state machine is not responding
-to its alarm. The nesting of states machines inside another makes what is called a hierarchical state machine [#Millington2016].
+Finite state machines are used to model control and sequences in a system [#Gomaa2016].
+In a state machine, the robot occupies one state, which has set behaviors or tasks
+associated with it. As long as the robot remains in that states, it will continue
+to carry out the same behavior or tasks. States are connected together by transitions.
+When certain predefined conditions are met, a transition is triggered and the system
+changes from its current state to the target state. State machines are a powerful
+tool; however, it can be difficult to express some behaviors, such as “alarm behaviors”.
+Image an autonomous industrial mobile manipulator (AIMM) that is responsible for
+drilling specific patterns on different sections of plane wings. This can be easily
+implemented using a normal state machine. The AIMM will need to navigate to the
+specific starting location of each wing, determine the appropriate drill locations
+based on the associated pattern, and finally carry out the individual drilling operations.
+This can be easily implemented using a normal state machine. Unfortunately, the AIMM’s
+battery does not provide power indefinitely. When the AIMM’s power level drops to
+a certain level, it will need to stop and navigate to the nearest charging location
+to be recharged, regardless of what it is doing at the time. When it is fully recharged,
+it will need to pick up exactly where it left off. The recharging periods is an
+alarm mechanics: something that interrupts normal behavior to respond to something
+important. Representing this in a state machine leads to a doubling the number of
+states. With only one level of “alarm behaviors’, this is no problem; however, if
+we add levels of “alarm behaviors”, the number of states will increase exponentially.
+So, rather than combining all the logic into a single state machine, the logic can
+be separated it into several. Each alarm mechanism should have its own state machine,
+along with the original behavior. These individual state machines are arrange into
+a hierarchy, so the next state machine down is only considered when the higher level
+state machine is not responding to its alarm. The nesting of states machines inside
+another makes what is called a hierarchical state machine [#Millington2016].
 
-ROS’s SMACH [#SMACH] package includes a standalone python library for programming hierarchical state machines, as well as a ROS wrapper for integrating the library with ROS topics, services, and actions.
-Figure <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}--> shows a graphical view of a hierarchical state machine set up using SMACH. This hierarchical state machine
-simulates a robot performing tasks such as drilling and sealing in a manufacturing environment while having the option to change its tool or recharge if necessary.
+ROS’s SMACH [#SMACH] package includes a standalone python library for programming
+hierarchical state machines, as well as a ROS wrapper for integrating the library
+with ROS topics, services, and actions. Figure <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->
+shows a graphical view of a hierarchical state machine set up using SMACH. This
+hierarchical state machine simulates a robot performing tasks such as drilling and
+sealing in a manufacturing environment while having the option to change its tool
+or recharge if necessary.
 
 <!--
 \begin{figure}[H]
@@ -484,7 +657,9 @@ simulates a robot performing tasks such as drilling and sealing in a manufacturi
 
 ## Camera Concepts
 
-An image is the optical representation of an object illuminated by a radiating source. Figure <!--\ref{fig:photmetric_image_formation}--> shows a simplified model of how photometric images are formed.
+An image is the optical representation of an object illuminated by a radiating source.
+Figure <!--\ref{fig:photmetric_image_formation}--> shows a simplified model of how
+photometric images are formed.
 
 <!--
 \begin{figure}[H]
@@ -495,8 +670,10 @@ An image is the optical representation of an object illuminated by a radiating s
 \end{figure}
 -->
 
-Visible light is emitted by one or more sources, which is then reflected off an object’s surface. This reflected light, is the optical image which is the input of a digital image formation systems [#Pitas2000],
-such as a digital camera, depicted in Figure <!--\ref{fig:digital_camera_diagram}-->.
+Visible light is emitted by one or more sources, which is then reflected off an
+object’s surface. This reflected light, is the optical image which is the input
+of a digital image formation systems [#Pitas2000], such as a digital camera, depicted
+in Figure <!--\ref{fig:digital_camera_diagram}-->.
 
 <!--
 \begin{figure}[H]
@@ -507,16 +684,27 @@ such as a digital camera, depicted in Figure <!--\ref{fig:digital_camera_diagram
 \end{figure}
 -->
 
-The light passes through a convex lens which focuses all of the rays through the optical center point of the lens and onto a silicon sensor. This sensor, also referred to as the sensor plane, is essentially
-a 2-D array, which consists of thousands to millions of solar cells that convert the light into electrons. The accumulated charge of each cell is transmitted to an onboard computer which digitizes this
-information; so that, a computer can render the digital image of the world [#HowDigitalCamerasWork]. Since the sensor plane is vertically rotated $180^{\circ}$, due to the principle of the pinhole camera model
-[#Hartley2004], the image plane is introduced for mathematically convenience. The image plane, also known as the focal plane, is a virtual plane that is located in front of the optical center of the camera lens
-and is equivalent to the sensor plane, in that it represents a projection of the world that is mapped onto a plane. In addition, it accounts for the rotation of the image in the sensor plane.
+The light passes through a convex lens which focuses all of the rays through the
+optical center point of the lens and onto a silicon sensor. This sensor, also referred
+to as the sensor plane, is essentially a 2-D array, which consists of thousands
+to millions of solar cells that convert the light into electrons. The accumulated
+charge of each cell is transmitted to an onboard computer which digitizes this
+information; so that, a computer can render the digital image of the world [#HowDigitalCamerasWork].
+Since the sensor plane is vertically rotated $180^{\circ}$, due to the principle
+of the pinhole camera model [#Hartley2004], the image plane is introduced for mathematically
+convenience. The image plane, also known as the focal plane, is a virtual plane
+that is located in front of the optical center of the camera lens and is equivalent
+to the sensor plane, in that it represents a projection of the world that is mapped
+onto a plane. In addition, it accounts for the rotation of the image in the sensor
+plane.
 
-In order for the multistage localization technique presented in this paper to achieve the desired accuracy, a digital RGB camera with the appropriate sensor size, resolution, focal length, frame rate,
-and shutter type must be chosen. The focal length, which is the distance between the optical center point of the camera lens to the image plane [#Jacobs2012], and sensor size of the RGB camera are used
-to determine both the angular horizontal and vertical field of view (FOV), which can be calculated using Equations <!--\ref{eq:angular_horizontal_field_of_view}--> and
-<!--\ref{eq:angular_vertical_field_of_view}--> respectively,
+In order for the multistage localization technique presented in this paper to achieve
+the desired accuracy, a digital RGB camera with the appropriate sensor size, resolution,
+focal length, frame rate, and shutter type must be chosen. The focal length, which
+is the distance between the optical center point of the camera lens to the image
+plane [#Jacobs2012], and sensor size of the RGB camera are used to determine both
+the angular horizontal and vertical field of view (FOV), which can be calculated
+using Equations <!--\ref{eq:angular_horizontal_field_of_view}--> and <!--\ref{eq:angular_vertical_field_of_view}--> respectively,
 
 <!--
 \begin{equation}
@@ -532,8 +720,9 @@ VFOV_{angular} = 2\tan^{-1}(\frac{h_{s}}{2f})
 \end{equation}
 -->
 
-where $w_{s}$ and $h_{s}$ are the weight and heights of the sensor, and $f$ is the focal length. These angular FOVs can be converted from angular to distance measurements, using Equations
-<!--\ref{eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:distance_vertical_field_of_view}-->,
+where $w_{s}$ and $h_{s}$ are the weight and heights of the sensor, and $f$ is the
+focal length. These angular FOVs can be converted from angular to distance measurements,
+using Equations <!--\ref{eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:distance_vertical_field_of_view}-->,
 
 <!--
 \begin{equation}
@@ -549,11 +738,15 @@ VFOV_{distance} = 2d\tan(\frac{VFOV_{angular}}{2})
 \end{equation}
 -->
 
-where $d$ is distance from camera to work surface. In addition, Equations <!--\ref{eq:horizontal_ground_sample_distance}--> and <!--\ref{eq:vertical_ground_sample_distance}-->, where
-$r_{h}$ and $r_{v}$ is horizontal and vertical resolution respectively, can be used to calculate the horizontal and vertical ground sample distance (GSD). GSD is the distance
-between two consecutive pixels centers. Whereas, spatial resolution is the area of each pixels, which is a function of the horizontal and vertical GSD [#Schowengerdt2012]. The ground sample
-distance is the highest accuracy a localization system can achieve. Figure <!--\ref{fig:ground_sample_distance_effects_on_image_quality}--> shows the effect that GSD can have on the detail
-of an image and consequently the accuracy of a localization system.
+where $d$ is distance from camera to work surface. In addition, Equations <!--\ref{eq:horizontal_ground_sample_distance}-->
+and <!--\ref{eq:vertical_ground_sample_distance}-->, where $r_{h}$ and $r_{v}$ is
+horizontal and vertical resolution respectively, can be used to calculate the horizontal
+and vertical ground sample distance (GSD). GSD is the distance between two consecutive
+pixels centers. Whereas, spatial resolution is the area of each pixels, which is
+a function of the horizontal and vertical GSD [#Schowengerdt2012]. The ground sample
+distance is the highest accuracy a localization system can achieve. Figure <!--\ref{fig:ground_sample_distance_effects_on_image_quality}-->
+shows the effect that GSD can have on the detail of an image and consequently the
+accuracy of a localization system.
 
 <!--
 \begin{equation}
@@ -578,12 +771,17 @@ VGSD = \frac{h_{s}d}{f*r_{v}}
 \end{figure}
 -->
 
-Equations <!--\ref{eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:vertical_ground_sample_distance}-->, all depend on $d$, the distance from the work surface. Knowing the desired accuracy,
-as well as horizontal and vertical FOV of a certain application, an appropriate $d$ can be calculated by rearranging the equations above.
+Equations <!--\ref{eq:distance_horizontal_field_of_view}--> and <!--\ref{eq:vertical_ground_sample_distance}-->,
+all depend on $d$, the distance from the work surface. Knowing the desired accuracy,
+as well as horizontal and vertical FOV of a certain application, an appropriate $d$
+can be calculated by rearranging the equations above.
 
-In order for the localization technique to be able to update in real time, even as the systems moves, two additional camera features much be considered, frame rate and shutter type. An appropriate
-frame rate is necessary to ensure an adequate image overlap; so that, features points can be tracked using optical flow, which will be discussed in Section 3.7.7, instead of having to redetect the
-feature each frame. The required frame rate can be calculated using Equation <!--\ref{eq:required_frame_rate}-->,
+In order for the localization technique to be able to update in real time, even
+as the systems moves, two additional camera features much be considered, frame rate
+and shutter type. An appropriate frame rate is necessary to ensure an adequate image
+overlap; so that, features points can be tracked using optical flow, which will
+be discussed in Section 3.7.7, instead of having to redetect the feature each frame.
+The required frame rate can be calculated using Equation <!--\ref{eq:required_frame_rate}-->,
 
 <!--
 \begin{equation}
@@ -592,8 +790,12 @@ FR = \frac{v}{FOV_{distance}(1-o)}
 \end{equation}
 -->
 
-where $v$ is velocity and $o$ is percent overlap. However, due to the fact that while localizing the system may move in both the horizontal and vertical planes, Equation <!--\ref{eq:required_frame_rate_both_planes}-->,
-where $v_{h}$ and $v_{v}$ are horizontal and vertical velocity respectively and $o_{h}$ is horizontal percent overlap, while $o_{v}$ is vertical percent overlap, should be used to ensure an adequate frame rate in both planes [#Smith2016].
+where $v$ is velocity and $o$ is percent overlap. However, due to the fact that
+while localizing the system may move in both the horizontal and vertical planes,
+Equation <!--\ref{eq:required_frame_rate_both_planes}-->, where $v_{h}$ and $v_{v}$
+are horizontal and vertical velocity respectively and $o_{h}$ is horizontal percent
+overlap, while $o_{v}$ is vertical percent overlap, should be used to ensure an
+adequate frame rate in both planes [#Smith2016].
 
 <!--
 \begin{equation}
@@ -602,9 +804,13 @@ FR = \sqrt[]{\frac{v_{h}}{HFOV_{distance}(1-o_{h})}+\frac{v_{v}}{VFOV_{distance}
 \end{equation}
 -->
 
-There are two types of camera shutters, rolling shutter (RS), in which the horizontal rows of the sensor array are scanned at different time, and global shutter (GS), in which all pixel are exposed at the same time.
-Due to the RS not exposing all pixels simultaneously, they are susceptible to motion blur [#Fleet2014] as seen in Figure <!--\ref{fig:shutter_type_effects_on_image_quality}-->. Consequently, in order to ensure
-features are not lost between frames as the system move, a digital RGB camera with a GS is needed.
+There are two types of camera shutters, rolling shutter (RS), in which the horizontal
+rows of the sensor array are scanned at different time, and global shutter (GS),
+in which all pixel are exposed at the same time. Due to the RS not exposing all
+pixels simultaneously, they are susceptible to motion blur [#Fleet2014] as seen
+in Figure <!--\ref{fig:shutter_type_effects_on_image_quality}-->. Consequently,
+in order to ensure features are not lost between frames as the system move, a digital
+RGB camera with a GS is needed.
 
 <!--
 \begin{figure}[H]
@@ -618,22 +824,34 @@ features are not lost between frames as the system move, a digital RGB camera wi
 
 ## Computer Vision Concepts
 
-The purpose of this subsection is to briefly explain all the computer vision concepts needed to understand the multistage localization approach presented in the subsequent chapters. The following subsections will
-explain the basic concepts and rational behind the use of certain color spaces, filters, and binary operations. In addition, Canny Edge Detection, Hough Circle Detection, Good Features to Track, and Optical Flow,
-as well as Augmented Reality tag detection and pose estimation will be expounded upon.
+The purpose of this subsection is to briefly explain all the computer vision concepts
+needed to understand the multistage localization approach presented in the subsequent
+chapters. The following subsections will explain the basic concepts and rational
+behind the use of certain color spaces, filters, and binary operations. In addition,
+Canny Edge Detection, Hough Circle Detection, Good Features to Track, and Optical
+Flow, as well as Augmented Reality tag detection and pose estimation will be expounded
+upon.
 
 ### Color Spaces
 
-While the RGB color space is the primary color space used to describe spectral content of color signals, a variety of other representations have been developed
-[#Szeliski2010]. Each color space has unique advantages and disadvantages that must be considered before using a specific color space for a given application.
-The two color spaces used in the multistage localization approach presented in this paper are the RGB and the HSV color spaces, depicted in Figure
-<!--\ref{fig:RGB_and_HSV_color_space_models}-->. The RGB color space is an additive color space based on the RGB color model, in which red, green, and blue
-light is added together to produce any color that is the triangle defined by those three primary colors [#RGBColorSpace], [#RGBColorModel]. The HSV color space,
-which was developed by Alvy Ray Smith in 1978, is a cylindrical-coordinate representations of points in the RGB color model [#HSVColorSpace]. In some situations,
-such as color picking, the HSV model is more intuitive, as it mirror traditional color mixing methods [#Smith1978]. HSV stands for hue, saturation, and value.
-Hue represent angular position on the color wheel, where red starts at $0^{\circ}$, green at $120^{\circ}$, and blue at $240^{\circ}$. Saturation, or distance from the center axis, indicates
-the amount of grey in a color, where 0 is the color grey and 1 is the primary color. Value, or distance along the center axis, represent the brightness of a color,
-where 0 is black and 1 is white [#HSVColorSpace].
+While the RGB color space is the primary color space used to describe spectral content
+of color signals, a variety of other representations have been developed [#Szeliski2010].
+Each color space has unique advantages and disadvantages that must be considered
+before using a specific color space for a given application. The two color spaces
+used in the multistage localization approach presented in this paper are the RGB
+and the HSV color spaces, depicted in Figure <!--\ref{fig:RGB_and_HSV_color_space_models}-->.
+The RGB color space is an additive color space based on the RGB color model, in
+which red, green, and blue light is added together to produce any color that is
+the triangle defined by those three primary colors [#RGBColorSpace], [#RGBColorModel].
+The HSV color space, which was developed by Alvy Ray Smith in 1978, is a cylindrical-coordinate
+representations of points in the RGB color model [#HSVColorSpace]. In some situations,
+such as color picking, the HSV model is more intuitive, as it mirror traditional
+color mixing methods [#Smith1978]. HSV stands for hue, saturation, and value. Hue
+represent angular position on the color wheel, where red starts at $0^{\circ}$,
+green at $120^{\circ}$, and blue at $240^{\circ}$. Saturation, or distance from
+the center axis, indicates the amount of grey in a color, where 0 is the color grey
+and 1 is the primary color. Value, or distance along the center axis, represent
+the brightness of a color, where 0 is black and 1 is white [#HSVColorSpace].
 
 <!--
 \begin{figure}[H]
@@ -646,15 +864,26 @@ where 0 is black and 1 is white [#HSVColorSpace].
 
 ### Linear and Non-Linear Filters
 
-Images are often corrupted by random variations in intensity, illumination, as well poor contrast that must be dealt with in the early stages of image processing [#Jain1995] before higher
-level computer vision techniques, such as feature detection and tracking, can be reliably used. Random variations in intensity of an image is called noise. Common types of image noise include
-salt and pepper, impulse, and Gaussian noise. While salt and pepper noise is the random occurrence of both black and white pixels, impulse noise is merely the random occurrence of white pixels.
-Gaussian noise on the other hand contains variation in intensities drawn from a Gaussian distribution, which can be used to model many kinds of sensor noise [#Parikh2015]. In most cases,
-convolving an image with a linear low-pass filter, a filter which replaces each pixel value with the weighted sum of all pixel values in its neighborhood, or a spatially invariant non-linear
-filter, which does not use a weighted sum but rather preforms the same operation at each pixel, is able to remove these types of noise. Figure <!--\ref{fig:common_filters}--> shows that a
-Gaussian filter is apt at removing noise drawn from a Gaussian distribution, such as white noise. While a median filter, which replaces each pixel with the median value in its neighborhood,
-is suitable for removing salt and pepper, as well as impulse noise. In addition to removing noise, filters can be used to enhance an image, such as sharpen it as seen in Figure <!--\ref{fig:common_filters}-->,
-extract information, like edges and texture, as well as detect patterns through template matching [#Parikh2015].
+Images are often corrupted by random variations in intensity, illumination, as well
+poor contrast that must be dealt with in the early stages of image processing [#Jain1995]
+before higher level computer vision techniques, such as feature detection and tracking,
+can be reliably used. Random variations in intensity of an image is called noise.
+Common types of image noise include salt and pepper, impulse, and Gaussian noise.
+While salt and pepper noise is the random occurrence of both black and white pixels,
+impulse noise is merely the random occurrence of white pixels. Gaussian noise on
+the other hand contains variation in intensities drawn from a Gaussian distribution,
+which can be used to model many kinds of sensor noise [#Parikh2015]. In most cases,
+convolving an image with a linear low-pass filter, a filter which replaces each
+pixel value with the weighted sum of all pixel values in its neighborhood, or a
+spatially invariant non-linear filter, which does not use a weighted sum but rather
+preforms the same operation at each pixel, is able to remove these types of noise.
+Figure <!--\ref{fig:common_filters}--> shows that a Gaussian filter is apt at removing
+noise drawn from a Gaussian distribution, such as white noise. While a median filter,
+which replaces each pixel with the median value in its neighborhood, is suitable
+for removing salt and pepper, as well as impulse noise. In addition to removing
+noise, filters can be used to enhance an image, such as sharpen it as seen in Figure
+<!--\ref{fig:common_filters}-->, extract information, like edges and texture, as
+well as detect patterns through template matching [#Parikh2015].
 
 <!--
 \begin{figure}[H]
@@ -667,15 +896,26 @@ extract information, like edges and texture, as well as detect patterns through 
 
 ### Morphological Operations
 
-In addition, to enhancing images, non-linear filters are also used extensively to process binary images [#Szeliski2010]. A binary image is an image with only two possible values for each
-pixel, typically black, background pixels with a value of 0, and white, foreground pixels with a value of 1. Binary images often result after operations such as segmentation, thresholding,
-and dithering [#BinaryImage]. The most common binary image operations are called morphological operations, since they change the shape of the underlying binary objects [#Szeliski2010].
-Whether or not a given foreground or background pixel value changes depend on the image, as well as the morphological operations and the structuring element chosen. The structuring element
-is a rectangular array of pixels, which contain values of either 1 or 0. When the structuring element is centered on the pixel under consideration, that pixel’s neighborhood is determined
-by the pixels in the structuring element that have a value of 1 [#Solomon2011]. The two fundamental morphological operations are dilation, which thickens foreground pixels, and erosion,
-which thins foreground pixels. These two operations can be applied in different combinations in order to obtain more sophisticated operations, such as closing, dilation then erosion, and
-opening, erosion then dilation [#Wilson2000]. The morphological operations, depicted in Figure <!--\ref{fig:common_binary_operations}-->, are typically used to clean up binary images;
-so that, higher level computer vision techniques can be used robustly [#Szeliski2010].
+In addition, to enhancing images, non-linear filters are also used extensively to
+process binary images [#Szeliski2010]. A binary image is an image with only two
+possible values for each pixel, typically black, background pixels with a value
+of 0, and white, foreground pixels with a value of 1. Binary images often result
+after operations such as segmentation, thresholding, and dithering [#BinaryImage].
+The most common binary image operations are called morphological operations, since
+they change the shape of the underlying binary objects [#Szeliski2010]. Whether
+or not a given foreground or background pixel value changes depend on the image,
+as well as the morphological operations and the structuring element chosen. The
+structuring element is a rectangular array of pixels, which contain values of either
+1 or 0. When the structuring element is centered on the pixel under consideration,
+that pixel’s neighborhood is determined by the pixels in the structuring element
+that have a value of 1 [#Solomon2011]. The two fundamental morphological operations
+are dilation, which thickens foreground pixels, and erosion, which thins foreground
+pixels. These two operations can be applied in different combinations in order to
+obtain more sophisticated operations, such as closing, dilation then erosion, and
+opening, erosion then dilation [#Wilson2000]. The morphological operations, depicted
+in Figure <!--\ref{fig:common_binary_operations}-->, are typically used to clean
+up binary images; so that, higher level computer vision techniques can be used robustly
+[#Szeliski2010].
 
 <!--
 \begin{figure}[H]
@@ -940,24 +1180,46 @@ Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tr
 
 ### Pose Estimation and Tracking Through Augmented Reality Tag Detection
 
-AR tags, which are also known as fiducial markers, are artificial landmarks which are designed to be easy to detect and identify under most circumstances [#Olson2011]. Consequently, the detection
-method much be robust to changes in luminance (brightness), chrominance (color), and resolution, as well as be scale and rotationally invariant. Once detected and identified, AR tags can be used to
-accurately calculate the pose (location and orientation) of a camera, as well as to encode information or associate it with each tag’s specific identity [#Sanni2012]. Using AR tag to calculate the
-relative pose of a camera in real-time is called marker-based tracking. Several straightforward and robust maker-based tracking toolkits exists, such as ARToolKit [#ARToolKit], ALVAR [#ALVAR], and
-AprilTags [#Olson2011]. The multistage localization approach presented in this paper will use a ROS implementation of ALVAR [#ARTrackAlvar] to both calculate the pose of an AR tag in the camera’s
-frame and associate information with that tag’s specific identity.
+AR tags, which are also known as fiducial markers, are artificial landmarks which
+are designed to be easy to detect and identify under most circumstances [#Olson2011].
+Consequently, the detection method much be robust to changes in luminance (brightness),
+chrominance (color), and resolution, as well as be scale and rotationally invariant.
+Once detected and identified, AR tags can be used to accurately calculate the pose
+(location and orientation) of a camera, as well as to encode information or associate
+it with each tag’s specific identity [#Sanni2012]. Using AR tag to calculate the
+relative pose of a camera in real-time is called marker-based tracking. Several
+straightforward and robust maker-based tracking toolkits exists, such as ARToolKit
+[#ARToolKit], ALVAR [#ALVAR], and AprilTags [#Olson2011]. The multistage localization
+approach presented in this paper will use a ROS implementation of ALVAR [#ARTrackAlvar]
+to both calculate the pose of an AR tag in the camera’s frame and associate information
+with that tag’s specific identity.
 
-Figure <!--\ref{fig:summary_of_alvar_ar_tag_detection_framework}--> shows ALVAR’s marker-based tracking framework. The system first acquires a greyscale image, either directly or through conversion
-from another image format. After which, adaptive thresholding, which can handle local changes in luminance, is used to create a binary image. A binary image consists of a background, black pixels,
-and objects, sections of white pixels. Subsequently, the contours of each object are found. Due to the fact that AR systems, like ALVAR, aim for real-time processing and fast performance, time cannot
-be wasted processing non-markers. As a result, fast acceptance/rejection tests are run. ALVAR uses two fast accept/reject tests including size and the four-corner test. The number of pixels in an
-object’s perimeter can be efficiently used to estimate the object’s area. Objects with areas that are either too large or too small can be rejected. Even if an object, whose area is too small, is a
-marker, it is too far from the camera to either be correctly identified or the pose of the camera accurately calculated. Objects, whose area is too large, can be rejected given some background knowledge
-about the upper and lower range of the camera from the marker, as well as the marker’s size. The contours of all remaining markers are fitted with lines. A quadrilateral has exactly four straight lines
-and four corners. The number of lines and corners of each object are calculated. Those that fail the four-corner test are dropped. After determining that an object is a marker, it is identified and the
-corner locations are optimized to sub-pixel accuracy for further calculations. Even small errors in the detected 2-D locations of edges and corners can significantly affect the calculated pose of the
-camera [#Sanni2012]. The pose of a calibrated camera can be uniquely determined from a minimum of four coplanar but non-collinear points [#Hartley2004]. Thus, the system can calculated a marker’s pose (relative to camera)
-in 3-D coordinates using the four corner points of the marker in image coordinates.
+Figure <!--\ref{fig:summary_of_alvar_ar_tag_detection_framework}--> shows ALVAR’s
+marker-based tracking framework. The system first acquires a greyscale image, either
+directly or through conversion from another image format. After which, adaptive
+thresholding, which can handle local changes in luminance, is used to create a binary
+image. A binary image consists of a background, black pixels, and objects, sections
+of white pixels. Subsequently, the contours of each object are found. Due to the
+fact that AR systems, like ALVAR, aim for real-time processing and fast performance,
+time cannot be wasted processing non-markers. As a result, fast acceptance/rejection
+tests are run. ALVAR uses two fast accept/reject tests including size and the four-corner
+test. The number of pixels in an object’s perimeter can be efficiently used to estimate
+the object’s area. Objects with areas that are either too large or too small can
+be rejected. Even if an object, whose area is too small, is a marker, it is too
+far from the camera to either be correctly identified or the pose of the camera
+accurately calculated. Objects, whose area is too large, can be rejected given some
+background knowledge about the upper and lower range of the camera from the marker,
+as well as the marker’s size. The contours of all remaining markers are fitted with
+lines. A quadrilateral has exactly four straight lines and four corners. The number
+of lines and corners of each object are calculated. Those that fail the four-corner
+test are dropped. After determining that an object is a marker, it is identified
+and the corner locations are optimized to sub-pixel accuracy for further calculations.
+Even small errors in the detected 2-D locations of edges and corners can significantly
+affect the calculated pose of the camera [#Sanni2012]. The pose of a calibrated
+camera can be uniquely determined from a minimum of four coplanar but non-collinear
+points [#Hartley2004]. Thus, the system can calculated a marker’s pose (relative
+to camera) in 3-D coordinates using the four corner points of the marker in image
+coordinates.
 
 
 <!--
@@ -1122,20 +1384,23 @@ localization framework.
 \end{figure}
 -->
 
-## Motion Planning and the Feature Correction Framework
+## Motion Planning
 
-The manipulator’s motion planning is done through ROS’s Moveit! package [#MoveIt],
-which was set up to use TRACLabs numerical inverse kinematic (IK) solver, TRAC_IK
-[#TracIK]. Due to the recursive nature of numerical solvers, they tend to be slower
-than that of analytical solvers and are prone to get trapped in local minima. However,
-analytical solvers require a separate kinematic solver be created for each manipulator
-and manipulator configuration. Consequently, in order to ensure cross platform functionality
-with minimum overhead, numerical solvers were used. Orocos Kinematics and Dynamics
-Library (KDL) [#KDL], Moveit! default numerical solver, as well as arguably the
-most widely-used generic numerical solver worldwide, suffers from an unacceptably
-high failure rate and slow average speed. Beeson et al. determined in [#Beeson2015]
-the causes behind the high failure rates and slow average speed, as well as developed
-TRAC-IK to overcome them. Beeson et al. revealed KDL had following flaws:
+Once the operations feature locations have been populated and localized on the work
+surface in the map frame, the manipulator must be able to move the end-effector
+to these locations.The manipulator’s motion planning is done through ROS’s Moveit!
+package [#MoveIt], which was set up to use TRACLabs numerical inverse kinematic
+(IK) solver, TRAC_IK [#TracIK]. Due to the recursive nature of numerical solvers,
+they tend to be slower than that of analytical solvers and are prone to get trapped
+in local minima. However, analytical solvers require a separate kinematic solver
+be created for each manipulator and manipulator configuration. Consequently, in
+order to ensure cross platform functionality with minimum overhead, numerical solvers
+were used. Orocos Kinematics and Dynamics Library (KDL) [#KDL], Moveit! default
+numerical solver, as well as arguably the most widely-used generic numerical solver
+worldwide, suffers from an unacceptably high failure rate and slow average speed.
+Beeson et al. determined in [#Beeson2015] the causes behind the high failure rates
+and slow average speed, as well as developed TRAC-IK to overcome them. Beeson et al.
+revealed KDL had following flaws:
 
 1. Frequent convergence failures due to manipulators with joint limit
 2. No action is taken when the search gets trapped in a local minima
@@ -1153,7 +1418,61 @@ KDL or KDL-RR. As a result, TRAC-IK implements both of these IK methods concurre
 and waits for either IK to converge. As a result, the solve rate range between 99.1%
 and 99.9 % and the average convergence times are well below one millisecond.
 
-Insert Text Regarding Computer Vision Detection and Tracking System.
+## Feature Correction Framework
+
+Unfortunately, localizing features in the map frame based on the AR tag localization
+is not sufficient for tasks that require very high precision due to errors associated
+in localizing the AR tag in the map frame. Sources of error include, error in the
+RGB-D camera’s extrinsic calibration, error associated in localizing the AR tag
+itself, error in the location estimate of the camera with respect to the robot’s
+base link, and finally error in the location estimate of robot’s base link in the
+map. Consequently, a secondary localization method is required to refine the feature
+pose estimates; so that, they can be used for high precision tasks, such as drilling
+and sealant application operations in the manufacturing and construction industries.
+
+In order to achieve high precision 3-D localization, the feature must be localized
+with a high degree of accuracy in the end-effector frame of reference. Consequently,
+a machine vision camera and a laser pointer, simulating stereo vision, were added
+to the end-effector. Figure <!--\ref{fig:feature_detection_and_tracking_pipeline}-->
+show the 3-D localization pipeline developed for high precision feature localization.
+The 3-D feature localization pipeline runs two separate feature detection algorithms
+concurrently. The first feature detection algorithm is responsible for locating
+the center pixel of the laser point produced by the laser pointer. It does this
+by first converting each RGB frame to the HSV color space. The laser pointer is
+affixed; so that, the center of the laser point is located within the center region
+of each frame; so the outside edges of the image are masked. After which, the image
+is thresholded for the specific color range of the laser point. This produces a
+binary image, in which only pixels within the specific color range are considered
+foreground. Morphological filters are used to remove noise, as well as to fill in
+any holes in the laser point created by the laser pointer; so that, its center can
+be found. The center is found by finding the centroid of the largest blob in the
+binary image. The second feature detection algorithm is responsible for locating
+the pixel of the specific operation’s feature. It does this by first converting
+each RGB frame to gray scale. After which, preprocessing operations, such as a Gaussian
+and Median filter, are used to minimize the noise in the image without degrading
+the features. Then Canny Edge Detection [#Canny1986] is used to find appropriate
+edges in the image, as well as to produce a binary image, which is used to reduce
+computational complexity of the feature detection algorithm used. At which point,
+the outside edges of the image are masked, in order to decrease the likelihood that
+more than one feature is detected. After which the appropriate feature detection
+algorithm, such as Hough Circle Detector [#Illingworth1987] or Good Feature to Track
+[#Tomasi1994], is run in order to find the center pixel of the feature closest to
+the laser point produced by the laser pointer. Once these features’ pixel locations
+has been found, they are tracked using the Kanade Lucas Tomasi (KLT) tracker [#Baker2004],
+based on the optical flow of the image, in order to reduce complexation complexity
+that would be associated of running the aforementioned feature detection algorithms
+on each frame. The location of center pixel of the laser point can be localized
+in 3-D space in the camera frame by finding the line-line intersection, or midpoint
+of the shortest line segment between the two lines if the lines do not intersect,
+of the 3-D ray of the pixel of the center of the laser point, as well as the 3-D
+ray of the laser pointer from calibration. The laser and camera calibration procedure
+are detailed in Section 5.3.1. Given the 3-D location of the center point of the
+laser point, as well as the surface normal of the laser pointer from calibration,
+the plane equation for the laser point is calculated. Due to the proximity of the
+feature to the laser point, they are assumed to lie on the same plane. Consequently,
+the 3-D locations of the feature point in the camera frame is calculated by finding
+the intersection of the 3-D ray of the feature pixel and the plane of the laser
+point.
 
 <!--
 \begin{figure}[H]
@@ -1164,7 +1483,14 @@ Insert Text Regarding Computer Vision Detection and Tracking System.
 \end{figure}
 -->
 
-Insert Text Regarding Control Loop.
+After the feature has been localized in 3-D in the camera frame, the feature is
+transformed into the end-effectors frame and the manipulator updates the position
+of the end-effector, while remaining a set distance off the work surface, through
+the use of the control loop depicted in Figure <!--\ref{fig:manipulator_correction_control_loop}-->.
+Once, the end-effector’s is within the reference tolerance set, the control loops
+exits and the specified operation begins. This reference tolerance should be set
+no lower than the maximum accuracy achievable by either the detection algorithm
+or the end-effector itself.
 
 <!--
 \begin{figure}[H]
