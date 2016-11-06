@@ -1503,11 +1503,23 @@ or the end-effector itself.
 
 ## Approach Implementation
 
-Outline the upcoming sections.
+The purpose of this section is to briefly explain how the high precision localization
+approach presented in sections 4.1 through 4.6 can be implemented on a robotic system,
+as well as to provide an expandable framework; so that, the mobile manipulator can
+be easily programmed to conduct multiple operations within a manufacturing facility
+or construction site. Two operations, drilling and sealing, will be explored in depth.
 
 ### System Overview
 
-The generic framework of the system is depicted in Figure <!--\ref{fig:general_system_overview}-->. The system allows the user to input predefined tasks. Given a priori knowledge of each tasks and their global start locations, the mobile system navigates to and performs the requested operation(s) while monitoring its battery level to ensure mission completion. The framework shown was implemented using a hierarchical state machine and was written in such a way as to make it compatible with the Robot Operating System (ROS) to ensure ease of use across differing robotic platforms.
+The generic framework of the system is depicted in Figure <!--\ref{fig:system_overview}-->.
+The system allows the user to input a number of predefined tasks. Given a priori
+knowledge of each tasks, as well as their global start locations, the mobile manipulator
+will navigates to and performs the requested operation(s) while monitoring its battery
+level to ensure mission completion. The framework shown was implemented using a
+hierarchical state machine and was written using the Python library SMACH [#SMACH]
+in order to ensure compatibility with ROS; thereby, ensuring seamless integration
+with the aforementioned packages, as well as ease of use across differing robotic
+platforms.
 
 <!--
 \begin{figure}[H]
@@ -1520,7 +1532,26 @@ The generic framework of the system is depicted in Figure <!--\ref{fig:general_s
 
 ### Drilling Framework
 
-This section will go in depth into how the robot simulates drilling.
+Figure <!--\ref{fig:drilling_operation_framework}--> shows the basic drilling operation
+and error handling framework. Once the mobile manipulator has arrived at the drilling
+operation’s start location and orientated itself in the prescribe direction, its
+RGB-D camera will detect, identify, and localize the AR tag located at the work
+station. Using this AR tag locations and identity, the specific features associated
+with that work station will be populated and localized on the work surface in the
+map frame. After these initial feature locations have been populated, the robot
+will move within range of the first feature location in the list. The manipulator
+will move the end-effector to specified Cartesian location specified using Moveit!
+and TRAC-IK numerical solver. Currently, many companies use hole templates to ensure
+that objects are drilled within necessary tolerances. Consequently, the feature
+correction framework will use these features as landmarks and detect them using
+Hough Circle Detector [#Illingworth1987]. Using these landmarks, the feature locations
+are refined to within a user specified accuracy. After which, the manipulator will
+drill the hole to the specified depth and at the specified feed rate requested by
+the user. This will continue until all features have been drilled. However, if the
+robot due to obstruction or other reason is unable to navigate within range of a
+feature, the machine vision camera is unable to detect the landmark, or the manipulator
+is unable to reach the location, these specified features will be added to a flag
+list and the customer notified after the operation.
 
 <!--
 \begin{figure}[H]
@@ -1533,20 +1564,47 @@ This section will go in depth into how the robot simulates drilling.
 
 ### Sealant Application Framework
 
-This section will go in depth into how the robot simulates sealant application.
+Figure <!--\ref{fig:sealant_application_framework}--> shows the basic sealant application
+operation and error handling framework. Once the mobile manipulator has arrived
+at the sealant applicant operation’s start location and orientated itself in the
+prescribe direction, its RGB-D camera will detect, identify, and localize the AR
+tag located at the work station. Using this AR tag locations and identity, the specific
+features associated with that work station will be populated and localized on the
+work surface in the map frame. After these initial feature locations have been populated,
+the robot will move within range of the first feature location in the list. The
+manipulator will move the end-effector to specified Cartesian location using Moveit!
+and TRAC-IK numerical solver. Most sealant applicant operations, such as sealing
+a window frame, require the application of sealant from one corner to another. Consequently,
+the feature correction framework will use these features, corners, as landmarks
+and detect them using Good Feature to Track [#Tomasi1994]. Using these landmarks,
+the feature locations are refined to within a user specified accuracy. After which,
+the manipulator will move to the next corner location in the list. After this corner’s
+location has been refined, the manipulator will transition back to the previous
+corner’s location and seal from that start corner to the end corner. This will continue
+until all connected corners have sealant applied between them. However, if the robot
+due to obstruction or other reason is unable to navigate within range of a feature,
+the machine vision camera is unable to detect the landmark, or the manipulator is
+unable to reach the location, these specified features will be added to a flag list
+and the customer notified after the operation.
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/sealant_application_framework.png}
   \caption{Sealant Application Framework.}
-  \label{fig:sealant_application_framework.}
+  \label{fig:sealant_application_framework}
 \end{figure}
 -->
 
 ## Summary
 
-Insert Text Summarizing This Chapter and Transiting to the Next.
+The purpose of this chapter was to thoroughly explain each component of the multistage
+localization approach presented in this paper, as well as how these individual components
+fit together in order to enable high precision 3-D feature point localization. In
+addition, this chapter expounded upon the implementation of this approach to two
+tasks which are prevalent in both manufacturing and construction, drilling and sealant
+application operations. The following chapter will discuss the experiment conducted
+in order to validate the approach using the two aforementioned operations.
 
 # Experiments and Results
 
