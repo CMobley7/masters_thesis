@@ -1608,11 +1608,19 @@ in order to validate the approach using the two aforementioned operations.
 
 # Experiments and Results
 
-Outline the upcoming sections.
+The purpose of this chapter is to validate the multistage localization approach
+and system implementation presented in Chapter 4 through testing. The accuracy of
+each component of the multistage localization technique will be determined on two
+different ROS enabled robotic platforms, the Clearpath Robotics' Husky and Fetch
+Robotics' Fetch.
 
 ## Hardware Architecture
 
-Insert Text Regarding Robot, Sensors, etc.
+Figure <!--\ref{fig:clearpath_robotics'_husky_and_fetch_robotics'_fetch_mobile_manipulator}-->
+shows the Clearpath Robotics' Husky and Fetch Robotics' Fetch with the necessary
+equipment to simulate high precision operations, such as drilling and sealing. Each
+robot is equipped with an onboard computer, as well as an RGB-D and RGB camera,
+a laser pointer, LIDAR, IMU, wheel encoders, and a manipulator.
 
 <!--
 \begin{figure}[H]
@@ -1623,13 +1631,40 @@ Insert Text Regarding Robot, Sensors, etc.
 \end{figure}
 -->
 
+The Clearpath Robotics' Husky in particular is equipped with a Microsoft Kinect
+V2, Baser ACA1920-150uc machine vision camera, Sick LMS-151 LIDAR, MicroStrain 3DM
+GX3-25 IMU, four high precision wheel encoders, and the Universal Robotics UR5 6
+DOF manipulator with a 5kg payload capacity. In regards to the specific computer
+hardware, the Clearpath Robotics' Husky is equipped with a Gigibyte BRIX GB-BXi7G3-760
+which includes an Intel i7 processor, NVIDIA GeForce GTX 760 GPU, 16 GB DDR3 RAM,
+250 GB SSD, and two USB3.0 ports.
+
+The Fetch Robotics’ Fetch in particular is equipped with a Primesense Carmine 1.09,
+Baser ACA1920-150uc machine vision camera, Sick TIM571 LIDAR, two 6 DOF IMUs, two
+high precision wheel encoders, and Fetch Robot’s proprietary 7 DOF manipulator with
+a 6 kg payload capacity. In regards to the specific computer hardware, The Fetch
+Robotics’ Fetch is equipped with a standard Mini-ITX motherboard, which includes
+an Intel i5 processer, 16 GB DDR3 RAM, 120 GB SSD, and three USB 2.0 ports.
+
 ## Software Architecture
 
-Insert Text Regarding The Software Architecture.
+The Clearpath Robotics' Husky and Fetch Robotics' Fetch used Ubuntu 14.04 and ROS
+Indigo for the experiments. The Clearpath Robotics’ Husky used an Extended Kalman
+Filter through ROS’s robot_localization package [#RobotLocalization] to fuse its
+wheel encoder and IMU measurements together, while Fetch Robotics’ Fetch used an
+Unscented Kalman Filter. Both platforms used this corrected odometry, as well as
+laser scans from their respective LIDAR to produce a map of the area of operation
+(AO) using ROS’s KartoSLAM package [#KartoSLAM]. Both robot’s use ROS’s Navigation
+Stack [#Navigation] to localize themselves in the map using the AMCL package [#AMCL]
+and implement trajectory rollout through the base_local_planner package [#BaseLocalPlanner]
+for path planning and obstacle avoidance. Both robots used ROS’s ar_track_alvar
+package [#ARTrackALVAR] to identify and localize augmented reality (AR) tags. For
+motion planning, both robot’s used ROS’s Moveit! [# MoveIt], which was setup to
+use the TRAC-IK [#TracIK] numerical solver. For perception, both robot’s used OpenCV
+2.4 [#Itseez2015] to perform necessary operations on the images provided by the
+Basler machine vision camera.
 
 ## Experiments
-
-Insert Text Regarding Upcoming Sections.
 
 ### Camera Calibration Setup
 
@@ -1770,7 +1805,7 @@ Insert Text Regarding Accuracy of Navigation System and Ways To Improve Accuracy
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/fetch_navigation_xy_accuracy.png}
+  \includegraphics[width=0.75\linewidth]{figures/fetch_navigation_xy_accuracy.png}
   \caption{Global X and Y Localization Accuracy Given Distance From Start - Fetch Robotics' Fetch.}
   \label{fig:global_x_and_y_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}
 \end{figure}
