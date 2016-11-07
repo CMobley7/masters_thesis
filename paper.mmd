@@ -1776,30 +1776,32 @@ point were measured. This test was run continually as the robot proceed to each
 \end{figure}
 -->
 
-### Drilling Operation Experimental Setup
+### Augmented Reality Tag Detection, Identification, and Localization System Experimental Setup
 
 Figure <!--\ref{fig:drilling_operations_experimental_setup}--> shows the experimental
-setup for the augmented reality (AR) tag and drilling operation test. Both the Clearpath
-Robotics’ Husky, as well as Fetch Robotics’ Fetch were placed at locations a specific
-x and y distance away, as well as at a specific angle from the drilling station’s
-augmented reality (AR) tag, given the maximum error from the navigation test. Each
-robot’s RGB-D sensor was used to identify and localize the specific AR tag. After
-the feature points for that operation were populated, the absolute difference in
-x, y, and z directions were measured. For each location, the experiment was conducted
-five times with 50 features, including the AR tag.
+setup for the augmented reality (AR) tag detection, identification, and localization
+tests. Both the Clearpath Robotics’ Husky, as well as Fetch Robotics’ Fetch were
+placed at locations a specific x and y distance away, as well as at a specific angle
+from the drilling station’s augmented reality (AR) tag, given the maximum error
+from the navigation test. Each robot’s RGB-D sensor was used to detect, identify
+and localize the specific AR tag. After the feature points for that operation were
+populated, the absolute difference in x, y, and z directions were measured. For
+each location, the experiment was conducted five times with 50 features, including
+the AR tag.
 
-Due to the high error associated with the localization of AR tag using the Primesense
-Carmine 1.09 and the Kinect V2, each part of the feature correction framework was
-verified independently. First the sub-millimeter accuracy of the Universal Robotics’
-6 DOF UR5 and Fetch Robotics’ 7DOF manipulator was verified. After which, the accuracy
-of feature detection, tracking, and localization pipeline was tested using the Baser
-ACA1920-150 camera and laser pointer. This accuracy was determined by calculating
-the difference between the distance measured by using the locations of the laser
-point and hole center published by the feature detection, tracking and localization
+### Drill Operation Experimental Setup
+
+Figure <!--\ref{fig:drilling_operations_experimental_setup}--> shows the experimental
+setup for the drilling operation test. First the sub-millimeter accuracy of the
+Universal Robotics’ 6 DOF UR5 and Fetch Robotics’ 7DOF manipulator was verified.
+After which, the accuracy of feature detection, tracking, and localization pipeline
+was tested using the Baser ACA1920-150 camera and laser pointer. This accuracy was
+determined by calculating the difference between the distance measured between the
+laser point and hole center produced by the feature detection, tracking and localization
 framework and the ground truth distance between the laser center and hole center
-measured by hand. This difference test was performed for 20 locations at each of
-the following distances between the laser point and hole center: less than 5 mm,
-between 5 and 10 mm, between 10 and 15 mm, and between 15 and 20 mm.
+measured by hand. This test was performed for 20 locations at each of the following
+distances between the laser point and hole center: less than 5 mm, between 5 and
+10 mm, between 10 and 15 mm, and between 15 and 20 mm.
 
 <!--
 \begin{figure}[H]
@@ -1813,17 +1815,16 @@ between 5 and 10 mm, between 10 and 15 mm, and between 15 and 20 mm.
 ### Sealant Application Experimental Setup
 
 Figure <!--\ref{fig:sealant_application_experimental_setup}--> shows the experimental
-setup for the sealant operation test. Due to reason stated above the feature correction
-framework was verified independently. First the sub-millimeter accuracy of the Universal
+setup for the sealant operation test. First the sub-millimeter accuracy of the Universal
 Robotics’ 6 DOF UR5 and Fetch Robotics’ 7DOF manipulator was verified. After which,
 the accuracy of feature detection, tracking, and localization pipeline was tested
 using the Baser ACA1920-150 camera and laser pointer. This accuracy was determined
-by calculating the difference between the distance measured by using the locations
-of the laser point and corner published by the feature detection, tracking and localization
-framework and the ground truth distance between the laser center and corner measured
-by hand. This difference test was performed for 20 locations at each of the following
-distances between the laser point and corner: less than 5 mm, between 5 and 10 mm,
-between 10 and 15 mm, and between 15 and 20 mm.
+by calculating the difference between the distance measured between the laser point
+and corner produced by the feature detection, tracking and localization framework
+and the ground truth distance between the laser center and corner measured by hand.
+This test was performed for 20 locations at each of the following distances between
+the laser point and corner: less than 5 mm, between 5 and 10 mm, between 10 and
+15 mm, and between 15 and 20 mm.
 
 <!--
 \begin{figure}[H]
