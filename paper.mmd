@@ -14,7 +14,25 @@ latex footer: vtthesis/footer.tex
 
 ## Background
 
-Unlike the substantial benefits seen in the manufacturing industry through automation and robotics, automation and robotics in construction (ARC) has lagged far behind in adoption [#Balaguer]. Consequently, when compared with other industries, construction has seen a significant decrease in productivity, as well as an increase in workplace injuries/fatalities over the last several decades [#Rojas2003]. While several technical complexities inherent in construction have hindered the development and adoption of field construction robots [4], through the capitalization of advances made by other industries, ARC can quickly close this gap. Thereby allowing dangerous and or mundane repetitive tasks to be accomplished autonomously. Thus, causing an increase in productivity and a decrease in workplace injuries/fatalities [1]. However, ARC faces two unique challenges when compared to other industries. Unlike manufacturing environments, which are tightly controlled, typical construction sites tend to lack structure and are continuously evolving. In addition, the reversal in relationship between the part and manipulator has dramatically increased the complexity of the problem to be solved [#Feng2015]. Instead of the part appearing at a fixed manipulator, the manipulator must now move to and localize itself with respect to the part. The remainder of this paper is structured as follows: In Section 2, the author’s technical approach is outlined, with particular focus on problem two, and experimental results are shown. Conclusions are then drawn and future work discussed in Section 3.
+Unlike the substantial benefits seen in the manufacturing industry through automation
+and robotics, automation and robotics in construction (ARC) has lagged far behind
+in adoption [#Balaguer]. Consequently, when compared with other industries, construction
+has seen a significant decrease in productivity, as well as an increase in workplace
+injuries/fatalities over the last several decades [#Rojas2003]. While several technical
+complexities inherent in construction have hindered the development and adoption
+of field construction robots [4], through the capitalization of advances made by
+other industries, ARC can quickly close this gap. Thereby allowing dangerous and
+or mundane repetitive tasks to be accomplished autonomously. Thus, causing an increase
+in productivity and a decrease in workplace injuries/fatalities [1]. However, ARC
+faces two unique challenges when compared to other industries. Unlike manufacturing
+environments, which are tightly controlled, typical construction sites tend to lack
+structure and are continuously evolving. In addition, the reversal in relationship
+between the part and manipulator has dramatically increased the complexity of the
+problem to be solved [#Feng2015]. Instead of the part appearing at a fixed manipulator,
+the manipulator must now move to and localize itself with respect to the part. The
+remainder of this paper is structured as follows: In Section 2, the author’s technical
+approach is outlined, with particular focus on problem two, and experimental results
+are shown. Conclusions are then drawn and future work discussed in Section 3.
 
 <!--
 \begin{figure}[H]
@@ -1460,19 +1478,24 @@ algorithm, such as Hough Circle Detector [#Illingworth1987] or Good Feature to T
 the laser point produced by the laser pointer. Once these features’ pixel locations
 has been found, they are tracked using the Kanade Lucas Tomasi (KLT) tracker [#Baker2004],
 based on the optical flow of the image, in order to reduce complexation complexity
-that would be associated of running the aforementioned feature detection algorithms
-on each frame. The location of center pixel of the laser point can be localized
-in 3-D space in the camera frame by finding the line-line intersection, or midpoint
-of the shortest line segment between the two lines if the lines do not intersect,
-of the 3-D ray of the pixel of the center of the laser point, as well as the 3-D
-ray of the laser pointer from calibration. The laser and camera calibration procedure
-are detailed in Section 5.3.1. Given the 3-D location of the center point of the
-laser point, as well as the surface normal of the laser pointer from calibration,
-the plane equation for the laser point is calculated. Due to the proximity of the
-feature to the laser point, they are assumed to lie on the same plane. Consequently,
-the 3-D locations of the feature point in the camera frame is calculated by finding
-the intersection of the 3-D ray of the feature pixel and the plane of the laser
-point.
+that would be associated with running the aforementioned feature detection algorithms
+on each frame. The location of center of the laser point can be found by converting
+the pixel to 3-D camera coordinates using the intrinsic of the camera. However,
+in order to find the depth the line-line intersection, or midpoint of the shortest
+line segment between the two lines if the lines do not intersect, between the 3-D
+ray of the laser pointer in the camera frame, which was found during calibration,
+and the laser points 3-D ray, which is calculated by finding line connecting the
+camera’s center point and the locations of laser point in camera coordinates on
+the image plane, must be found. The camera calibration procedure and the calculation
+of the 3-D ray of the laser pointer in the camera frame are detailed in Section 5.3.1.
+Given the 3-D location of the laser point in the camera frame, as well as the surface
+normal of the laser pointer, which was calculated during calibration, the plane
+that the laser point lies on is calculated. Due to the proximity of the feature
+to the laser point, they are assumed to lie on the same plane. Consequently, the
+3-D locations of the feature point in the camera frame is calculated by finding
+the line-plane intersection between the 3-D ray of the feature, which is calculated
+by finding line connecting the camera’s center point and the locations of feature
+point in camera coordinates on the image plane, and the plane of the laser point.
 
 <!--
 \begin{figure}[H]
@@ -1666,9 +1689,19 @@ Basler machine vision camera.
 
 ## Experiments
 
+The purpose of this section is to explain the experimental setup of each test, as
+well as how the data presented in Section 5.4 was collected. In addition, the camera
+calibration setup and the software used for the calibration will be presented.
+
 ### Camera Calibration Setup
 
-Insert text setup for camera calibration.
+Figure <!--\ref{fig:camera_calibration_setup}--> shows the experimental setup used
+to calibrate both the Microsoft Kinect V2, the Baser ACA1920-150uc, as well as the
+laser pointer in the Baser ACA1920-150uc’s camera frame. For each calibration the
+camera and checkerboard pattern were affixed to individual tri-pods. The Microsoft
+Kinect V2 was calibrated using the kinect2_calibration package [#iai_kinect2], while
+the Baser ACA1920-150 was calibrated using Jean-Yves Bouguet camera calibration
+toolbox for Matlab [#Bouguet2015].
 
 <!--
 \begin{figure}[H]
@@ -1679,18 +1712,40 @@ Insert text setup for camera calibration.
 \end{figure}
 -->
 
-Insert text regarding methods used for camera calibration (citing paper)
+The kinect2_calibration package and Bouguet’s camera calibration toolbox both follow
+the calibration procedure proposed by Dr. Zhang in [#Zhang1999]. First, images of
+a checkerboard pattern affixed to a planar surface are taken by the camera at different
+distances and orientations. In these images, the feature points in the checkerboard
+pattern are detected, as depicted in Figure <!--\ref{fig:extracted_corners_of_calibration_pattern}-->.
+These features are used to estimate the five intrinsic parameter of the camera,
+as well as all the extrinsic parameters using the closed-form equations developed
+by Dr. Zhang in [#Zhang1999]. The coefficients of radial distortion are then solved
+using linear least-square. After which, all parameters are refined through nonlinear
+minimization.
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/image_extracted_corners.png}
   \caption{Extracted Corners of Calibration Pattern.}
-  \label{fig:extracted_corners_of_calibration_pattern.}
+  \label{fig:extracted_corners_of_calibration_pattern}
 \end{figure}
 -->
 
-Insert Text and Math Regarding Calibration of Laser.
+After the Baser ACA1920-150 camera had been calibrated, the camera and the laser
+pointer were affixed to the mount shown in Figure <!--\ref{fig:clearpath_robotics'_husky_and_fetch_robotics'_fetch_mobile_manipulator}-->.
+After which, the laser pointer 3-D ray equation in camera frame can be calculated
+by minimizing the error between at least 2 known 3-D coordinates in the camera frame.
+Thirty points were used to calibrate the 3-D rays equation of the laser pointer
+for testing. Figure <!--\ref{fig:extracted_corners_and_laser_center}--> shows a
+checkboard, along with a laser point produced by the laser pointer. The extrinsic
+parameters of each image are calculated using the feature in the checkerboard. Using
+the extrinsic, the plane equation of the checkerboard was calculated in camera coordinates.
+These 3-D camera coordinates points were found by finding line-plane intersection
+between the plane of the checkerboard and 3-D ray of the laser point, which is calculated
+by finding line connecting the camera’s center point and the locations of laser
+point in camera coordinates. The same procedure presented in Section 4.6 was used
+to find the center pixel of the laser point.
 
 <!--
 \begin{figure}[H]
@@ -1703,7 +1758,13 @@ Insert Text and Math Regarding Calibration of Laser.
 
 ### Navigation System Experimental Setup
 
-Insert Text Regarding the Navigation System Experimental Setup.
+Figure <!--\ref{fig:navigation_system_experimental_setup}--> shows the experimental
+setup for the navigation system test. Both the Clearpath Robotics’ Husky, as well
+as Fetch Robotics’ Fetch navigated to specified positions 5, 10, and 20 meters away
+from a specified start position. The absolute difference in the x and y directions,
+as well as the angular yaw between the robot’s final positons and the set reference
+point were measured. This test was run continually as the robot proceed to each
+5, 10, and 20 meter location, 20 time each.
 
 <!--
 \begin{figure}[H]
@@ -1886,11 +1947,11 @@ Insert Text Regarding Accuracy of Drilling Operations and Ways To Improve Accura
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
 \cmidrule(l){2-7}
                                                                                                                  & x (mm) & x std (mm) & y (mm) & y std (mm) & z (mm) & z std (mm) \\ \midrule
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Less Than 5 mm from\\   Hole Center\end{tabular}}       & 13.25  & 1.43       & 0.70   & 0.43       & 0.82   & 0.56       \\ \midrule
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 5 and 10 mm\\   from Hole Center\end{tabular}}  & 13.62  & 2.71       & 0.66   & 0.39       & 1.89   & 0.46       \\ \midrule
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 10 and 20 mm\\   from Hole Center\end{tabular}} & 10.78  & 2.55       & 0.53   & 0.30       & 4.06   & 0.70       \\ \midrule
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 20 and 30 mm\\   from Hole Center\end{tabular}} & 10.55  & 2.48       & 0.31   & 0.21       & 10.25  & 1.38       \\ \midrule
-\multicolumn{1}{|c|}{Mean}                                                                                       & 12.05  & 2.55       & 0.55   & 0.38       & 4.25   & 3.75       \\ \bottomrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Less Than 5 mm from\\   Hole Center\end{tabular}}       & 1.44   & 1.25       & 0.70   & 0.43       & 0.82   & 0.56       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 5 and 10 mm\\   from Hole Center\end{tabular}}  & 1.89   & 1.56       & 0.66   & 0.39       & 1.89   & 0.46       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 10 and 20 mm\\   from Hole Center\end{tabular}} & 2.15   & 1.83       & 0.53   & 0.30       & 4.06   & 0.70       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 20 and 30 mm\\   from Hole Center\end{tabular}} & 2.71   & 2.71       & 0.31   & 0.21       & 10.25  & 1.38       \\ \midrule
+\multicolumn{1}{|c|}{Mean}                                                                                       & 2.05   & 1.53       & 0.55   & 0.38       & 4.25   & 3.75       \\ \bottomrule
 \end{tabular}}
 \end{table}
 -->
@@ -1916,11 +1977,11 @@ Insert Text Regarding Accuracy of Sealant Application and Ways To Improve Accura
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
 \cmidrule(l){2-7}
                                                                                                             & x (mm) & x std (mm) & y (mm) & y std (mm) & z (mm) & z std (mm) \\ \midrule
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Less Than 5 mm from\\   Corner\end{tabular}}       & 10.90  & 2.44       & 1.46   & 0.21       & 1.17   & 0.71       \\ \midrule
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 5 and 10 mm\\   from Corner\end{tabular}}  & 11.95  & 3.21       & 1.27   & 0.22       & 1.48   & 0.91       \\ \midrule
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 10 and 20 mm\\   from Corner\end{tabular}} & 16.32  & 2.56       & 0.78   & 0.34       & 3.81   & 0.32       \\ \midrule
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 20 and 30 mm\\   from Corner\end{tabular}} & 13.92  & 3.34       & 0.79   & 0.60       & 8.21   & 0.40       \\ \midrule
-\multicolumn{1}{|c|}{Mean}                                                                                  & 13.27  & 3.33       & 1.08   & 0.48       & 3.67   & 2.88       \\ \bottomrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Less Than 5 mm from\\   Corner\end{tabular}}       & 2.34   & 1.29       & 1.46   & 0.21       & 1.17   & 0.71       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 5 and 10 mm\\   from Corner\end{tabular}}  & 1.60   & 2.22       & 1.27   & 0.22       & 1.48   & 0.91       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 10 and 20 mm\\   from Corner\end{tabular}} & 4.38   & 2.46       & 0.78   & 0.34       & 3.81   & 0.32       \\ \midrule
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Distance Between 20 and 30 mm\\   from Corner\end{tabular}} & 3.32   & 1.95       & 0.79   & 0.60       & 8.21   & 0.40       \\ \midrule
+\multicolumn{1}{|c|}{Mean}                                                                                  & 2.91   & 2.05       & 1.08   & 0.48       & 3.67   & 2.88       \\ \bottomrule
 \end{tabular}}
 \end{table}
 -->
