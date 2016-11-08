@@ -14,34 +14,71 @@ latex footer: vtthesis/footer.tex
 
 ## Background
 
-Unlike the substantial benefits seen in the manufacturing industry through automation
-and robotics, automation and robotics in construction (ARC) has lagged far behind
-in adoption [#Balaguer]. Consequently, when compared with other industries, construction
-has seen a significant decrease in productivity, as well as an increase in workplace
-injuries/fatalities over the last several decades [#Rojas2003]. While several technical
-complexities inherent in construction have hindered the development and adoption
-of field construction robots [4], through the capitalization of advances made by
-other industries, ARC can quickly close this gap. Thereby allowing dangerous and
-or mundane repetitive tasks to be accomplished autonomously. Thus, causing an increase
-in productivity and a decrease in workplace injuries/fatalities [1]. However, ARC
-faces two unique challenges when compared to other industries. Unlike manufacturing
-environments, which are tightly controlled, typical construction sites tend to lack
-structure and are continuously evolving. In addition, the reversal in relationship
-between the part and manipulator has dramatically increased the complexity of the
-problem to be solved [#Feng2015]. Instead of the part appearing at a fixed manipulator,
-the manipulator must now move to and localize itself with respect to the part. The
-remainder of this paper is structured as follows: In Section 2, the author’s technical
-approach is outlined, with particular focus on problem two, and experimental results
-are shown. Conclusions are then drawn and future work discussed in Section 3.
+In order for manufacturing companies to remain competitive, their production systems
+need to be able to constantly evolve and accommodate for the market’s changing demands
+[#Pedersen2016]. Currently, manufacturing is undergoing a paradigm shift from “mass
+production” to “mass customization” [#Michalos2016], [#Cedeno-Campos2013], [#Hvilshoj2012],
+[#Bogh2012]. As customers demand more customizable products, traditional “mass production”
+becomes untenable. While mass production focuses on producing large volumes of identical
+items with high efficiency, mass customization focuses on producing highly variable
+products, while needing to maintain the same production volume [#Pedersen2014].
+
+Robots are widely used in the manufacturing industry to perform tasks which are
+dumb, dangerous, dull and/or dirty. Consequently, industrial robotics forms an essential
+part of the manufacturing backbone [#Hvilshoj2012], [#Boogh2012]. Industrial robots
+tend to be use as stationary units, which require significantly more time and capital
+to install and integrate than that of other machines due to the multiple aspects
+that must be configured. As a result, parts need to be produced continuously at
+the maximum rate possibly in order to ensure an adequate Return of Investment (ROI).
+This contradicts the need for fluctuation of batch sizes due to product variability
+and the need to keep total production volume unchanged [#Michalos2016].
+
+Unlike industrial robots, mobile robots have the capability of moving around in
+their environments. Thus, if these two types of robots were combined, they would
+have the dual advantages of mobility offered by the mobile platform and the dexterity
+offered by the manipulator. Consequently, these robots, which are commonly referred
+to as autonomous industrial mobile manipulator (AIMM), enhance the capability of
+traditional industrial robots and mobile robots [#Cheng2013]. AIMMs can be quickly
+moved and adapted to varying industrial needs to provide drastically new possibilities
+to manufacturing industries [#Boogh2012]. Contrary to the traditional stationary
+and pre-programmed industrial robots, AIMMs can provide assistance at multiple locations.
+They are able to provide highly flexible logistical opportunities and can improve
+productivity by providing assistance in time-consuming, dangerous or straining situations.
+This constitutes a very different use case for AIMMs than the one for traditional
+fixed industrial robots [#Madsen2015]. Thus, AIMMs could be used to seek an optimum
+balance between traditional automation, which can only be reconfigured with great
+difficulty, and manual labor, which is very flexible but not economically viable
+for large scale production, with the benefits of a compromise between efficiency
+and flexibility [#Boogh2012], [#Pedersen2016]. Thereby, creating a transformable
+production system, which retains a high degree of automation, but also a high degree
+of flexibility as seen in Figure <!--\ref{fig:vision_for_future_transformable_production_systems}-->.
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{figures/future_transformable_production_system.png}
-  \caption{Vision for future transformable production systems.}
+  \caption{Vision for future transformable production systems. Adapted from \protect\cite{Bischoff2010}.}
   \label{fig:vision_for_future_transformable_production_systems}
 \end{figure}
 -->
+
+The manufacturing industry is not the only industry that could benefit from the
+introduction of AIMMs. Unlike the substantial benefits seen in the manufacturing
+industry through fixed industrial robotics, automation and robotics in construction
+(ARC) has lagged far behind in adoption [#Balaguer2004]. Consequently, when compared
+with other industries, construction has seen a significant decrease in productivity,
+as well as an increase in workplace injuries/fatalities over the last several decades
+[#Rojas2003]. While several technical complexities inherent in construction have
+hindered the development and adoption of field construction robots [#Feng2015],
+through the capitalization of advances made by the industries, such as manufacturing,
+ARC can quickly close this gap. Thereby allowing dangerous and/or mundane repetitive
+tasks to be accomplished autonomously. Thus, causing an increase in productivity
+and a decrease in workplace injuries/fatalities [#Balaguer2004]. However, ARC faces
+a unique challenges when compared to other industries. Unlike manufacturing environments,
+which are tightly controlled, typical construction sites tend to lack structure
+and are continuously evolving. In addition, the reversal in relationship between
+the part and AIMM’s manipulator has dramatically increased the complexity of the
+problem to be solved [#Feng2015].
 
 ## Objectives
 
