@@ -12,8 +12,6 @@ latex footer: vtthesis/footer.tex
 
 # Introduction
 
-Insert text.
-
 ## Background
 
 In order for manufacturing companies to remain competitive, their production systems
@@ -84,15 +82,40 @@ problem to be solved [#Feng2015].
 
 ## Objectives
 
-Insert Text Regarding the Objectives of This Work.
+The objectives of the thesis were to:
+
+1. Autonomous navigate to specified operation start location while avoiding static and dynamic obstacles.
+2. Detect a fiducial marker and populate operations feature locations in the robot’s map frame
+3. Refine feature location to $\pm$ 1 mm.
+4. Simulate drilling and sealant operations
 
 ## Summary of Original Contributions
 
-Insert Text Regarding the Originals Contributions Presented in this Work.
+The original contribution within this thesis are:
+
+1. A multistage localization approach which allows for tasks with scopes beyond
+the range of a manipulator to be completed without recalibration every time the
+mobile base moves to another position.
+2. Implementation of this multistage localization approach to two tasks which are
+prevalent in both manufacturing and construction industries, drilling and sealant
+application operations.
 
 ## Outline
 
-Insert Text Outlining the Upcoming Chapters.
+Chapter 2 presents where each component of the multistage localization technique
+fits into current literature, as well as why specific techniques were chosen. Chapter
+3 briefly explains all concepts needed to understand the work presented in the chapters
+thereafter including the Robot Operating System (ROS), Simultaneous Localization
+and Mapping (SLAM), localization and path planning, manipulation, task execution
+using state machines, and the computer vision algorithms implemented. Chapter 4
+thoroughly explain each component of the multistage localization approach presented
+in this paper, as well as expounds upon the implementation of this approach to two
+tasks which are prevalent in both manufacturing and construction, drilling and sealant
+application operations. Chapter 5 validates each stage of multistage localization
+approach and system implementation presented in Chapter 4 through testing on two
+different ROS enabled robotic platforms, the Clearpath Robotics' Husky and Fetch
+Robotics' Fetch. In addition, it discusses method of improvement for each stage
+of the approach. Chapter 6 summaries the work presented and proposes future work.
 
 
 # Literature Review
