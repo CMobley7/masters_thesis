@@ -85,17 +85,18 @@ problem to be solved [#Feng2015].
 The objectives of the thesis were to:
 
 1. Autonomous navigate to specified operation start location while avoiding static and dynamic obstacles.
-2. Detect a fiducial marker and populate operations feature locations in the robot’s map frame
-3. Refine feature location to $\pm$ 1 mm.
-4. Simulate drilling and sealant operations
+2. Detect a fiducial marker and populate operations feature locations in the robot’s map frame.
+3. Refine feature locations to $\pm$ 1 mm.
+4. Simulate drilling and sealant operations.
 
 ## Summary of Original Contributions
 
 The original contribution within this thesis are:
 
-1. A multistage localization approach which allows for tasks with scopes beyond
-the range of a manipulator to be completed without recalibration every time the
-mobile base moves to another position.
+1. A multistage localization approach which allows for tasks with an operational
+scope outside the range of the robot’s manipulator to be completed without having
+to recalibrate the positon of the end-effector each time the robot’s mobile base
+moves to another position
 2. Implementation of this multistage localization approach to two tasks which are
 prevalent in both manufacturing and construction industries, drilling and sealant
 application operations.
@@ -2344,6 +2345,65 @@ accuracies limits of both manipulator’s were presented.
 
 # Conclusion and Future Work
 
-This paper showed the general framework necessary in order to solve the two main problems preventing the development and widespread adoption of ARC. These problems have caused a decrease in productivity and increase in workplace injuries/fatalities over the past several decades in comparison to other industries [#Rojas2003]. These problems include the fact that typical construction sites tend to be unstructured and are continuously evolving versus the highly controlled environments found in manufacturing. Also, the relationship between the part and manipulator has been reversed, causing increased complexity not seen in manufacturing environments where the part arrives at a fixed manipulator [#Feng2015]. The techniques presented allow systems to create a 2-D map of their environment, localize themselves and complete the task(s) assigned. After localizing an AR tag at the work site, the system is able to use a priori knowledge to localize POIs and complete a plethora of operations achieving an accuracy of approximately $\pm$ 2 mm based on a multifaceted computer vision approach with only a USB webcam.
+The purpose of this paper was to present a multistage localization approach for
+an autonomous industrial mobile manipulator (AIMM). This approach allows tasks with
+operational scope outside the range of the robot’s manipulator to be complete without
+have to recalibrate the positon of the end-effector each time the robot’s mobile
+base moves to another position in order to complete said operation. This is achieved
+through localizing the AIMM within its area of operation (AO) using adaptive Monte
+Carlo localization (AMCL), which relies on the fused odometry and sensor messages
+published by the robot, as well as a 2-D map of the AO, which is normally generated
+using an optimization-based smoothing simultaneous localization and mapping (SLAM)
+technique. The robot navigates to a predefined start location in the map incorporating
+obstacle avoidance through the use of a technique called trajectory rollout. Once
+there, the robot uses its RGB-D sensor to localize an augmented reality (AR) tag
+in the map frame. One localized, the identity and the 3-D position and orientation,
+collectively known as pose, of the tag are used to generate a list of initial feature
+points and their locations based off of *a priori* knowledge. After the end-effector
+moves to the rough location of a feature point provided by the AR tag localization,
+the feature point’s location, as well as the end-effector’s positon and orientation
+are refined to within a user specified tolerance through the use of a control loop,
+which utilized images from a calibrated machine vision camera and a laser pointer,
+simulating stereo vision, to localize the feature point in 3-D space using computer
+vision. This approach was implemented on two different ROS enabled robots, Clearpath
+Robotics’ Husky and Fetch Robotics’ Fetch , in order to show the utility of the
+multistage localization approach in executing two tasks which are prevalent in both
+manufacturing and construction: drilling and sealant application. The proposed approach
+was able to achieve an average accuracy of $\pm$ 1 mm in these operations, verifying
+it’s efficacy for tasks which have a larger operational scope than that of the range
+of the AIMM’s manipulator and its robustness to general applications in manufacturing.
 
-Future work to be explored includes increasing the accuracy of the computer vision system to the sub-millimeter levels through the use of a machine vision camera, as well as a relatively new calibration technique developed by Feng et al [#Feng2015]. In addition, automated approaches to create 3-D maps are being looked into in order to provide updated data about the robot’s surroundings and task(s) automatically without human intervention. Also, human and robot collaboration over a distributed network is being explored.
+However, through the steps mentioned in Section 5.4 such as adding additional sensors,
+like an additional IMU, LIDAR, or RGB-D camera in order to increase the accuracy
+of the AMCL from approximately $\pm$ 6 centimeter to $\pm$ 5 millimeter. Additionally, in order
+to improve the accuracy of the initial feature localization, sensors can be calibrated
+on certified rigs, addition fiducial makers localization systems can be explored
+or the initial feature location can be localized using the visual high-precision technique
+presented in Section 2.3, which uses a calibration plate to localize the feature
+within $\pm$ 0.1 mm. Further improvements in the initial feature localization could
+be achieved by calibration the RGB-D and RGB cameras locations with respect to the
+base-link need to within $\pm$ 1 mm through the use of packages like ROS’s robot_calibration,
+as well as upgrading to newer RGB-D sensor with better resolution, such as the ZED
+stereo vision camera. The refined feature position's accuracy could conceivable
+be brought down to the ground sample distance (GSD) of the camera, $/pm$ .006 mm
+at 20 cm away from the work surface with the Basler ACA1920-150uc machine vision
+camera used, which exceeds the capability of manipulators used by both robot platform
+tested. In order to achieve this the calibration of the camera and laser must be
+done on a certified rig or a high precision calibrated stereo camera used instead.
+In addition, more recent computer vision and machine learning techniques should
+be used to localize the feature point.
+
+Before the proposed system can be implemented inside a manufacturing or construction
+environment, addition future work besides increasing the accuracy of the system,
+must be done. In order to make AIMMs financial viable they must be able to collaborate
+together to complete a specified task, as well as be easily reprogramming through
+methods like those suggested in [#Pedersen2016] and [#Pedersen2014]. Other difficult
+hurdles exist, such as ensuring that the robot is 100% safe to use around human. Many
+methods exist or have been proposed to ensure this; however, options such as a disabling
+the robot when a human enters is area of operation as proposed by Kallweit in [#Sbanca2016]
+while ensuring 100% safety will not produce the transformable production system
+needed. AIMMs must be co-Robot, able to interact with human, while ensuring safety.
+This can be achieve through the use of gesture controls, which if given act as alarm
+behavior stopping whatever the robot is doing in favor of the desired action as
+seen presented by Camprodon in [#Camprodon2015]. Additionally, this could be achieve
+through speech recognition as presented by Mericli in [#Mericli2013].
