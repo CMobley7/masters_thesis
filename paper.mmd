@@ -12,6 +12,8 @@ latex footer: vtthesis/footer.tex
 
 # Introduction
 
+Insert text.
+
 ## Background
 
 In order for manufacturing companies to remain competitive, their production systems
@@ -92,23 +94,120 @@ Insert Text Regarding the Originals Contributions Presented in this Work.
 
 Insert Text Outlining the Upcoming Chapters.
 
+
 # Literature Review
+
+The purpose of this chapter is to present where each component of the multistage
+localization technique fits into current literature. In addition, it will explain
+why specific techniques were used over others.
 
 ## Localization and Mapping For Autonomous Mobile Manipulators in Manufacturing and Construction
 
-Insert Text Summarizing Current SLAM and Localization Techniques Used.
+Several different approaches exist to localize a mobile manipulator’s base within
+a large industrial or unstructured environment. Several current common techniques
+used within manufacturing facilities use the triangulation of artificial landmarks
+placed at specific locations throughout the facility. Ronzoni et al. and Loevsky
+et al both used a laser sensor and retro-reflective stripes strategically placed
+in known locations throughout a facility to localize the mobile robot achieving
+an accuracy of approximately 1.5 cm [#Ronzoni2011], [#Loevsky2010]. While Zhang
+et al. and Okuyama et al. propose placing fiducial 2-D marker on the ceiling, which
+can be read by the robot’s onboard camera system in order to determine it position
+within approximately 6 cm [#Zhang2015], [#Okuyama2011]. Another form of triangulation
+proposed is through the triangulation of radio frequencies, such as RFID and Wifi
+Localization. DiGiampaolo et al. uses a Kalman filter to estimate the location of
+the robot using the robot’s odometry and RFID tag located on the ceiling. This approach
+is able to achieve an accuracy of approximately 4 cm [#Digiampaolo2014]. While Park
+et al. used a Particle filter to estimate the location of the robot using the robot’s
+odometry and RFID embedded in the floor. This approach was able to achieve an accuracy
+of approximately 2.5 cm [#Park2013]. Youssef presented the Horus WLAN localization, a
+RSSI-based fingerprinting schemes, while Gao presented a WLAN fingerprinting technique
+dubbed DeepFi which used Channel State Information (CSI) and deep learning. Horus was
+able to achieve an accuracy of approximately 1.55 m, while DeepFi was able to achieve
+an accuracy of .95 m [#Youssef2008], [#Gao2015]. Other popular methods include
+following magnetic or chemical tape or an inductive wire [#Shneier2015]. However,
+many of the method mentioned require making significant manufacturing facility.
+In order to limit the modification necessary, several simultaneous and localization
+(SLAM) techniques exist that allow a mobile robot to create and/or update a map
+of a facility while localizing itself within that environment. Kelly demonstrated
+the utility of applying SLAM too large manufacturing facilities in 2000 [#Kelly2000].
+Several different SLAM techniques exist to localize a mobile robot within an unknown
+environment. However, in recent years, optimization based smoothing SLAM techniques
+have proved more efficient, scalable, and robust than that of filtering SLAM techniques
+while still retaining a relatively high degree of accuracy, less than 8 cm [#Latif2013].
+Due to the fact that SLAM techniques make no modification of the environment and
+are able to either build or modify a 2-D or 3-D map of the environment, while retaining
+a high level of accuracy, they are the building block for the multistage localization
+presented in this paper. Specifically a 2-D map will be made using an optimization
+based smoothing SLAM technique while localization within this map will be accomplished
+via adaptive monte carlo localization (AMCL).
 
 ## Task Association and A Priori Knowledge for Mobile Manipulators
 
-Insert Text Summarizing Current Methods Used to Associate Mobile Manipulator to a Specific Task and How Prior Knowledge is Conveyed About the Task to be Performed.
+Fiducial makers have a wide variety of uses due be tri-ability of being easy to
+detect under most circumstances, able to be precisely localized, and the ability
+to either associate data with a specific fiducial maker’s identity or encode data.
+As mentioned above, Zhang et al. and Okuyama et al. placed fiducial 2-D markers
+on the ceiling, which can be read by the robot’s onboard camera system in order
+to determine it position within approximately 6 cm [#Zhang2015], [#Okuyama2011].
+In order to allow social robot to permeate our daily lives, Limosani et al. proposed
+the use of a set of environmental tags, composed of AR Tags and QR codes, which
+encoded the specific address to a cloud service in a mobile robot could download
+a map of the local areas and all other necessary information [#Limosani2016]. Feng
+et al. used April Tags to autonomous identify building components, such as block
+or brick; so that, a manipulator could be used to pick up specific one and assemble
+them into a pre-designed modular structure [#Feng2015]. In addition, they have be
+used in order to calibrate a mobile robot to workstations as in [#Andersen2013].
+In addition, to using a fiducial maker to calibration the mobile robot to a workstation,
+they can also be used to specify feature locations at that workstation as they are
+in this paper.
 
 ## Feature Localization Techniques for Mobile Manipulators
 
-Insert Text Summarizing Current Methods Used to Localize a Feature and Have a Mobile Manipulator Perform a Set Operation.
+Depending on the complexity and required tolerances of a task, a mobile robot may
+or may not needs to calibrate themselves with respect to the work surface. Simple
+pick and place operations, as seen in [#Cheng2013a] do not require the robot calibrate
+itself with respect to the work surface. Through the use of feedback from a camera
+or torque sensor, the robot is able to perform it purpose without calibration. However,
+many operations in manufacturing require high tolerance. Consequently, the mobile
+manipulator must calibrate itself with respect to the environment. So, that the
+robot implicitly knows where feature are located, such as button or knobs, without
+having to explicitly detect these features within a high tolerance [#Pedersen2016].
+Several method exist to do this. Haptic calibration involves measuring location
+on the work surface in the x, y, and z directions by moving the end-effector until
+it comes in contact with prominent point on the work surface itself. This calibration
+can be done in approximately 30 seconds and has an accuracy of $\pm$ 1 mm [#Pedersen2011].
+Visual high-precision calibration involves taking multiple images of a calibration
+plate, which is fixed to the work surface, by a camera on the end-effector. This
+calibration can be done in approximately 60 seconds and has an accuracy of $\pm$
+0.1 [#Hvilshj2010]. Visual high-speed calibration involves taking a single image
+of a calibration plate, which is fixed to the work surface, as well as three depth
+measurement by a camera and laser sensor respectively. This calibration can be done
+in approximately 10 second and has an accuracy of $\pm$ 1 mm [#Hvilshj2010]. QR
+calibration involves capturing a RBG and depth image of a QR code, which is fixed
+to a work surface, using an RGB-D camera, whose location is precisely in relation
+to the end-effector. This calibration method can be completed in approximately 1
+second and has an accuracy of $\pm$ 4 mm [#Andersen2013]. While these calibration
+technique allow for high tolerances, these calibrations are done with respect to
+the end-effector. Therefore, if the reach of the manipulator is insufficient to
+complete the entire operation, such as drilling and sealant application operations
+in particular, the robot must move and then recalibrate the manipulator with respect
+to the work surface. Consequently, calibration plates or fiducial marker must be
+placed every set distance along a project, which requires significant overhead.
+This paper proposes a multistage localization approach, which localizes the mobile
+robot within a map, uses a fiducial marker, which can easily be replaced with a
+calibration plate, to localize the feature of the operation in the map frame verses
+with respect to the end-effector. This significantly degrade the localization of
+the features. However, through the addition of robust feature detection, millimeter
+to sub-millimeter accuracy to be maintained while allowing for mobility of the mobile
+base.
 
 ## Summary
 
-Insert Text Summarizing This Chapter and Transiting to the Next.
+The purpose of this chapter is to present where each component of the multistage
+localization technique fits into current literature, as well as why specific techniques
+were used over others. The following section will present all concepts in depth;
+so that, anyone can understand the basics of the multistage localization approach
+presented in this paper.
 
 # Fundamentals of Autonomous Robotics
 
@@ -1716,7 +1815,7 @@ wheel encoder and IMU measurements together, while Fetch Robotics’ Fetch used 
 Unscented Kalman Filter. Both platforms used this corrected odometry, as well as
 laser scans from their respective LIDAR to produce a map of the area of operation
 (AO) using ROS’s KartoSLAM package [#KartoSLAM]. Both robot’s use ROS’s Navigation
-Stack [#Navgiation] to localize themselves in the map using the AMCL package [#AMCL]
+Stack [#Navigation] to localize themselves in the map using the AMCL package [#AMCL]
 and implement trajectory rollout through the base_local_planner package [#BaseLocalPlanner]
 for path planning and obstacle avoidance. Both robots used ROS’s ar_track_alvar
 package [#ARTrackALVAR] to identify and localize augmented reality (AR) tags. For
