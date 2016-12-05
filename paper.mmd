@@ -134,7 +134,7 @@ used within manufacturing facilities use the triangulation of artificial landmar
 placed at specific locations throughout the facility. Ronzoni et al. and Loevsky
 et al. both used a laser sensor and retro-reflective stripes strategically placed
 in known locations throughout a facility in order to localize a mobile robot. They were able to achieve
-an accuracy of approximately 1.5 cm [#Ronzoni2011], [#Loevsky2010]. While Zhang
+an accuracy of approximately 1.5 cm [#Ronzoni2011], [#Loevsky2010]. Zhang
 et al. and Okuyama et al. proposed placing fiducial 2-D marker on the ceiling, which
 can be read by the robot's onboard camera system in order to determine it position to
 within approximately 6 cm [#Zhang2015], [#Okuyama2011]. Another form of triangulation
@@ -167,11 +167,11 @@ via adaptive Monte Carlo localization (AMCL).
 
 ## Task Association and A Priori Knowledge for Mobile Manipulators
 
-Fiducial makers have a wide variety of uses due their tri-ability of being easy to
+Fiducial makers have a wide variety of uses due to their tri-ability of being easy to
 detect under most circumstances, able to be precisely localized, and the ability
 to either associate data with a specific fiducial maker's identity or encode data.
 As mentioned above, Zhang et al. and Okuyama et al. placed fiducial 2-D markers
-on the ceiling, which can be read by the robot's onboard camera system in order
+on the ceiling, which were then read by the robot's onboard camera system in order
 to determine it's position to within approximately 6 cm [#Zhang2015], [#Okuyama2011].
 In order to allow social robots to permeate our daily lives, Limosani et al. proposed
 the use of a set of environmental tags, composed of AR Tags and QR codes, which
@@ -188,41 +188,41 @@ in this paper.
 ## Feature Localization Techniques for Mobile Manipulators
 
 Depending on the complexity and required tolerances of a task, a mobile robot may
-or may not needs to calibrate themselves with respect to the work surface. Simple
-pick and place operations, as seen in [#Cheng2013a] do not require the robot calibrate
+or may not need to calibrate themselves with respect to the work surface. Simple
+pick and place operations, as seen in [#Cheng2013a] do not require the robot to calibrate
 itself with respect to the work surface. Through the use of feedback from a camera
-or torque sensor, the robot is able to perform it purpose without calibration. However,
-many operations in manufacturing require high tolerance. Consequently, the mobile
-manipulator must calibrate itself with respect to the environment. So, that the
-robot implicitly knows where feature are located, such as button or knobs, without
-having to explicitly detect these features within a high tolerance [#Pedersen2016].
-Several method exist to do this. Haptic calibration involves measuring location
+or torque sensor, the robot is able to perform its purpose without calibration. However,
+many operations in manufacturing require high tolerances. Consequently, the mobile
+manipulator must calibrate itself with respect to the environment; so that, the
+robot implicitly knows where features, such as buttons or knobs, are located without
+having to explicitly detect these features with high tolerances [#Pedersen2016].
+Several methods exist to do this. Haptic calibration involves measuring location
 on the work surface in the x, y, and z directions by moving the end-effector until
-it comes in contact with prominent point on the work surface itself. This calibration
+it comes in contact with prominent points on the work surface itself. This calibration
 can be done in approximately 30 seconds and has an accuracy of $\pm$ 1 mm [#Pedersen2011].
 Visual high-precision calibration involves taking multiple images of a calibration
 plate, which is fixed to the work surface, by a camera on the end-effector. This
 calibration can be done in approximately 60 seconds and has an accuracy of $\pm$
-0.1 [#Hvilshj2010]. Visual high-speed calibration involves taking a single image
+0.1 mm [#Hvilshj2010]. Visual high-speed calibration involves taking a single image
 of a calibration plate, which is fixed to the work surface, as well as three depth
-measurement by a camera and laser sensor respectively. This calibration can be done
-in approximately 10 second and has an accuracy of $\pm$ 1 mm [#Hvilshj2010]. QR
+measurements by a camera and laser sensor respectively. This calibration can be done
+in approximately 10 seconds and has an accuracy of $\pm$ 1 mm [#Hvilshj2010]. QR
 calibration involves capturing a RBG and depth image of a QR code, which is fixed
-to a work surface, using an RGB-D camera, whose location is precisely in relation
+to a work surface, using an RGB-D camera, whose location is known precisely in relation
 to the end-effector. This calibration method can be completed in approximately 1
 second and has an accuracy of $\pm$ 4 mm [#Andersen2013]. While these calibration
-technique allow for high tolerances, these calibrations are done with respect to
+techniques allow for high tolerances, these calibrations are done with respect to
 the end-effector. Therefore, if the reach of the manipulator is insufficient to
 complete the entire operation, such as drilling and sealant application operations
 in particular, the robot must move and then recalibrate the manipulator with respect
-to the work surface. Consequently, calibration plates or fiducial marker must be
-placed every set distance along a project, which requires significant overhead.
+to the work surface. Consequently, calibration plates or fiducial markers must be
+placed at set distance along a project, which requires significant overhead.
 This paper proposes a multistage localization approach, which localizes the mobile
 robot within a map, uses a fiducial marker, which can easily be replaced with a
-calibration plate, to localize the feature of the operation in the map frame verses
-with respect to the end-effector. This significantly degrade the localization of
+calibration plate, to localize an operation's features in the map frame verses
+with respect to the end-effector. This significantly degrades the localization of
 the features. However, through the addition of robust feature detection, millimeter
-to sub-millimeter accuracy to be maintained while allowing for mobility of the mobile
+to sub-millimeter accuracy will be maintained while allowing for mobility of the mobile
 base.
 
 ## Summary
