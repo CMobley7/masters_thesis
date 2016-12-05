@@ -2,10 +2,11 @@ Base Header Level: 2
 latex input: metadata
 latex author: Christopher James Mobley
 latex title: Multistage Localization for High Precision Mobile Manipulation Tasks
+my abstract: Abstract.tex
+my public abstract: AbstractPublic.tex
 bibtex: masters_thesis
 myreporttype: Thesis
 mydegree: Masters of Science
-myyear: 2016
 mydepartment: Mechanical Engineering
 latex input: vtthesis/setup.tex
 latex footer: vtthesis/footer.tex
@@ -15,42 +16,42 @@ latex footer: vtthesis/footer.tex
 ## Background
 
 In order for manufacturing companies to remain competitive, their production systems
-need to be able to constantly evolve and accommodate for the market’s changing demands
-[#Pedersen2016]. Currently, manufacturing is undergoing a paradigm shift from “mass
-production” to “mass customization” [#Michalos2016], [#Cedeno-Campos2013], [#Hvilshoj2012],
-[#Bogh2012]. As customers demand more customizable products, traditional “mass production”
+need to be able to constantly evolve and to accommodate for the market's changing demands
+[#Pedersen2016]. Currently, manufacturing is undergoing a paradigm shift from "mass
+production" to "mass customization" [#Michalos2016], [#Cedeno-Campos2013], [#Hvilshoj2012],
+[#Bogh2012]. As customers demand more customizable products, traditional "mass production"
 becomes untenable. While mass production focuses on producing large volumes of identical
 items with high efficiency, mass customization focuses on producing highly variable
-products, while needing to maintain the same production volume [#Pedersen2014].
+products, while maintaining the necessary production volume [#Pedersen2014].
 
 Robots are widely used in the manufacturing industry to perform tasks which are
 dumb, dangerous, dull and/or dirty. Consequently, industrial robotics forms an essential
 part of the manufacturing backbone [#Hvilshoj2012], [#Boogh2012]. Industrial robots
-tend to be use as stationary units, which require significantly more time and capital
+tend to be used as stationary units, which require significantly more time and capital
 to install and integrate than that of other machines due to the multiple aspects
 that must be configured. As a result, parts need to be produced continuously at
-the maximum rate possibly in order to ensure an adequate Return of Investment (ROI).
+the maximum rate possible in order to ensure an adequate Return of Investment (ROI).
 This contradicts the need for fluctuation of batch sizes due to product variability
 and the need to keep total production volume unchanged [#Michalos2016].
 
 Unlike industrial robots, mobile robots have the capability of moving around in
 their environments. Thus, if these two types of robots were combined, they would
-have the dual advantages of mobility offered by the mobile platform and the dexterity
+have the dual advantage of the mobility offered by the mobile platform and the dexterity
 offered by the manipulator. Consequently, these robots, which are commonly referred
-to as autonomous industrial mobile manipulator (AIMM), enhance the capability of
+to as autonomous industrial mobile manipulators (AIMMs), enhance the capability of
 traditional industrial robots and mobile robots [#Cheng2013]. AIMMs can be quickly
-moved and adapted to varying industrial needs to provide drastically new possibilities
+moved and adapted to varying industrial needs in order to provide drastically new possibilities
 to manufacturing industries [#Boogh2012]. Contrary to the traditional stationary
-and pre-programmed industrial robots, AIMMs can provide assistance at multiple locations.
+and pre-programmed industrial robots, AIMMs can be used to provide assistance at multiple locations.
 They are able to provide highly flexible logistical opportunities and can improve
-productivity by providing assistance in time-consuming, dangerous or straining situations.
+productivity by providing assistance in time-consuming, dangerous, or straining situations.
 This constitutes a very different use case for AIMMs than the one for traditional
 fixed industrial robots [#Madsen2015]. Thus, AIMMs could be used to seek an optimum
 balance between traditional automation, which can only be reconfigured with great
 difficulty, and manual labor, which is very flexible but not economically viable
 for large scale production, with the benefits of a compromise between efficiency
 and flexibility [#Boogh2012], [#Pedersen2016]. Thereby, creating a transformable
-production system, which retains a high degree of automation, but also a high degree
+production system, which retains a high degree of automation but also a high degree
 of flexibility as seen in Figure <!--\ref{fig:vision_for_future_transformable_production_systems}-->.
 
 <!--
@@ -64,41 +65,41 @@ of flexibility as seen in Figure <!--\ref{fig:vision_for_future_transformable_pr
 
 The manufacturing industry is not the only industry that could benefit from the
 introduction of AIMMs. Unlike the substantial benefits seen in the manufacturing
-industry through fixed industrial robotics, automation and robotics in construction
-(ARC) has lagged far behind in adoption [#Balaguer2004]. Consequently, when compared
+industry through the use of fixed industrial robotics, adoption of automation and robotics in construction
+(ARC) has lagged far behind [#Balaguer2004]. Consequently, when compared
 with other industries, construction has seen a significant decrease in productivity,
 as well as an increase in workplace injuries/fatalities over the last several decades
-[#Rojas2003]. While several technical complexities inherent in construction have
-hindered the development and adoption of field construction robots [#Feng2015],
-through the capitalization of advances made by the industries, such as manufacturing,
-ARC can quickly close this gap. Thereby allowing dangerous and/or mundane repetitive
-tasks to be accomplished autonomously. Thus, causing an increase in productivity
-and a decrease in workplace injuries/fatalities [#Balaguer2004]. However, ARC faces
-a unique challenges when compared to other industries. Unlike manufacturing environments,
+[#Rojas2003]. Several technical complexities inherent in construction have
+hindered the development and adoption of field construction robots [#Feng2015].
+However, through the capitalization of advances made in other industries, such as manufacturing,
+ARC can quickly close this gap. Through the adoption of these advances, dangerous
+and/or mundane repetitive tasks to be accomplished autonomously, thus increasing
+productivity and decreasing workplace injuries/fatalities [#Balaguer2004]. However, ARC faces
+unique challenges when compared to other industries. Unlike manufacturing environments,
 which are tightly controlled, typical construction sites tend to lack structure
 and are continuously evolving. In addition, the reversal in relationship between
-the part and AIMM’s manipulator has dramatically increased the complexity of the
+the part and AIMM's manipulator has dramatically increased the complexity of the
 problem to be solved [#Feng2015].
 
 ## Objectives
 
-The objectives of the thesis were to:
+The objectives of the thesis are to:
 
-1. Autonomous navigate to specified operation start location while avoiding static and dynamic obstacles.
-2. Detect a fiducial marker and populate operations feature locations in the robot’s map frame.
+1. Navigate autonomously to specified operation start location while avoiding static and dynamic obstacles.
+2. Detect a fiducial marker and populate the specific operation's feature locations in the robot's map frame.
 3. Refine feature locations to $\pm$ 1 mm.
 4. Simulate drilling and sealant operations.
 
 ## Summary of Original Contributions
 
-The original contribution within this thesis are:
+The original contributions within this thesis are:
 
 1. A multistage localization approach which allows for tasks with an operational
-scope outside the range of the robot’s manipulator to be completed without having
-to recalibrate the positon of the end-effector each time the robot’s mobile base
-moves to another position
-2. Implementation of this multistage localization approach to two tasks which are
-prevalent in both manufacturing and construction industries, drilling and sealant
+scope outside the range of the robot's manipulator to be completed without having
+to recalibrate the position of the end-effector each time the robot's mobile base
+moves to another position.
+2. Implementation of this multistage localization approach to accomplish two tasks which are
+prevalent in both manufacturing and construction industries: drilling and sealant
 application operations.
 
 ## Outline
@@ -109,14 +110,14 @@ fits into current literature, as well as why specific techniques were chosen. Ch
 thereafter including the Robot Operating System (ROS), Simultaneous Localization
 and Mapping (SLAM), localization and path planning, manipulation, task execution
 using state machines, and the computer vision algorithms implemented. Chapter 4
-thoroughly explain each component of the multistage localization approach presented
-in this paper, as well as expounds upon the implementation of this approach to two
-tasks which are prevalent in both manufacturing and construction, drilling and sealant
-application operations. Chapter 5 validates each stage of multistage localization
+thoroughly explains each component of the multistage localization approach presented
+in this paper and expounds upon the implementation of this approach to accomplish two
+tasks which are prevalent in both manufacturing and construction: drilling and sealant
+application operations. Chapter 5 validates each stage of the multistage localization
 approach and system implementation presented in Chapter 4 through testing on two
-different ROS enabled robotic platforms, the Clearpath Robotics' Husky and Fetch
-Robotics' Fetch. In addition, it discusses method of improvement for each stage
-of the approach. Chapter 6 summaries the work presented and proposes future work.
+different ROS enabled robotic platforms: the Clearpath Robotics' Husky and Fetch
+Robotics' Fetch. In addition, it discusses methods of improvement for each stage
+of the approach. Chapter 6 summarizes the work presented and proposes future work.
 
 
 # Literature Review
@@ -127,61 +128,60 @@ why specific techniques were used over others.
 
 ## Localization and Mapping For Autonomous Mobile Manipulators in Manufacturing and Construction
 
-Several different approaches exist to localize a mobile manipulator’s base within
+Several different approaches exist to localize a mobile manipulator's base within
 a large industrial or unstructured environment. Several current common techniques
 used within manufacturing facilities use the triangulation of artificial landmarks
 placed at specific locations throughout the facility. Ronzoni et al. and Loevsky
-et al both used a laser sensor and retro-reflective stripes strategically placed
-in known locations throughout a facility to localize the mobile robot achieving
+et al. both used a laser sensor and retro-reflective stripes strategically placed
+in known locations throughout a facility in order to localize a mobile robot. They were able to achieve
 an accuracy of approximately 1.5 cm [#Ronzoni2011], [#Loevsky2010]. While Zhang
-et al. and Okuyama et al. propose placing fiducial 2-D marker on the ceiling, which
-can be read by the robot’s onboard camera system in order to determine it position
+et al. and Okuyama et al. proposed placing fiducial 2-D marker on the ceiling, which
+can be read by the robot's onboard camera system in order to determine it position to
 within approximately 6 cm [#Zhang2015], [#Okuyama2011]. Another form of triangulation
 proposed is through the triangulation of radio frequencies, such as RFID and Wifi
-Localization. DiGiampaolo et al. uses a Kalman filter to estimate the location of
-the robot using the robot’s odometry and RFID tag located on the ceiling. This approach
-is able to achieve an accuracy of approximately 4 cm [#Digiampaolo2014]. While Park
-et al. used a Particle filter to estimate the location of the robot using the robot’s
-odometry and RFID embedded in the floor. This approach was able to achieve an accuracy
+Localization. DiGiampaolo et al. used a Kalman filter to estimate the location of
+the robot using the robot's odometry and RFID tags located on the ceiling.
+This approach achieves an accuracy of approximately 4 cm [#Digiampaolo2014]. Park
+et al. used a particle filter to estimate the location of the robot using the robot's
+odometry and RFID tags embedded in the floor. This approach was able to achieve an accuracy
 of approximately 2.5 cm [#Park2013]. Youssef presented the Horus WLAN localization, a
-RSSI-based fingerprinting schemes, while Gao presented a WLAN fingerprinting technique
+RSSI-based fingerprinting scheme, while Gao presented a WLAN fingerprinting technique
 dubbed DeepFi which used Channel State Information (CSI) and deep learning. Horus was
 able to achieve an accuracy of approximately 1.55 m, while DeepFi was able to achieve
 an accuracy of .95 m [#Youssef2008], [#Gao2015]. Other popular methods include
 following magnetic or chemical tape or an inductive wire [#Shneier2015]. However,
-many of the method mentioned require making significant manufacturing facility.
+many of the methods mentioned require making significant modifications to the manufacturing facility.
 In order to limit the modification necessary, several simultaneous and localization
 (SLAM) techniques exist that allow a mobile robot to create and/or update a map
 of a facility while localizing itself within that environment. Kelly demonstrated
-the utility of applying SLAM too large manufacturing facilities in 2000 [#Kelly2000].
-Several different SLAM techniques exist to localize a mobile robot within an unknown
-environment. However, in recent years, optimization based smoothing SLAM techniques
+the utility of applying SLAM to large manufacturing facilities in 2000 [#Kelly2000].
+In recent years, optimization based smoothing SLAM techniques
 have proved more efficient, scalable, and robust than that of filtering SLAM techniques
 while still retaining a relatively high degree of accuracy, less than 8 cm [#Latif2013].
-Due to the fact that SLAM techniques make no modification of the environment and
+Due to the fact that SLAM techniques require no modification of the environment and
 are able to either build or modify a 2-D or 3-D map of the environment, while retaining
 a high level of accuracy, they are the building block for the multistage localization
-presented in this paper. Specifically a 2-D map will be made using an optimization
+presented in this paper. Specifically, a 2-D map will be made using an optimization
 based smoothing SLAM technique while localization within this map will be accomplished
-via adaptive monte carlo localization (AMCL).
+via adaptive Monte Carlo localization (AMCL).
 
 ## Task Association and A Priori Knowledge for Mobile Manipulators
 
-Fiducial makers have a wide variety of uses due be tri-ability of being easy to
+Fiducial makers have a wide variety of uses due their tri-ability of being easy to
 detect under most circumstances, able to be precisely localized, and the ability
-to either associate data with a specific fiducial maker’s identity or encode data.
+to either associate data with a specific fiducial maker's identity or encode data.
 As mentioned above, Zhang et al. and Okuyama et al. placed fiducial 2-D markers
-on the ceiling, which can be read by the robot’s onboard camera system in order
-to determine it position within approximately 6 cm [#Zhang2015], [#Okuyama2011].
-In order to allow social robot to permeate our daily lives, Limosani et al. proposed
+on the ceiling, which can be read by the robot's onboard camera system in order
+to determine it's position to within approximately 6 cm [#Zhang2015], [#Okuyama2011].
+In order to allow social robots to permeate our daily lives, Limosani et al. proposed
 the use of a set of environmental tags, composed of AR Tags and QR codes, which
-encoded the specific address to a cloud service in a mobile robot could download
+encoded the specific address to a cloud service from which a mobile robot could download
 a map of the local areas and all other necessary information [#Limosani2016]. Feng
-et al. used April Tags to autonomous identify building components, such as block
-or brick; so that, a manipulator could be used to pick up specific one and assemble
-them into a pre-designed modular structure [#Feng2015]. In addition, they have be
+et al. used April Tags to autonomously identify building components, such as block
+or brick; so that, a manipulator could be used to pick up specific ones and assemble
+them into a pre-designed modular structure [#Feng2015]. In addition, they have been
 used in order to calibrate a mobile robot to workstations as in [#Andersen2013].
-In addition, to using a fiducial maker to calibration the mobile robot to a workstation,
+In addition to using a fiducial maker to calibrate a mobile robot to a workstation,
 they can also be used to specify feature locations at that workstation as they are
 in this paper.
 
@@ -229,9 +229,9 @@ base.
 
 The purpose of this chapter is to present where each component of the multistage
 localization technique fits into current literature, as well as why specific techniques
-were used over others. The following section will present all concepts in depth;
-so that, anyone can understand the basics of the multistage localization approach
-presented in this paper.
+were used over others. The following chapter will present in depth all concepts
+needed to understand the multistage localization approach; so that, anyone
+can understand the work presented regardless of background.
 
 # Fundamentals of Autonomous Robotics
 
@@ -255,7 +255,7 @@ The most current being Kinetic Kame Turtle, which was released on 23MAY16. In ad
 ROS boasts tens of thousands of users around the world ranging from hobbyists and
 researcher to the commercial and industrial industries, as well as hundreds of packages
 which provide everything from hardware drivers to algorithms for autonomous navigations
-and manipulation [#ROSWebsite]. ROS’s large support base act as a force multiplier
+and manipulation [#ROSWebsite]. ROS's large support base act as a force multiplier
 allows individuals, Labs, or company to concentrate on one particular aspect while
 capitalizing on work that has already been done.
 
@@ -283,7 +283,7 @@ interfaces provide ROS a great deal of flexibility for robotic applications [#RO
 ### Rigid Body Transformations
 
 Figure <!--\ref{fig:conversion_from_coordinate_frame_a_to_b}--> shows a purple dot,
-which represent a point in space. The dot’s coordinates in frames a and b are different. A rigid body
+which represent a point in space. The dot's coordinates in frames a and b are different. A rigid body
 transform, which can be performed using Equation <!--\ref{eq:conversion_from_coordinate_frame_a_to_b}-->,
 can be used to convert one set of coordinates to another coordinate frame.
 
@@ -319,13 +319,13 @@ the translation part of moving frame $b$ origin to frame $a$ [#Kelly2013].
 \end{figure}
 -->
 
-A robotic system, such as Clearpath Robotics’ Husky and Fetch Robotics’ Fetch shows
+A robotic system, such as Clearpath Robotics' Husky and Fetch Robotics' Fetch shows
 in Figure <!--\ref{fig:robot_model_with_tfs}-->, typical has many three dimensional
 coordinate frames that change over time as the robot performs different functions.
-ROS’s TF [#TF] and TF2 [#TF2] package keep track of coordinate frames and allow
+ROS's TF [#TF] and TF2 [#TF2] package keep track of coordinate frames and allow
 for data to be easily convert between these coordinate frames using rigid body transforms.
-These coordinate frames, as well as robot’s links/joints they correspond to, and
-the rigid transformations between them are set up in the Robot’s Unified Robot Description
+These coordinate frames, as well as robot's links/joints they correspond to, and
+the rigid transformations between them are set up in the Robot's Unified Robot Description
 Format (URDF) File [#URDF].
 
 <!--
@@ -352,7 +352,7 @@ and P. Cheeseman in the mid to late-1980s [#Smith1986], [#Smith1990].
 Several techniques exist to solve the SLAM problem. Most of these techniques can
 be categorized into two main paradigms: filtering and optimization-based smoothing
 [#Grisetti2010a], [#Latif2013]. Filtering techniques model the SLAM problem as an
-incremental state estimation, where the state of the system is composed of the robot’s
+incremental state estimation, where the state of the system is composed of the robot's
 current pose and the map. These estimates are refined at each step by incorporating
 current sensor measurements. Due to their incremental nature, these SLAM techniques
 are typically referred to as on-line SLAM approaches. Popular filtering SLAM techniques
@@ -361,14 +361,14 @@ SLAM techniques have been used widely in past years due to their ability to mode
 different sources of noise and their effect on sensor measurements. However, in
 recent years optimization-based smoothing techniques have proven to be more efficient,
 scalable, and robust than that of filtering techniques [#Latif2013]. Unlike filtering
-techniques, optimization-based smoothing techniques estimate the robot’s entire
-trajectory and the map. Due to the fact that the final map is based off the robot’s
+techniques, optimization-based smoothing techniques estimate the robot's entire
+trajectory and the map. Due to the fact that the final map is based off the robot's
 entire trajectory and world features instead of the most recent pose and map, these
 techniques are known as full SLAM approaches. These SLAM techniques incorporate
-a graph-based structure, where graph nodes represent the robot’s pose and world
+a graph-based structure, where graph nodes represent the robot's pose and world
 features, while edges represent a spatial constraint relation between two robot
 poses given by sensor measurements [#Konolige2010]. The graph is optimized using
-error minimization techniques, such as least-squares, in order to refine the robot’s
+error minimization techniques, such as least-squares, in order to refine the robot's
 trajectory and map.
 
 In addition to a variety of techniques which can be used to solve the SLAM problem,
@@ -454,7 +454,7 @@ HectorSLAM & GMapping & KartoSLAM & CoreSLAM & LagoSLAM \\ \midrule
 
 ## Localization and Path Planning Concepts
 
-ROS’s Navigation Stack [#Navigation] is a collection of packages, which uses odometry
+ROS's Navigation Stack [#Navigation] is a collection of packages, which uses odometry
 and laser scan data, as well as a goal position and orientation in order to output
 the velocity commands needed to reach the specified goal. Figure <!--\ref{fig:ros_navigation_stack_setup}-->
 shows an overview of how the individual packages work together to achieve this objective.
@@ -488,19 +488,19 @@ the robot, known collectively as pose, while the robot moves throughout its envi
 One routine localization technique used involves tracking the robot from an initial
 known starting pose. Through the measurement of wheel rotation and the integration
 of accelerations provided by an inertial measurement unit (IMU), the distance traveled
-by the robot from the initial position can be calculated and the robot’s pose in
+by the robot from the initial position can be calculated and the robot's pose in
 the map estimated with some certainty. However, these methods do not account for
 wheel slippage or measurement error. As a result, the accuracy of the pose estimate
 will degrade over time. Consequently, a solution which can compensate for the accumulated
 odometry error and inaccuracies in the initial starting pose is needed. One accepted
 solution to this problem is Monte Carlo Localization (MCL), which utilizes a particle
-filters to keep track of the robot’s pose. However, additional options include Kalman
+filters to keep track of the robot's pose. However, additional options include Kalman
 Filters and Markov Localization, which employ Gaussian distributions and histograms
 respectively.
 
 Figure <!--\ref{fig:one_dimensional_monte_carlo_localization_example}--> depicts
 MCL using a one-dimensional corridor with a few doors. The robot initially has no
-information about where it is in this corridor. As a result, the graph of the robot’s
+information about where it is in this corridor. As a result, the graph of the robot's
 belief states, which defines the probability of the robot being at a particular
 position, is drawn from a uniform distribution of discretely sampled positions along
 the corridor. A measurement update is performed at each time step. A measurement
@@ -606,10 +606,10 @@ After calculating the local and global costmaps, as well as the location of the
 robot within the given map, the robot must now both plan and execute appropriate
 trajectories to its destination. Two frequent techniques used are the Dynamic Window
 Approach (DWA) and Trajectory Rollout. Both sample the space of feasible controls.
-For a differential drive robot, such as Clearpath Robotics’ Husky and Fetch Robotics’
+For a differential drive robot, such as Clearpath Robotics' Husky and Fetch Robotics'
 Fetch, this controls space is 2D and consists of translations and rotational velocities,
-$\dot{x}, \dot{\theta}$, which are limited by the robot’s capabilities. Each sampled
-velocity is forward simulated from the robot’s current position for a short period
+$\dot{x}, \dot{\theta}$, which are limited by the robot's capabilities. Each sampled
+velocity is forward simulated from the robot's current position for a short period
 of time in order to generate simulated trajectories as shown in Figure <!--\ref{fig:trajectory_rollout_path_planning_framework}-->.
 These simulated trajectories are then scored using the cost function in Equation
 <!--\ref{eq:trajectory_rollout_cost_function}-->,
@@ -645,28 +645,28 @@ velocities for just one simulation step [#BaseLocalPlanner].
 
 ## Manipulation Concepts
 
-ROS’s MoveIt! [#MoveIt] is a collection of packages for mobile manipulation, which
+ROS's MoveIt! [#MoveIt] is a collection of packages for mobile manipulation, which
 incorporate the latest advances in motion planning, manipulation, 3-D perception,
 kinematics, control, and navigation. Figure <!--\ref{fig:moveit!'s_system_architecture}-->
-shows Moveit’s overall system architecture. The move_group node integrates all individual
+shows Moveit's overall system architecture. The move_group node integrates all individual
 packages together in order to provide the user a set of ROS actions and services.
 The user interface allows the user to interact with the move_group node through
-the ROS interface by using C++, Python, or RVIZ [#RVIZ], which is ROS’s graphical
-user interface and 3-D visualization tool. ROS’s Parameter Server [#ParamServer]
-provides the move_group node the robot’s URDF and Semantic Robot Description Format
+the ROS interface by using C++, Python, or RVIZ [#RVIZ], which is ROS's graphical
+user interface and 3-D visualization tool. ROS's Parameter Server [#ParamServer]
+provides the move_group node the robot's URDF and Semantic Robot Description Format
 (SRDF) files, as well as Moveit! specific configuration files. The SRDF is used
 to represent information about the robot that is not included in the URDF file,
 such as a set of links or joints, known collectively as a group, that make up the
 manipulator, predefined group states, and a lists of links between which collision
 checking should be disabled [#SRDF]. Moveit! configuration files include ones that
 set joint limits, as well as kinematics, motion planning and perception parameters.
-The SRDF, as well as necessary Moveit! configuration files are setup through Moveit!’s
-Setup Assistant, which is Moveit!’s graphical user interface for configuring any
+The SRDF, as well as necessary Moveit! configuration files are setup through Moveit!'s
+Setup Assistant, which is Moveit!'s graphical user interface for configuring any
 robot for use with Moveit!. The robot interface allows Moveit! to send command to
-and receive feedback from the robot. Moveit!’s Planning Scene Monitor, which monitors
-information from the robot’s sensors, is used to maintain a planning scene, which
+and receive feedback from the robot. Moveit!'s Planning Scene Monitor, which monitors
+information from the robot's sensors, is used to maintain a planning scene, which
 represent the world around the robot and stores the state of the robot itself. This
-information is used by Moveit!’s Flexible Collision Library, as well as the motion
+information is used by Moveit!'s Flexible Collision Library, as well as the motion
 and kinematic planning plugins to plan and execute obstacle free paths for the
 manipulator [#MoveItConcepts].
 
@@ -680,15 +680,15 @@ manipulator [#MoveItConcepts].
 -->
 
 Moveit! allows the user to plan trajectories either in joint space, forward kinematic (FK),
-or Cartesian space, inverse kinematics (IK). Forward kinematics uses the manipulator’s
+or Cartesian space, inverse kinematics (IK). Forward kinematics uses the manipulator's
 kinematic equations to compute the positon of the end-effector given specific predetermined
-joint angles [#FK]. Whereas, inverse kinematics uses the manipulator’s kinematic
+joint angles [#FK]. Whereas, inverse kinematics uses the manipulator's kinematic
 equation to determine the joint angles necessary for the end-effector to arrive at
 the desired position [#IK]. Figure <!--\ref{fig:forward_and_inverse_kinematics_example}-->
 illustrated the difference between forward and inverse kinematics. In most cases,
 including the multistage localization approach presented in this paper, the target
 joint angles are not known ahead of time. As a result, a target pose is specified
-for the manipulator’s end-effector in Cartesian space and Moveit!’s IK solver will
+for the manipulator's end-effector in Cartesian space and Moveit!'s IK solver will
 determine the appropriate joint angles to reach the desired pose [#Goebel2015].
 
 <!--
@@ -712,9 +712,9 @@ planning algorithm, does provided a tool called IKFast [#IKFast], which allows u
 to generate custom analytical kinematic solver, which can produce solution on the order of
 approximately four microseconds. Table <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->
 shows three common ROS Moveit! numerical kinematic solvers implementations, Orocos
-KDL [#KDL], as well as the TRACLab’s [#TRACLab] KDL-RR and TRAC_IK [#TracIK]. Orocos
+KDL [#KDL], as well as the TRACLab's [#TRACLab] KDL-RR and TRAC_IK [#TracIK]. Orocos
 Kinematics and Dynamics Library (KDL) is a joint-limit-constrained pseudoinverse
-Jacobian solver, whose convergence algorithms are based on Newton’s method. However,
+Jacobian solver, whose convergence algorithms are based on Newton's method. However,
 KDL suffers from the following issues, which results in the high failure rates and
 slow average speed seen in Table <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->.
 
@@ -722,18 +722,18 @@ slow average speed seen in Table <!--\ref{table:comparison_between_ros_available
 2. No action is taken when the search gets trapped in a local minima
 3. Lack of tolerance support and/or utilization in the solver itself
 
-The TRACLab’s KDL-RR kinematic solver implementation attempts to solve issues two
-and three by altering Orocos’s KDL implementation to detect and “untick” the iterative
+The TRACLab's KDL-RR kinematic solver implementation attempts to solve issues two
+and three by altering Orocos's KDL implementation to detect and "untick" the iterative
 convergence algorithms, as well as to loop for a maximum time versus a maximum number
 of iteration. KDL-RR is able to detect local minima by monitoring when the difference
 between joint angles across iterations become approximately zero. When this situation
-occurs, random seed angles are introduced, which “unstick” the convergence algorithms.
+occurs, random seed angles are introduced, which "unstick" the convergence algorithms.
 In addition, KDL-RR loops for maximum time versus maximum iteration due to the fact
 that the maximum number of iteration is an arbitrary number, while maximum time
 can be computed based on the size and complexity of the each manipulator. In addition,
 using maximum time makes comparing implementations easier. Table <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->
 shows that KDL-RR had a dramatic increase in solve rate percentage, as well as a
-modest decrease in runtime compared to KDL. However, KDL-RR’s doesn’t solve issue
+modest decrease in runtime compared to KDL. However, KDL-RR's doesn't solve issue
 one. Consequently, the failure rate is still unacceptably high. TRACLab TRAC-IK
 kinematic solver attempts to solve issue one by using two separate IK solvers concurrently.
 It uses KLD-RR, as well as a sequential quadratic programming (SQP) IK implementation,
@@ -782,7 +782,7 @@ NASA Valkyrie Arm                  & 7                     & 45.18              
 It is relatively straightforward to program a robot to execute an individual action.
 However, programming a fully autonomous robot that will be expected to select which
 individual action it will perform depending upon the task at hand and the current
-conditions isn’t so straight forward. The task execution system must be able to
+conditions isn't so straight forward. The task execution system must be able to
 rank tasks by priority, break down tasks into subtasks, execute tasks in parallel,
 monitor conditions and react according, as well as pause and resume tasks at a later
 if necessary [#Goebel2015]. A commonly used construct to achieve the aforementioned
@@ -794,21 +794,21 @@ associated with it. As long as the robot remains in that states, it will continu
 to carry out the same behavior or tasks. States are connected together by transitions.
 When certain predefined conditions are met, a transition is triggered and the system
 changes from its current state to the target state. State machines are a powerful
-tool; however, it can be difficult to express some behaviors, such as “alarm behaviors”.
+tool; however, it can be difficult to express some behaviors, such as "alarm behaviors".
 Image an autonomous industrial mobile manipulator (AIMM) that is responsible for
 drilling specific patterns on different sections of plane wings. This can be easily
 implemented using a normal state machine. The AIMM will need to navigate to the
 specific starting location of each wing, determine the appropriate drill locations
 based on the associated pattern, and finally carry out the individual drilling operations.
-This can be easily implemented using a normal state machine. Unfortunately, the AIMM’s
-battery does not provide power indefinitely. When the AIMM’s power level drops to
+This can be easily implemented using a normal state machine. Unfortunately, the AIMM's
+battery does not provide power indefinitely. When the AIMM's power level drops to
 a certain level, it will need to stop and navigate to the nearest charging location
 to be recharged, regardless of what it is doing at the time. When it is fully recharged,
 it will need to pick up exactly where it left off. The recharging periods is an
 alarm mechanics: something that interrupts normal behavior to respond to something
 important. Representing this in a state machine leads to a doubling the number of
-states. With only one level of “alarm behaviors’, this is no problem; however, if
-we add levels of “alarm behaviors”, the number of states will increase exponentially.
+states. With only one level of "alarm behaviors', this is no problem; however, if
+we add levels of "alarm behaviors", the number of states will increase exponentially.
 So, rather than combining all the logic into a single state machine, the logic can
 be separated it into several. Each alarm mechanism should have its own state machine,
 along with the original behavior. These individual state machines are arrange into
@@ -816,7 +816,7 @@ a hierarchy, so the next state machine down is only considered when the higher l
 state machine is not responding to its alarm. The nesting of states machines inside
 another makes what is called a hierarchical state machine [#Millington2016].
 
-ROS’s SMACH [#SMACH] package includes a standalone python library for programming
+ROS's SMACH [#SMACH] package includes a standalone python library for programming
 hierarchical state machines, as well as a ROS wrapper for integrating the library
 with ROS topics, services, and actions. Figure <!--\ref{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}-->
 shows a graphical view of a hierarchical state machine set up using SMACH. This
@@ -849,7 +849,7 @@ photometric images are formed.
 -->
 
 Visible light is emitted by one or more sources, which is then reflected off an
-object’s surface. This reflected light, is the optical image which is the input
+object's surface. This reflected light, is the optical image which is the input
 of a digital image formation systems [#Pitas2000], such as a digital camera, depicted
 in Figure <!--\ref{fig:digital_camera_diagram}-->.
 
@@ -1085,7 +1085,7 @@ or not a given foreground or background pixel value changes depend on the image,
 as well as the morphological operations and the structuring element chosen. The
 structuring element is a rectangular array of pixels, which contain values of either
 1 or 0. When the structuring element is centered on the pixel under consideration,
-that pixel’s neighborhood is determined by the pixels in the structuring element
+that pixel's neighborhood is determined by the pixels in the structuring element
 that have a value of 1 [#Solomon2011]. The two fundamental morphological operations
 are dilation, which thickens foreground pixels, and erosion, which thins foreground
 pixels. These two operations can be applied in different combinations in order to
@@ -1364,15 +1364,15 @@ Consequently, the detection method much be robust to changes in luminance (brigh
 chrominance (color), and resolution, as well as be scale and rotationally invariant.
 Once detected and identified, AR tags can be used to accurately calculate the pose
 (location and orientation) of a camera, as well as to encode information or associate
-it with each tag’s specific identity [#Sanni2012]. Using AR tag to calculate the
+it with each tag's specific identity [#Sanni2012]. Using AR tag to calculate the
 relative pose of a camera in real-time is called marker-based tracking. Several
 straightforward and robust maker-based tracking toolkits exists, such as ARToolKit
 [#ARToolKit], ALVAR [#ALVAR], and AprilTags [#Olson2011]. The multistage localization
 approach presented in this paper will use a ROS implementation of ALVAR [#ARTrackAlvar]
-to both calculate the pose of an AR tag in the camera’s frame and associate information
-with that tag’s specific identity.
+to both calculate the pose of an AR tag in the camera's frame and associate information
+with that tag's specific identity.
 
-Figure <!--\ref{fig:summary_of_alvar_ar_tag_detection_framework}--> shows ALVAR’s
+Figure <!--\ref{fig:summary_of_alvar_ar_tag_detection_framework}--> shows ALVAR's
 marker-based tracking framework. The system first acquires a greyscale image, either
 directly or through conversion from another image format. After which, adaptive
 thresholding, which can handle local changes in luminance, is used to create a binary
@@ -1381,13 +1381,13 @@ of white pixels. Subsequently, the contours of each object are found. Due to the
 fact that AR systems, like ALVAR, aim for real-time processing and fast performance,
 time cannot be wasted processing non-markers. As a result, fast acceptance/rejection
 tests are run. ALVAR uses two fast accept/reject tests including size and the four-corner
-test. The number of pixels in an object’s perimeter can be efficiently used to estimate
-the object’s area. Objects with areas that are either too large or too small can
+test. The number of pixels in an object's perimeter can be efficiently used to estimate
+the object's area. Objects with areas that are either too large or too small can
 be rejected. Even if an object, whose area is too small, is a marker, it is too
 far from the camera to either be correctly identified or the pose of the camera
 accurately calculated. Objects, whose area is too large, can be rejected given some
 background knowledge about the upper and lower range of the camera from the marker,
-as well as the marker’s size. The contours of all remaining markers are fitted with
+as well as the marker's size. The contours of all remaining markers are fitted with
 lines. A quadrilateral has exactly four straight lines and four corners. The number
 of lines and corners of each object are calculated. Those that fail the four-corner
 test are dropped. After determining that an object is a marker, it is identified
@@ -1395,7 +1395,7 @@ and the corner locations are optimized to sub-pixel accuracy for further calcula
 Even small errors in the detected 2-D locations of edges and corners can significantly
 affect the calculated pose of the camera [#Sanni2012]. The pose of a calibrated
 camera can be uniquely determined from a minimum of four coplanar but non-collinear
-points [#Hartley2004]. Thus, the system can calculated a marker’s pose (relative
+points [#Hartley2004]. Thus, the system can calculated a marker's pose (relative
 to camera) in 3-D coordinates using the four corner points of the marker in image
 coordinates.
 
@@ -1425,7 +1425,7 @@ and sealant application operations.
 ## Approach Overview
 
 Figure <!--\ref{fig:multistage_localization_approach_overview}--> summaries the
-multistage localization approach’s framework. The mobile manipulator first localizes
+multistage localization approach's framework. The mobile manipulator first localizes
 itself within the area of operation (AO) using adaptive Monte Carlo localization,
 which relies on the fused odometry and sensor messages published by the robot, as
 well as a 2-D map of the AO, normally generated using an optimization-based smoothing
@@ -1436,7 +1436,7 @@ tag in the map frame. One localized, the identity and the 3-D position and orien
 collectively known as pose, of the tag are used to generate a list of initial feature
 points and their locations based off of a priori knowledge. After the end-effector
 moves to the rough location of a feature point provided by the AR localization,
-the feature point’s location, as well as the end-effector positon and orientation are
+the feature point's location, as well as the end-effector positon and orientation are
 refined to within a user specified tolerance through the use of a control loop,
 which utilized images from a calibrated machine vision camera and a laser pointer,
 simulating stereo vision, to localize the feature point in 3-D using computer vision.
@@ -1468,7 +1468,7 @@ a thorough real world evaluation of these available 2-D SLAM techniques in [#San
 in which KartoSLAM[#KartoSLAM][#Konolige2010], an optimization-based smoothing SLAM
 technique, outperformed the other ROS implemented SLAM algorithms in terms of accuracy
 and computational efficiency. As a result, optimization-based smoothing techniques,
-such as KartoSLAM, should be used to generate a 2-D occupancy grid map of the robot’s
+such as KartoSLAM, should be used to generate a 2-D occupancy grid map of the robot's
 environment. After which, start positions and orientations of the specific operations
 are defined in the map as seen in Figure <!--\ref{fig:global_map}-->.
 
@@ -1497,7 +1497,7 @@ measurements from these two sources are fused together through an Extended Kalma
 filter to provide an accurate pose estimate [#Moore2014]. The corrected odometry,
 as well laser scan measurements from a LIDAR and the prebuilt map are used by Adaptive
 Monte Carlo Localization (AMCL) [#AMCL] to localize the robot within this prebuilt
-map. AMCL utilizes a particle filter to keep track of the robot’s pose and *KLD-sampling*
+map. AMCL utilizes a particle filter to keep track of the robot's pose and *KLD-sampling*
 to improve computational complexity by removing redundant particles.
 
 <!--
@@ -1514,8 +1514,8 @@ costmaps, in which obstacles and a specified distance around them represent a co
 the robot must now both plan and execute appropriate trajectories to reach its destination.
 Trajectory Rollout [#BaseLocalPlanner] samples the space of feasible controls. For
 a differential drive robot, this controls space is 2D and consists of translations
-and rotational velocities, $\dot{x}, \dot{\theta}$, which are limited by the robot’s
-capabilities. This sampled velocity is forward simulated from the robot’s current
+and rotational velocities, $\dot{x}, \dot{\theta}$, which are limited by the robot's
+capabilities. This sampled velocity is forward simulated from the robot's current
 position for a short period of time in order to generate simulated trajectories.
 These simulated trajectories are then scored using the cost function in Equation
 <!--\ref{eq:trajectory_rollout_cost_function}-->,
@@ -1535,7 +1535,7 @@ that minimizes this cost function is chosen. As a result, chosen trajectories te
 to keep obstacles at a distance, proceed towards the goal, remain near the optimal
 path, as well as have higher velocities [#Gerkey2008].
 
-ROS’s Navigation Stack [#Navigation] is a collection of packages, which the aforementioned
+ROS's Navigation Stack [#Navigation] is a collection of packages, which the aforementioned
 techniques can be implemented in, in order to localize the robot within a prebuild map,
 as well as plan and execute trajectories by outputting the velocity commands needed;
 so that the robot can reach the specified goal.
@@ -1543,13 +1543,13 @@ so that the robot can reach the specified goal.
 ## Initial Feature Localization Framework
 
 Each Augmented Reality (AR) tag has a unique identity. As a result, relevant information,
-such as feature locations relative to the AR tag’s pose for a specific operation,
+such as feature locations relative to the AR tag's pose for a specific operation,
 can be associated with a predetermined AR tag identity. So, once the robot has arrived
-at the operation’s specified start positions and orientation, the robot uses the
+at the operation's specified start positions and orientation, the robot uses the
 ALVAR package [#ARTrackAlvar] and an RGB-D sensor to detect, identify, and calculated
 the Augmented Reality (AR) tag pose. Upon identification of the AR tag at the operation
 start position, the feature locations for that operation are populated and then
-localized on the work surface given the AR tag’s pose in the map frame. Figure
+localized on the work surface given the AR tag's pose in the map frame. Figure
 <!--\ref{fig:initial_feature_localization_framework}--> shows this initial feature
 localization framework.
 
@@ -1566,7 +1566,7 @@ localization framework.
 
 Once the operations feature locations have been populated and localized on the work
 surface in the map frame, the manipulator must be able to move the end-effector
-to these locations.The manipulator’s motion planning is done through ROS’s Moveit!
+to these locations.The manipulator's motion planning is done through ROS's Moveit!
 package [#MoveIt], which was set up to use TRACLabs numerical inverse kinematic
 (IK) solver, TRAC_IK [#TracIK]. Due to the recursive nature of numerical solvers,
 they tend to be slower than that of analytical solvers and are prone to get trapped
@@ -1587,7 +1587,7 @@ revealed KDL had following flaws:
 TRAC-IK solves these issues by using two separate IK solvers concurrently, as well
 as incorporating local minimum detection in both. It uses KDL-RR, a rewrite of KDL
 which incorporation local minimum detection in order to solve problems two and three
-by “unsticking” the convergence algorithm through the introduction of random seed
+by "unsticking" the convergence algorithm through the introduction of random seed
 angles when a local minimum is detected, as well as a sequential quadratic programming
 (SQP) IK implementation, which is an iterative algorithm for nonlinear optimization.
 The SQP implementation, which incorporates the same local minimum detection as KLD-RR,
@@ -1601,9 +1601,9 @@ and 99.9 % and the average convergence times are well below one millisecond.
 Unfortunately, localizing features in the map frame based on the AR tag localization
 is not sufficient for tasks that require very high precision due to errors associated
 in localizing the AR tag in the map frame. Sources of error include, error in the
-RGB-D camera’s extrinsic calibration, error associated in localizing the AR tag
-itself, error in the location estimate of the camera with respect to the robot’s
-base link, and finally error in the location estimate of robot’s base link in the
+RGB-D camera's extrinsic calibration, error associated in localizing the AR tag
+itself, error in the location estimate of the camera with respect to the robot's
+base link, and finally error in the location estimate of robot's base link in the
 map. Consequently, a secondary localization method is required to refine the feature
 pose estimates; so that, they can be used for high precision tasks, such as drilling
 and sealant application operations in the manufacturing and construction industries.
@@ -1625,7 +1625,7 @@ foreground. Morphological filters are used to remove noise, as well as to fill i
 any holes in the laser point created by the laser pointer; so that, its center can
 be found. The center is found by finding the centroid of the largest blob in the
 binary image. The second feature detection algorithm is responsible for locating
-the pixel of the specific operation’s feature. It does this by first converting
+the pixel of the specific operation's feature. It does this by first converting
 each RGB frame to gray scale. After which, preprocessing operations, such as a Gaussian
 and Median filter, are used to minimize the noise in the image without degrading
 the features. Then Canny Edge Detection [#Canny1986] is used to find appropriate
@@ -1635,7 +1635,7 @@ the outside edges of the image are masked, in order to decrease the likelihood t
 more than one feature is detected. After which the appropriate feature detection
 algorithm, such as Hough Circle Detector [#Illingworth1987] or Good Feature to Track
 [#Tomasi1994], is run in order to find the center pixel of the feature closest to
-the laser point produced by the laser pointer. Once these features’ pixel locations
+the laser point produced by the laser pointer. Once these features' pixel locations
 has been found, they are tracked using the Kanade Lucas Tomasi (KLT) tracker [#Baker2004],
 based on the optical flow of the image, in order to reduce complexation complexity
 that would be associated with running the aforementioned feature detection algorithms
@@ -1645,7 +1645,7 @@ in order to find the depth the line-line intersection, or midpoint of the shorte
 line segment between the two lines if the lines do not intersect, between the 3-D
 ray of the laser pointer in the camera frame, which was found during calibration,
 and the laser points 3-D ray, which is calculated by finding line connecting the
-camera’s center point and the locations of laser point in camera coordinates on
+camera's center point and the locations of laser point in camera coordinates on
 the image plane, must be found. The camera calibration procedure and the calculation
 of the 3-D ray of the laser pointer in the camera frame are detailed in Section 5.3.1.
 Given the 3-D location of the laser point in the camera frame, as well as the surface
@@ -1654,7 +1654,7 @@ that the laser point lies on is calculated. Due to the proximity of the feature
 to the laser point, they are assumed to lie on the same plane. Consequently, the
 3-D locations of the feature point in the camera frame is calculated by finding
 the line-plane intersection between the 3-D ray of the feature, which is calculated
-by finding line connecting the camera’s center point and the locations of feature
+by finding line connecting the camera's center point and the locations of feature
 point in camera coordinates on the image plane, and the plane of the laser point.
 
 <!--
@@ -1670,7 +1670,7 @@ After the feature has been localized in 3-D in the camera frame, the feature is
 transformed into the end-effectors frame and the manipulator updates the position
 of the end-effector, while remaining a set distance off the work surface, through
 the use of the control loop depicted in Figure <!--\ref{fig:manipulator_correction_control_loop}-->.
-Once, the end-effector’s is within the reference tolerance set, the control loops
+Once, the end-effector's is within the reference tolerance set, the control loops
 exits and the specified operation begins. This reference tolerance should be set
 no lower than the maximum accuracy achievable by either the detection algorithm
 or the end-effector itself.
@@ -1717,7 +1717,7 @@ platforms.
 
 Figure <!--\ref{fig:drilling_operation_framework}--> shows the basic drilling operation
 and error handling framework. Once the mobile manipulator has arrived at the drilling
-operation’s start location and orientated itself in the prescribe direction, its
+operation's start location and orientated itself in the prescribe direction, its
 RGB-D camera will detect, identify, and localize the AR tag located at the work
 station. Using this AR tag locations and identity, the specific features associated
 with that work station will be populated and localized on the work surface in the
@@ -1749,7 +1749,7 @@ list and the customer notified after the operation.
 
 Figure <!--\ref{fig:sealant_application_framework}--> shows the basic sealant application
 operation and error handling framework. Once the mobile manipulator has arrived
-at the sealant applicant operation’s start location and orientated itself in the
+at the sealant applicant operation's start location and orientated itself in the
 prescribe direction, its RGB-D camera will detect, identify, and localize the AR
 tag located at the work station. Using this AR tag locations and identity, the specific
 features associated with that work station will be populated and localized on the
@@ -1761,9 +1761,9 @@ a window frame, require the application of sealant from one corner to another. C
 the feature correction framework will use these features, corners, as landmarks
 and detect them using Good Feature to Track [#Tomasi1994]. Using these landmarks,
 the feature locations are refined to within a user specified accuracy. After which,
-the manipulator will move to the next corner location in the list. After this corner’s
+the manipulator will move to the next corner location in the list. After this corner's
 location has been refined, the manipulator will transition back to the previous
-corner’s location and seal from that start corner to the end corner. This will continue
+corner's location and seal from that start corner to the end corner. This will continue
 until all connected corners have sealant applied between them. However, if the robot
 due to obstruction or other reason is unable to navigate within range of a feature,
 the machine vision camera is unable to detect the landmark, or the manipulator is
@@ -1823,28 +1823,28 @@ hardware, the Clearpath Robotics' Husky is equipped with a Gigibyte BRIX GB-BXi7
 which includes an Intel i7 processor, NVIDIA GeForce GTX 760 GPU, 16 GB DDR3 RAM,
 250 GB SSD, and two USB3.0 ports.
 
-The Fetch Robotics’ Fetch in particular is equipped with a Primesense Carmine 1.09,
+The Fetch Robotics' Fetch in particular is equipped with a Primesense Carmine 1.09,
 Baser ACA1920-150uc machine vision camera, Sick TIM571 LIDAR, two 6 DOF IMUs, two
-high precision wheel encoders, and Fetch Robot’s proprietary 7 DOF manipulator with
+high precision wheel encoders, and Fetch Robot's proprietary 7 DOF manipulator with
 a 6 kg payload capacity. In regards to the specific computer hardware, The Fetch
-Robotics’ Fetch is equipped with a standard Mini-ITX motherboard, which includes
+Robotics' Fetch is equipped with a standard Mini-ITX motherboard, which includes
 an Intel i5 processer, 16 GB DDR3 RAM, 120 GB SSD, and three USB 2.0 ports.
 
 ## Software Architecture
 
 The Clearpath Robotics' Husky and Fetch Robotics' Fetch used Ubuntu 14.04 and ROS
-Indigo for the experiments. The Clearpath Robotics’ Husky used an Extended Kalman
-Filter through ROS’s robot_localization package [#RobotLocalization] to fuse its
-wheel encoder and IMU measurements together, while Fetch Robotics’ Fetch used an
+Indigo for the experiments. The Clearpath Robotics' Husky used an Extended Kalman
+Filter through ROS's robot_localization package [#RobotLocalization] to fuse its
+wheel encoder and IMU measurements together, while Fetch Robotics' Fetch used an
 Unscented Kalman Filter. Both platforms used this corrected odometry, as well as
 laser scans from their respective LIDAR to produce a map of the area of operation
-(AO) using ROS’s KartoSLAM package [#KartoSLAM]. Both robot’s use ROS’s Navigation
+(AO) using ROS's KartoSLAM package [#KartoSLAM]. Both robot's use ROS's Navigation
 Stack [#Navigation] to localize themselves in the map using the AMCL package [#AMCL]
 and implement trajectory rollout through the base_local_planner package [#BaseLocalPlanner]
-for path planning and obstacle avoidance. Both robots used ROS’s ar_track_alvar
+for path planning and obstacle avoidance. Both robots used ROS's ar_track_alvar
 package [#ARTrackALVAR] to identify and localize augmented reality (AR) tags. For
-motion planning, both robot’s used ROS’s Moveit! [# MoveIt], which was setup to
-use the TRAC-IK [#TracIK] numerical solver. For perception, both robot’s used OpenCV
+motion planning, both robot's used ROS's Moveit! [# MoveIt], which was setup to
+use the TRAC-IK [#TracIK] numerical solver. For perception, both robot's used OpenCV
 2.4 [#Itseez2015] to perform necessary operations on the images provided by the
 Basler machine vision camera.
 
@@ -1858,7 +1858,7 @@ calibration setup and the software used for the calibration will be presented.
 
 Figure <!--\ref{fig:camera_calibration_setup}--> shows the experimental setup used
 to calibrate both the Microsoft Kinect V2, the Baser ACA1920-150uc, as well as the
-laser pointer in the Baser ACA1920-150uc’s camera frame. For each calibration the
+laser pointer in the Baser ACA1920-150uc's camera frame. For each calibration the
 camera and checkerboard pattern were affixed to individual tri-pods. The Microsoft
 Kinect V2 was calibrated using the kinect2_calibration package [#iai_kinect2], while
 the Baser ACA1920-150 was calibrated using Jean-Yves Bouguet camera calibration
@@ -1873,7 +1873,7 @@ toolbox for Matlab [#Bouguet2015].
 \end{figure}
 -->
 
-The kinect2_calibration package and Bouguet’s camera calibration toolbox both follow
+The kinect2_calibration package and Bouguet's camera calibration toolbox both follow
 the calibration procedure proposed by Dr. Zhang in [#Zhang1999]. First, images of
 a checkerboard pattern affixed to a planar surface are taken by the camera at different
 distances and orientations. In these images, the feature points in the checkerboard
@@ -1904,7 +1904,7 @@ parameters of each image are calculated using the feature in the checkerboard. U
 the extrinsic, the plane equation of the checkerboard was calculated in camera coordinates.
 These 3-D camera coordinates points were found by finding line-plane intersection
 between the plane of the checkerboard and 3-D ray of the laser point, which is calculated
-by finding line connecting the camera’s center point and the locations of laser
+by finding line connecting the camera's center point and the locations of laser
 point in camera coordinates. The same procedure presented in Section 4.6 was used
 to find the center pixel of the laser point.
 
@@ -1920,10 +1920,10 @@ to find the center pixel of the laser point.
 ### Navigation System Experimental Setup
 
 Figure <!--\ref{fig:navigation_system_experimental_setup}--> shows the experimental
-setup for the navigation system test. Both the Clearpath Robotics’ Husky, as well
-as Fetch Robotics’ Fetch navigated to specified positions 5, 10, and 20 meters away
+setup for the navigation system test. Both the Clearpath Robotics' Husky, as well
+as Fetch Robotics' Fetch navigated to specified positions 5, 10, and 20 meters away
 from a specified start position. The absolute difference in the x and y directions,
-as well as the angular yaw between the robot’s final positons and the set reference
+as well as the angular yaw between the robot's final positons and the set reference
 point were measured. This test was run continually as the robot proceed to each
 5, 10, and 20 meter location, 20 time each.
 
@@ -1940,10 +1940,10 @@ point were measured. This test was run continually as the robot proceed to each
 
 Figure <!--\ref{fig:drilling_operations_experimental_setup}--> shows the experimental
 setup for the augmented reality (AR) tag detection, identification, and localization
-tests. Both the Clearpath Robotics’ Husky, as well as Fetch Robotics’ Fetch were
+tests. Both the Clearpath Robotics' Husky, as well as Fetch Robotics' Fetch were
 placed at locations a specific x and y distance away, as well as at a specific angle
-from the drilling station’s augmented reality (AR) tag, given the maximum error
-from the navigation test. Each robot’s RGB-D sensor was used to detect, identify
+from the drilling station's augmented reality (AR) tag, given the maximum error
+from the navigation test. Each robot's RGB-D sensor was used to detect, identify
 and localize the specific AR tag. After the feature points for that operation were
 populated, the absolute difference in x, y, and z directions were measured. For
 each location, the experiment was conducted five times with 50 features, including
@@ -1953,7 +1953,7 @@ the AR tag.
 
 Figure <!--\ref{fig:drilling_operations_experimental_setup}--> shows the experimental
 setup for the drilling operation test. First the sub-millimeter accuracy of the
-Universal Robotics’ 6 DOF UR5 and Fetch Robotics’ 7DOF manipulator was verified.
+Universal Robotics' 6 DOF UR5 and Fetch Robotics' 7DOF manipulator was verified.
 After which, the accuracy of feature detection, tracking, and localization pipeline
 was tested using the Baser ACA1920-150uc camera and laser pointer. This accuracy
 was determined by calculating the difference between the distance measured between
@@ -1977,7 +1977,7 @@ the laser point and corner: less than 5 mm, between 5 and 10 mm, between 10 and
 
 Figure <!--\ref{fig:sealant_application_experimental_setup}--> shows the experimental
 setup for the sealant operation test. First the sub-millimeter accuracy of the Universal
-Robotics’ 6 DOF UR5 and Fetch Robotics’ 7DOF manipulator was verified. After which,
+Robotics' 6 DOF UR5 and Fetch Robotics' 7DOF manipulator was verified. After which,
 the accuracy of feature detection, tracking, and localization pipeline was tested
 using the Baser ACA1920-150uc camera and laser pointer. This accuracy was determined
 by calculating the difference between the distance measured between the laser point
@@ -2007,12 +2007,12 @@ x as forward, positive y as left, and positive z up with respect to the robot.
 
 ### Camera Calibration Accuracy Achieved
 
-The Microsoft Kinect V2 incorporates both an RGB and an IR camera. Each camera’s
+The Microsoft Kinect V2 incorporates both an RGB and an IR camera. Each camera's
 intrinsic parameters and distortion coefficients were calculated through calibrated
 individually. After which, each calibrated camera took pictures of a checkerboard
 at the same distance and orientation. The images extrinsic parameters were used
-to calculate the pose of each camera in the other’s camera frame. The Microsoft
-Kinect V2’s RGB, IR, and Pose pixel error from the calibrations were 0.376 pixels,
+to calculate the pose of each camera in the other's camera frame. The Microsoft
+Kinect V2's RGB, IR, and Pose pixel error from the calibrations were 0.376 pixels,
 0.126 pixels, and .284719 pixels respectively. The Baser ACA1920-150uc pixel error
 from calibration was .418. While the laser pointer 3-D ray in Baser ACA1920-150uc
 frame minimum mean square orthogonal distance to the line was 0.6468 mm.
@@ -2027,7 +2027,7 @@ reaching the specified positions 5, 10, and 20 meters away from a specified star
 position. While Table <!--\ref{tabel:global_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}-->
 and Figures <!--\ref{fig:global_x_and_y_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}-->
 and <!--\ref{fig:global_psi_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}-->
-show the x, y and yaw error associated with the Fetch Robotics’ Fetch in reaching
+show the x, y and yaw error associated with the Fetch Robotics' Fetch in reaching
 the specified positions 5, 10, and 20 meters away from a specified start position.
 The following Tables and Figures show that neither the Husky nor the Fetch average
 error pert test exceeded 6.4 cm in the x, 4.5 cm in the y, and .03 radians in the
@@ -2127,7 +2127,7 @@ as 5 and 6 were offsets of Test 1 and 2 respectively. Test 3 and 4, were offset
 and 0.09 radian in the negative $\psi$ direction. While test 5 and 6, were offset
 16.1 cm in the negative x direction, 7.5 cm in the negative y direction (right),
 and 0.09 radians in the positive $\psi$ direction. These distance offsets were determined
-by taking the average error from the Fetch’s navigation tests and adding three standard
+by taking the average error from the Fetch's navigation tests and adding three standard
 deviations. The tests show an average error of approximately 3.3 cm in the x direction,
 12.6 cm in the y direction, and 11.8 cm in the z. The difference in error between
 Tests 1 and 2, 3 and 4, 5 and 6, are either approximately the same or lower as the
@@ -2148,8 +2148,8 @@ seems to decrease error.
 \multicolumn{1}{|c|}{\textbf{Test 1}} & 50.41           & 22.81               & 148.87          & 12.33               & 150.96          & 12.61               \\ \midrule
 \multicolumn{1}{|c|}{\textbf{Test 2}} & 23.71           & 16.06               & 151.82          & 6.86                & 117.57          & 12.81               \\ \midrule
 \multicolumn{1}{|c|}{\textbf{Test 3}} & 23.06           & 14.85               & 128.39          & 11.48               & 173.24          & 23.24               \\ \midrule
-\multicolumn{1}{|c|}{\textbf{Test 4}} & 37.19           & 14.85               & 183.21          & 7.30                & 115.85          & 16.27               \\ \midrule
-\multicolumn{1}{|c|}{\textbf{Test 5}} & 24.36           & 17.47               & 138.66          & 6.77                & 42.80           & 16.37               \\ \midrule
+\multicolumn{1}{|c|}{\textbf{Test 4}} & 24.36           & 17.47               & 138.66          & 6.77                & 42.80           & 16.37               \\ \midrule
+\multicolumn{1}{|c|}{\textbf{Test 5}} & 37.19           & 14.85               & 183.21          & 7.30                & 115.85          & 16.27               \\ \midrule
 \multicolumn{1}{|c|}{\textbf{Test 6}} & 39.16           & 23.52               & 7.27            & 3.70                & 105.24          & 9.16                \\ \midrule
 \multicolumn{1}{|c|}{\textbf{Mean}}   & \textbf{32.98}  & \textbf{18.26}      & \textbf{126.37} & \textbf{8.07}       & \textbf{117.61} & \textbf{15.08}      \\ \bottomrule
 \end{tabular}}
@@ -2175,7 +2175,7 @@ had the RGB-D sensor centered on the AR tag but offset in the negative x directi
 and 0.115 radian in the negative $\psi$ direction. While test 3, were offset 20.0
 cm in the negative x direction, 15.2 cm in the negative y direction (right), and
 .115 radians in the positive $\psi$ direction. These distance offsets were determined
-by taking the average error from the Husky’s navigation tests and adding three standard
+by taking the average error from the Husky's navigation tests and adding three standard
 deviations. The tests show an average error of approximately 8.8 cm in the x direction,
 3.0 cm in the y direction, and 5.5 cm in the z. Also, it appears that moving the
 RGB-D sensor slightly in the positive y direction (left) and negative $\psi$ seems
@@ -2211,21 +2211,21 @@ Overall, the Microsoft Kinect V2 performs significantly better than of the Prime
 Carmine 1.09. This is due to the fact that the Microsoft Kinect V2 is a newer sensor,
 which has greater resolution, horizontal and vertical field of view (FOV), and onboard
 processing. However, neither the Primesense Carmine 1.09 nor the Microsoft Kinect
-V2 performed exceptionally. Sources of error include, error in the RGB-D camera’s
+V2 performed exceptionally. Sources of error include, error in the RGB-D camera's
 extrinsic calibration, error associated in localizing the AR tag itself, error in
-the location estimate of the camera with respect to the robot’s base link, and finally
-error in the location estimate of robot’s base link in the map. In order to reduce
+the location estimate of the camera with respect to the robot's base link, and finally
+error in the location estimate of robot's base link in the map. In order to reduce
 these sources of error, the RGB-D camera would need to be calibrated on rig which
 was certified to achieve sub-millimeter to millimeter level accuracy. In order to
 address the accuracy error inherent in the localization using the AR tag, different
 AR tag detection library could be explored, such as AprilTags [#Olson2011] and ARToolKit
-[#ARToolKit], or using QR codes with libraries like ZBar [#ZBar]. The RGB-D sensor’s
-position with respect to robot’s base would need to be measure accurately to within
-sub-millimeter to millimeter level accuracy. This can be done through using ROS’s
+[#ARToolKit], or using QR codes with libraries like ZBar [#ZBar]. The RGB-D sensor's
+position with respect to robot's base would need to be measure accurately to within
+sub-millimeter to millimeter level accuracy. This can be done through using ROS's
 robot_calibration package [#RobotCalibration] and a certified calibrated camera
-to adjust the robot’s URDF. In addition, newer RGB-D sensor such as the Orbbec Astra,
-Intel’s RealSense R200, and Structure’s Sensor or a stereo vision camera such as
-ZED’s Stereo Vision Camera, Point Grey’s Bumblebee2, and the DUO MLX. In addition,
+to adjust the robot's URDF. In addition, newer RGB-D sensor such as the Orbbec Astra,
+Intel's RealSense R200, and Structure's Sensor or a stereo vision camera such as
+ZED's Stereo Vision Camera, Point Grey's Bumblebee2, and the DUO MLX. In addition,
 to providing depth information the stereos cameras have the ability to work indoor
 and outdoor, which could be extremely advantageous depending on the environment.
 While getting millimeter level accuracy could be achieved, getting sub-millimeter
@@ -2247,7 +2247,7 @@ slightly as the distance away from the feature is increased, the x decreases sli
 and the z decreased significantly. However, due to the fact that z and x have decreasing
 curves as the laser point get closer to the feature, the system is able to achieve
 sub-millimeter level accuracy in the y and z, and very low millimeter level accuracy
-in the x due to the method’s control loop. The Basler ACA1920-150uc with a 16 mm
+in the x due to the method's control loop. The Basler ACA1920-150uc with a 16 mm
 focal length lens should be able to achieve localization accuracies close to its
 GSD of .006 mm, which is exceeds the capability of both manipulators used. In order
 to improve the accuracy to this level, the camera and laser should be calibrated
@@ -2297,7 +2297,7 @@ as well as a ground sample distance (GSD) of .0062 cm. While the y accuracy incr
 slightly as the distance away from the feature is increased, the x decreases slightly
 and the z decreased significantly. However, due to the fact that z and x have decreasing
 curves as the laser point get closer to the feature, the system is able to achieve
-very low millimeter level accuracy in the x, y, and z due to the method’s control
+very low millimeter level accuracy in the x, y, and z due to the method's control
 loop. The Basler ACA1920-150uc with a 16 mm focal length lens should be able to
 achieve localization accuracies close to its GSD of .006 mm, which is exceeds the
 capability of the both manipulator used. In order to improve the accuracy to this
@@ -2341,14 +2341,14 @@ approach and system implementation presented in Chapter 4 through testing. The a
 of each component of the multistage localization technique was determined on two
 different ROS enabled robotic platforms, the Clearpath Robotics' Husky and Fetch
 Robotics' Fetch. In addition, methods to improve the localization approach to the
-accuracies limits of both manipulator’s were presented.
+accuracies limits of both manipulator's were presented.
 
 # Conclusion and Future Work
 
 The purpose of this paper was to present a multistage localization approach for
 an autonomous industrial mobile manipulator (AIMM). This approach allows tasks with
-operational scope outside the range of the robot’s manipulator to be complete without
-have to recalibrate the positon of the end-effector each time the robot’s mobile
+operational scope outside the range of the robot's manipulator to be complete without
+have to recalibrate the positon of the end-effector each time the robot's mobile
 base moves to another position in order to complete said operation. This is achieved
 through localizing the AIMM within its area of operation (AO) using adaptive Monte
 Carlo localization (AMCL), which relies on the fused odometry and sensor messages
@@ -2361,17 +2361,17 @@ in the map frame. One localized, the identity and the 3-D position and orientati
 collectively known as pose, of the tag are used to generate a list of initial feature
 points and their locations based off of *a priori* knowledge. After the end-effector
 moves to the rough location of a feature point provided by the AR tag localization,
-the feature point’s location, as well as the end-effector’s positon and orientation
+the feature point's location, as well as the end-effector's positon and orientation
 are refined to within a user specified tolerance through the use of a control loop,
 which utilized images from a calibrated machine vision camera and a laser pointer,
 simulating stereo vision, to localize the feature point in 3-D space using computer
 vision. This approach was implemented on two different ROS enabled robots, Clearpath
-Robotics’ Husky and Fetch Robotics’ Fetch , in order to show the utility of the
+Robotics' Husky and Fetch Robotics' Fetch , in order to show the utility of the
 multistage localization approach in executing two tasks which are prevalent in both
 manufacturing and construction: drilling and sealant application. The proposed approach
 was able to achieve an average accuracy of $\pm$ 1 mm in these operations, verifying
-it’s efficacy for tasks which have a larger operational scope than that of the range
-of the AIMM’s manipulator and its robustness to general applications in manufacturing.
+it's efficacy for tasks which have a larger operational scope than that of the range
+of the AIMM's manipulator and its robustness to general applications in manufacturing.
 
 However, through the steps mentioned in Section 5.4 such as adding additional sensors,
 like an additional IMU, LIDAR, or RGB-D camera in order to increase the accuracy
@@ -2382,7 +2382,7 @@ or the initial feature location can be localized using the visual high-precision
 presented in Section 2.3, which uses a calibration plate to localize the feature
 within $\pm$ 0.1 mm. Further improvements in the initial feature localization could
 be achieved by calibration the RGB-D and RGB cameras locations with respect to the
-base-link need to within $\pm$ 1 mm through the use of packages like ROS’s robot_calibration,
+base-link need to within $\pm$ 1 mm through the use of packages like ROS's robot_calibration,
 as well as upgrading to newer RGB-D sensor with better resolution, such as the ZED
 stereo vision camera. The refined feature position's accuracy could conceivable
 be brought down to the ground sample distance (GSD) of the camera, $/pm$ .006 mm

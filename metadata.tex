@@ -1,71 +1,45 @@
-\def\myabstract{This paper will present a multistage localization approach for
-an autonomous industrial mobile manipulator (AIMM). This approach allows tasks with
-an operational scope outside the range of the robot’s manipulator to be completed
-without having to recalibrate the positon of the end-effector each time the robot’s
-mobile base moves to another position. This is achieved through localizing the AIMM
-within its area of operation (AO) using adaptive Monte Carlo localization (AMCL),
-which relies on the fused odometry and sensor messages published by the robot, as
-well as a 2-D map of the AO, which is generated using an optimization-based smoothing
-simultaneous localization and mapping (SLAM) technique. The robot navigates to a
-predefined start location in the map incorporating obstacle avoidance through the
-use of a technique called trajectory rollout. Once there, the robot uses its RGB-D
-sensor to localize an augmented reality (AR) tag in the map frame. Once localized,
-the identity and the 3-D position and orientation, collectively known as pose, of
-the tag are used to generate a list of initial feature points and their locations
-based on \textit{a priori} knowledge. After the end-effector moves to the approximate
-location of a feature point provided by the AR tag localization, the feature point’s
-location, as well as the end-effector’s pose are refined to within a user specified
-tolerance through the use of a control loop, which utilizes images from a calibrated
-machine vision camera and a laser pointer, simulating stereo vision, to localize
-the feature point in 3-D space using computer vision. This approach was implemented
-on two different ROS enabled robots, Clearpath Robotics’ Husky and Fetch Robotics’
-Fetch, in order to show the utility of the multistage localization approach in executing
-two tasks which are prevalent in both manufacturing and construction: drilling and
-sealant application. The proposed approach was able to achieve an average accuracy
-of $\pm$ 1 mm in these operations, verifying it’s efficacy for tasks which have a
-larger operational scope than that of the range of the AIMM’s manipulator and its
-robustness to general applications in manufacturing.}
 \def\myacknowledgements{I would like to thank my Lord and Savior Jesus Christ. It
-is his grace alone that has sustained me throughout the completion of this degree
-despite life’s twists and turns.
+is His grace alone that has sustained me throughout the completion of this degree
+despite life's twists and turns.
 
 I would like to thank my advisor, Dr. Furukawa, for his guidance and mentorship
 throughout my graduate career. His constant feedback has allowed me to mature not
 only as a researcher, but as a person. I would also like to thank my committee,
-Dr. Kochersberger and Dr. Lattimer for their time, guidance and support.
+Dr. Kochersberger and Dr. Lattimer, for their time, counsel, and support.
 
 I want to thank my corporate sponsors who helped to make this work possible. I would
 like to thank Matt Stremler, Tim Ward, and Eric Holterman at the Commonwealth Center
-of Advanced Manufacturing (CCAM) for their guidance and support on this project.
+of Advanced Manufacturing (CCAM) for their direction and support of this project.
 
-I would like to thank members of every robotic lab on campus without your depth
-of knowledge, guidance, and support of this project, it would would not have been
+I would like to thank members of every robotic lab on campus; without their depth
+of knowledge, guidance, and support of this project, it would not have been
 completed satisfactorily. In particular, I would like to thank Jason Zigler, John
-Seminator, Jack Newton, and Matt Meeder of the Mechatronics lab, John Peterson,
-Evan Smith, and Danny Whitehurst, of the Unmanned Systems Lab, as well as Robert
-Griffin and Adam Shoemaker of Dr. Leonessa’s lab. In addition, I would like to thank
-all my colleagues in the Computational Multi-physics Systems (CMS) Lab and Mitchell
-Robotic Lab (MRL). Without their help, input, and the long nights, I would not have
-finished. Specifically, I would like to thank Kuya Takami, Boren Li, Rich Fedora,
-Orson Lin, Murat Ambarkutuk, Luan Doan, Hangxin Liu, Yazhe Hu, Tian Yi, Peter Amico,
-Cameron Ridgewell, Spencer Leamy, Jason Doyle, Urvi Desai, Jihong Cai, Mickey Cowden,
-Tom Ehrenzeller, Diya Li, George Kontoudis, Josiah Steckenrider, Cong Chen, as well
-as Yoonchang Sung and Mengyu Song.
+Seminator, Jack Newton, and Matt Meeder of the Mechatronics lab; John Peterson,
+Evan Smith, and Danny Whitehurst of the Unmanned Systems Lab; Robert
+Griffin of the Terrestrial Robotics Engineering and Controls (TREC) Lab, and Adam
+Shoemaker of the Center for Dynamic Systems Modeling and Control (DySMaC). In addition,
+I would like to thank all my colleagues in the Computational Multi-physics Systems
+(CMS) Lab and the Mitchell Robotics Lab (MRL). Without their help, input, and the
+long nights, I would not have finished. Specifically, I would like to thank Kuya
+Takami, Boren Li, Rich Fedora, Orson Lin, Murat Ambarkutuk, Luan Doan, Hangxin Liu,
+Yazhe Hu, Tian Yi, Peter Amico, Cameron Ridgewell, Spencer Leamy, Jason Doyle,
+Urvi Desai, Jihong Cai, Mickey Cowden, Tom Ehrenzeller, Diya Li, George Kontoudis,
+Josiah Steckenrider, and Cong Chen, as well as Yoonchang Sung and Mengyu Song.
 
 I would like to thank my twin brother, Steven, parents, Ken and Luany, as well as
-all of my extended family, for their love, encouragement, continued moral support
-and guidance on every difficult life decision. I would also like to thank all of
+all of my extended family, for their love, encouragement, continued moral support,
+and advice on every difficult life decision. I would also like to thank all of
 my friends, some of whom are as close as family, for all of the support and encouragement
 they have given to me along the way. I would not be the person I am today without
-their love, support, and guidance throughout my life.
+their love, support, and direction throughout my life.
 
-Finally, I would like to thank the Virginia Tech, the Virginia Tech Corps of Cadet,
+Finally, I would like to thank Virginia Tech, the Virginia Tech Corps of Cadets,
 Air Force Detachment 875, and Denbigh Baptist Christian School. It was through your
 positive learning environment that I was able to grow as both a student and a person.
 }
-\def\mykeywords{Autonomous Navigation, SLAM, Visual Servoing, Mobile Manipulation, Computer Vision, State Machine}
+\def\mykeywords{Autonomous Navigation, SLAM, Visual Servoing, Mobile Manipulation,
+Computer Vision, State Machine}
 \def\mycommittee{Tomonari Furukawa\\ Brian Lattimer\\ Kevin Kochersberger\\}
-\def\mydate{\date}
 
 %To change linespacing, uncomment the next line
 %\def\mylinespace{\onehalfspacing}
