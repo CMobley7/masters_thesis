@@ -165,7 +165,7 @@ presented in this paper. Specifically, a 2-D map will be made using an optimizat
 based smoothing SLAM technique while localization within this map will be accomplished
 via adaptive Monte Carlo localization (AMCL).
 
-## Task Association and A Priori Knowledge for Mobile Manipulators
+## Task Association and *A Priori* Knowledge for Mobile Manipulators
 
 Fiducial makers have a wide variety of uses due to their tri-ability of being easy to
 detect under most circumstances, able to be precisely localized, and the ability
@@ -340,7 +340,7 @@ Format (URDF) File [#URDF].
 ## Simultaneous Localization and Mapping Concepts
 
 In order for a mobile robot to operate and perform intricate tasks in a complex,
-GPS-denied environment, such as that of manufacturing facility, without modifying
+GPS-denied environment, such as that of manufacturing facility or construction site, without modifying
 said environment, the robot must be able to create an accurate map of its environment
 while simultaneously localizing itself within this map using only on-board sensors.
 Simultaneous localization and mapping (SLAM) is the problem of building and/or updating
@@ -1417,14 +1417,15 @@ Insert Text Summarizing This Chapter and Transiting to the Next.
 
 The purpose of this chapter is to thoroughly explain each component of the multistage
 localization approach presented in this paper, as well as how these individual
-components fit together in order to enable high precision 3-D feature point localization.
-In addition, this chapter will expound upon the implementation of this approach
-to two tasks which are prevalent in both manufacturing and construction, drilling
-and sealant application operations.
+components fit together in order to enable high precision 3-D feature point localization
+without having to recalibrate the positon of the end-effector each time the robot's
+mobile bases moves. In addition, this chapter will expound upon the implementation
+of this approach to two tasks which are prevalent in both manufacturing and construction
+industries: drilling and sealant application operations.
 
 ## Approach Overview
 
-Figure <!--\ref{fig:multistage_localization_approach_overview}--> summaries the
+Figure <!--\ref{fig:multistage_localization_approach_overview}--> summarizes the
 multistage localization approach's framework. The mobile manipulator first localizes
 itself within the area of operation (AO) using adaptive Monte Carlo localization,
 which relies on the fused odometry and sensor messages published by the robot, as
@@ -1432,14 +1433,14 @@ well as a 2-D map of the AO, normally generated using an optimization-based smoo
 simultaneous localization and mapping (SLAM) technique. The robot navigates to a
 predefined start location in the map using a technique called trajectory rollout.
 Once there, the robot uses an RGB-D sensor to localize an augmented reality (AR)
-tag in the map frame. One localized, the identity and the 3-D position and orientation,
+tag in the map frame. Once localized, the identity and the 3-D position and orientation,
 collectively known as pose, of the tag are used to generate a list of initial feature
-points and their locations based off of a priori knowledge. After the end-effector
+points and their locations based off of *a priori* knowledge. After the end-effector
 moves to the rough location of a feature point provided by the AR localization,
 the feature point's location, as well as the end-effector positon and orientation are
 refined to within a user specified tolerance through the use of a control loop,
-which utilized images from a calibrated machine vision camera and a laser pointer,
-simulating stereo vision, to localize the feature point in 3-D using computer vision.
+which utilizes images from a calibrated machine vision camera and a laser pointer,
+simulating stereo vision, to localize the feature point in 3-D space using computer vision techniques.
 
 <!--
 \begin{figure}[H]
@@ -1452,11 +1453,11 @@ simulating stereo vision, to localize the feature point in 3-D using computer vi
 
 ## Global Map Creation and Task Location Specification
 
-In order for a mobile manipulator to operate and perform intricate tasks within
-a complex, GPS-denied environments, such as that of manufacturing facilities or
-construction site, without modifying said environment, the robot must create an
-accurate map of its environment. Simultaneous localization and mapping (SLAM) is
-the process of building or updating a map of an unknown environment while simultaneously
+In order for a mobile manipulator to operate and perform intricate tasks in a complex,
+GPS-denied environment, such as that of manufacturing facility or construction site, without modifying
+said environment, the robot must be able to create an accurate map of its environment.
+Simultaneous localization and mapping (SLAM) is the process of building or
+updating a map of an unknown environment while simultaneously
 localizing the robot within this map. Most SLAM techniques can be categorized into
 two main paradigms: filtering and optimization-based smoothing. While filtering
 SLAM techniques have been widely used in the past due to their ability to model
@@ -1464,13 +1465,14 @@ different sources of sensor noise, in recent years optimization-based smoothing
 techniques have proven to be more efficient, scalable, and robust than that of filtering
 techniques [#Latif2013]. ROS [#Quigley2009], through which the multistage localization
 approach was implemented, includes several 2-D SLAM packages. Santos et al. performed
-a thorough real world evaluation of these available 2-D SLAM techniques in [#Santos2013],
-in which KartoSLAM[#KartoSLAM][#Konolige2010], an optimization-based smoothing SLAM
+a thorough real world evaluation of these available 2-D SLAM packages in [#Santos2013],
+in which KartoSLAM [#KartoSLAM], [#Konolige2010], an optimization-based smoothing SLAM
 technique, outperformed the other ROS implemented SLAM algorithms in terms of accuracy
-and computational efficiency. As a result, optimization-based smoothing techniques,
-such as KartoSLAM, should be used to generate a 2-D occupancy grid map of the robot's
-environment. After which, start positions and orientations of the specific operations
-are defined in the map as seen in Figure <!--\ref{fig:global_map}-->.
+and computational efficiency. This not only demonstrates the robustness of its sparse pose
+adjustment (SPA), but that of full SLAM techniques in general. As a result, optimization-based
+smoothing techniques, such as KartoSLAM, should be used to generate 2-D occupancy
+grid maps of the robot's environment. After which, start positions and orientations
+of specific operations are defined in the map as seen in Figure <!--\ref{fig:global_map}-->.
 
 <!--
 \begin{figure}[H]
@@ -1495,10 +1497,10 @@ However, these methods do not account for wheel slippage or measurement error. A
 the accuracy of the pose estimation will degrade over time. Consequently, the odometry
 measurements from these two sources are fused together through an Extended Kalman
 filter to provide an accurate pose estimate [#Moore2014]. The corrected odometry,
-as well laser scan measurements from a LIDAR and the prebuilt map are used by Adaptive
+as well as laser scan measurements from a LIDAR and the prebuilt map are used by Adaptive
 Monte Carlo Localization (AMCL) [#AMCL] to localize the robot within this prebuilt
 map. AMCL utilizes a particle filter to keep track of the robot's pose and *KLD-sampling*
-to improve computational complexity by removing redundant particles.
+to improve computational efficiency by removing redundant particles.
 
 <!--
 \begin{figure}[H]
@@ -1527,7 +1529,7 @@ C(\textit{k}) = \alpha{} Obs + \beta{} Gdist +\gamma{} Pdist + \delta{} \frac{1}
 \end{equation}
 -->
 
-where *Obs* is the sum of grid cell cost through which the trajectory passes, *Gdist*
+where *Obs* is the sum of grid cell costs through which the trajectory passes, *Gdist*
 and *Pdist* are the estimated shortest distance from the endpoint of the trajectory
 to the goal and the optimal path, respectively, and $\dot{x}$ is the translation
 component of the velocity command that produces the trajectory. The simulated trajectory
@@ -1538,7 +1540,7 @@ path, as well as have higher velocities [#Gerkey2008].
 ROS's Navigation Stack [#Navigation] is a collection of packages, which the aforementioned
 techniques can be implemented in, in order to localize the robot within a prebuild map,
 as well as plan and execute trajectories by outputting the velocity commands needed;
-so that the robot can reach the specified goal.
+so that, the robot can reach the specified goal.
 
 ## Initial Feature Localization Framework
 
@@ -1546,7 +1548,7 @@ Each Augmented Reality (AR) tag has a unique identity. As a result, relevant inf
 such as feature locations relative to the AR tag's pose for a specific operation,
 can be associated with a predetermined AR tag identity. So, once the robot has arrived
 at the operation's specified start positions and orientation, the robot uses the
-ALVAR package [#ARTrackAlvar] and an RGB-D sensor to detect, identify, and calculated
+ALVAR package [#ARTrackAlvar] and an RGB-D sensor to detect, identify, and calculate
 the Augmented Reality (AR) tag pose. Upon identification of the AR tag at the operation
 start position, the feature locations for that operation are populated and then
 localized on the work surface given the AR tag's pose in the map frame. Figure
@@ -1564,36 +1566,36 @@ localization framework.
 
 ## Motion Planning
 
-Once the operations feature locations have been populated and localized on the work
+Once the operation's feature locations have been populated and localized on the work
 surface in the map frame, the manipulator must be able to move the end-effector
-to these locations.The manipulator's motion planning is done through ROS's Moveit!
-package [#MoveIt], which was set up to use TRACLabs numerical inverse kinematic
+to these locations. The manipulator's motion planning is done through ROS's Moveit!
+package [#MoveIt], which was set up to use the TRACLabs' numerical inverse kinematic
 (IK) solver, TRAC_IK [#TracIK]. Due to the recursive nature of numerical solvers,
 they tend to be slower than that of analytical solvers and are prone to get trapped
 in local minima. However, analytical solvers require a separate kinematic solver
 be created for each manipulator and manipulator configuration. Consequently, in
 order to ensure cross platform functionality with minimum overhead, numerical solvers
 were used. Orocos Kinematics and Dynamics Library (KDL) [#KDL], Moveit! default
-numerical solver, as well as arguably the most widely-used generic numerical solver
-worldwide, suffers from an unacceptably high failure rate and slow average speed.
+numerical solver, is arguably the most widely-used generic numerical solver
+worldwide. However, it suffers from an unacceptably high failure rate and slow average speed.
 Beeson et al. determined in [#Beeson2015] the causes behind the high failure rates
 and slow average speed, as well as developed TRAC-IK to overcome them. Beeson et al.
-revealed KDL had following flaws:
+revealed that KDL had the following flaws:
 
-1. Frequent convergence failures due to manipulators with joint limit
+1. Frequent convergence failures due to manipulator joint limits
 2. No action is taken when the search gets trapped in a local minima
 3. Lack of tolerance support and/or utilization in the solver itself
 
 TRAC-IK solves these issues by using two separate IK solvers concurrently, as well
 as incorporating local minimum detection in both. It uses KDL-RR, a rewrite of KDL
-which incorporation local minimum detection in order to solve problems two and three
+which incorporates local minimum detection in order to solve problems two and three
 by "unsticking" the convergence algorithm through the introduction of random seed
 angles when a local minimum is detected, as well as a sequential quadratic programming
 (SQP) IK implementation, which is an iterative algorithm for nonlinear optimization.
 The SQP implementation, which incorporates the same local minimum detection as KLD-RR,
-is able to deal with issue one. However, SQP can have a much longer solve rate than
+is able to deal with issue one. However, SQP can have a much longer solve time than
 KDL or KDL-RR. As a result, TRAC-IK implements both of these IK methods concurrently
-and waits for either IK to converge. As a result, the solve rate range between 99.1%
+and waits for either IK to converge. As a result, the solve rate ranges between 99.1%
 and 99.9 % and the average convergence times are well below one millisecond.
 
 ## Feature Correction Framework
@@ -1612,50 +1614,51 @@ In order to achieve high precision 3-D localization, the feature must be localiz
 with a high degree of accuracy in the end-effector frame of reference. Consequently,
 a machine vision camera and a laser pointer, simulating stereo vision, were added
 to the end-effector. Figure <!--\ref{fig:feature_detection_and_tracking_pipeline}-->
-show the 3-D localization pipeline developed for high precision feature localization.
+shows the 3-D localization pipeline developed for high precision feature localization.
 The 3-D feature localization pipeline runs two separate feature detection algorithms
 concurrently. The first feature detection algorithm is responsible for locating
 the center pixel of the laser point produced by the laser pointer. It does this
 by first converting each RGB frame to the HSV color space. The laser pointer is
-affixed; so that, the center of the laser point is located within the center region
-of each frame; so the outside edges of the image are masked. After which, the image
+affixed so that the center of the laser point is located within the center region
+of each frame; so, the outside edges of each frame is masked. After which, the image
 is thresholded for the specific color range of the laser point. This produces a
 binary image, in which only pixels within the specific color range are considered
-foreground. Morphological filters are used to remove noise, as well as to fill in
+foreground. Morphological filters are used to remove noise and fill in
 any holes in the laser point created by the laser pointer; so that, its center can
-be found. The center is found by finding the centroid of the largest blob in the
+be found. The center of the laser point is found by calculating the centroid of the largest blob in the
 binary image. The second feature detection algorithm is responsible for locating
-the pixel of the specific operation's feature. It does this by first converting
-each RGB frame to gray scale. After which, preprocessing operations, such as a Gaussian
+the center pixel of the operation's specific feature. It does this by first converting
+each RGB frame to gray scale, after which, preprocessing operations, such as a Gaussian
 and Median filter, are used to minimize the noise in the image without degrading
 the features. Then Canny Edge Detection [#Canny1986] is used to find appropriate
-edges in the image, as well as to produce a binary image, which is used to reduce
+edges in the image, as well as to produce a binary image, which is used to reduce the
 computational complexity of the feature detection algorithm used. At which point,
 the outside edges of the image are masked, in order to decrease the likelihood that
-more than one feature is detected. After which the appropriate feature detection
+features other than the one desired are detected. After which, the appropriate feature detection
 algorithm, such as Hough Circle Detector [#Illingworth1987] or Good Feature to Track
 [#Tomasi1994], is run in order to find the center pixel of the feature closest to
 the laser point produced by the laser pointer. Once these features' pixel locations
-has been found, they are tracked using the Kanade Lucas Tomasi (KLT) tracker [#Baker2004],
+have been found, they are tracked using the Kanade Lucas Tomasi (KLT) tracker [#Baker2004],
 based on the optical flow of the image, in order to reduce complexation complexity
 that would be associated with running the aforementioned feature detection algorithms
-on each frame. The location of center of the laser point can be found by converting
-the pixel to 3-D camera coordinates using the intrinsic of the camera. However,
-in order to find the depth the line-line intersection, or midpoint of the shortest
-line segment between the two lines if the lines do not intersect, between the 3-D
-ray of the laser pointer in the camera frame, which was found during calibration,
-and the laser points 3-D ray, which is calculated by finding line connecting the
-camera's center point and the locations of laser point in camera coordinates on
-the image plane, must be found. The camera calibration procedure and the calculation
-of the 3-D ray of the laser pointer in the camera frame are detailed in Section 5.3.1.
-Given the 3-D location of the laser point in the camera frame, as well as the surface
-normal of the laser pointer, which was calculated during calibration, the plane
-that the laser point lies on is calculated. Due to the proximity of the feature
-to the laser point, they are assumed to lie on the same plane. Consequently, the
-3-D locations of the feature point in the camera frame is calculated by finding
-the line-plane intersection between the 3-D ray of the feature, which is calculated
-by finding line connecting the camera's center point and the locations of feature
-point in camera coordinates on the image plane, and the plane of the laser point.
+on each frame. The location of the center of the laser point can be found by converting
+the pixel to 3-D camera coordinates using the camera's intrinsic parameters. However,
+in order to find the depth, the line-line intersection between the 3-D ray of the
+laser pointer in the camera frame, which was found during calibration, and the laser
+point’s 3-D ray, which is calculated by finding the line connecting the camera's
+center point and the location of laser point in camera coordinates on the image
+plane, must be found. If the two lines do not intersect, the midpoint of the shortest
+line segment between the two lines should be used. The camera calibration procedure
+and the calculation of the laser pointer's 3-D ray equation in the camera frame are
+detailed in Section 5.3.1. Given the 3-D location of the laser point in the camera
+frame, as well as the surface normal of the laser pointer, which was calculated
+during calibration, the plane that the laser point lies on is calculated. Due to
+the proximity of the feature to the laser point, they are assumed to lie on the
+same plane. Consequently, the 3-D location of the feature point in the camera frame
+is calculated by finding the line-plane intersection between the 3-D ray of the
+feature, which is calculated by finding the line connecting the camera's center point
+and the location of feature point in camera coordinates on the image plane, and
+the plane of the laser point.
 
 <!--
 \begin{figure}[H]
@@ -1666,14 +1669,14 @@ point in camera coordinates on the image plane, and the plane of the laser point
 \end{figure}
 -->
 
-After the feature has been localized in 3-D in the camera frame, the feature is
-transformed into the end-effectors frame and the manipulator updates the position
+After the feature has been localized in the camera frame, the feature is
+transformed into the end-effectors frame. The manipulator then updates the position
 of the end-effector, while remaining a set distance off the work surface, through
 the use of the control loop depicted in Figure <!--\ref{fig:manipulator_correction_control_loop}-->.
-Once, the end-effector's is within the reference tolerance set, the control loops
-exits and the specified operation begins. This reference tolerance should be set
+Once the end-effector is within the reference tolerance set, the control loop
+terminates and the specified operation begins. This reference tolerance should be set
 no lower than the maximum accuracy achievable by either the detection algorithm
-or the end-effector itself.
+or the end-effector itself, whichever is higher.
 
 <!--
 \begin{figure}[H]
@@ -1686,8 +1689,8 @@ or the end-effector itself.
 
 ## Approach Implementation
 
-The purpose of this section is to briefly explain how the high precision localization
-approach presented in sections 4.1 through 4.6 can be implemented on a robotic system,
+The purpose of this section is to briefly explain how the multistage localization
+approach presented in Sections 4.1 through 4.6 can be implemented on a robotic system,
 as well as to provide an expandable framework; so that, the mobile manipulator can
 be easily programmed to conduct multiple operations within a manufacturing facility
 or construction site. Two operations, drilling and sealing, will be explored in depth.
@@ -1695,14 +1698,13 @@ or construction site. Two operations, drilling and sealing, will be explored in 
 ### System Overview
 
 The generic framework of the system is depicted in Figure <!--\ref{fig:system_overview}-->.
-The system allows the user to input a number of predefined tasks. Given a priori
+The system allows the user to input a number of predefined tasks. Given *a priori*
 knowledge of each tasks, as well as their global start locations, the mobile manipulator
-will navigates to and performs the requested operation(s) while monitoring its battery
+will navigate to and perform the requested operation(s) while monitoring its battery
 level to ensure mission completion. The framework shown was implemented using a
 hierarchical state machine and was written using the Python library SMACH [#SMACH]
 in order to ensure compatibility with ROS; thereby, ensuring seamless integration
-with the aforementioned packages, as well as ease of use across differing robotic
-platforms.
+with the aforementioned packages and ease of use across differing robotic platforms.
 
 <!--
 \begin{figure}[H]
@@ -1717,21 +1719,21 @@ platforms.
 
 Figure <!--\ref{fig:drilling_operation_framework}--> shows the basic drilling operation
 and error handling framework. Once the mobile manipulator has arrived at the drilling
-operation's start location and orientated itself in the prescribe direction, its
+operation's start location and orientated itself in the prescribed direction, its
 RGB-D camera will detect, identify, and localize the AR tag located at the work
-station. Using this AR tag locations and identity, the specific features associated
+station. Using this AR tag's location and identity, the specific features associated
 with that work station will be populated and localized on the work surface in the
 map frame. After these initial feature locations have been populated, the robot
 will move within range of the first feature location in the list. The manipulator
-will move the end-effector to specified Cartesian location specified using Moveit!
-and TRAC-IK numerical solver. Currently, many companies use hole templates to ensure
+will move the end-effector to the specified Cartesian location specified using Moveit!
+and the TRAC-IK numerical solver. Currently, many companies use hole templates to ensure
 that objects are drilled within necessary tolerances. Consequently, the feature
 correction framework will use these features as landmarks and detect them using
 Hough Circle Detector [#Illingworth1987]. Using these landmarks, the feature locations
 are refined to within a user specified accuracy. After which, the manipulator will
 drill the hole to the specified depth and at the specified feed rate requested by
 the user. This will continue until all features have been drilled. However, if the
-robot due to obstruction or other reason is unable to navigate within range of a
+robot due to obstruction or another reason is unable to navigate within range of a
 feature, the machine vision camera is unable to detect the landmark, or the manipulator
 is unable to reach the location, these specified features will be added to a flag
 list and the customer notified after the operation.
@@ -1750,13 +1752,13 @@ list and the customer notified after the operation.
 Figure <!--\ref{fig:sealant_application_framework}--> shows the basic sealant application
 operation and error handling framework. Once the mobile manipulator has arrived
 at the sealant applicant operation's start location and orientated itself in the
-prescribe direction, its RGB-D camera will detect, identify, and localize the AR
-tag located at the work station. Using this AR tag locations and identity, the specific
+prescribed direction, its RGB-D camera will detect, identify, and localize the AR
+tag located at the work station. Using this AR tag's location and identity, the specific
 features associated with that work station will be populated and localized on the
 work surface in the map frame. After these initial feature locations have been populated,
 the robot will move within range of the first feature location in the list. The
 manipulator will move the end-effector to specified Cartesian location using Moveit!
-and TRAC-IK numerical solver. Most sealant applicant operations, such as sealing
+and the TRAC-IK numerical solver. Most sealant applicant operations, such as sealing
 a window frame, require the application of sealant from one corner to another. Consequently,
 the feature correction framework will use these features, corners, as landmarks
 and detect them using Good Feature to Track [#Tomasi1994]. Using these landmarks,
@@ -1765,7 +1767,7 @@ the manipulator will move to the next corner location in the list. After this co
 location has been refined, the manipulator will transition back to the previous
 corner's location and seal from that start corner to the end corner. This will continue
 until all connected corners have sealant applied between them. However, if the robot
-due to obstruction or other reason is unable to navigate within range of a feature,
+due to obstruction or another reason is unable to navigate within range of a feature,
 the machine vision camera is unable to detect the landmark, or the manipulator is
 unable to reach the location, these specified features will be added to a flag list
 and the customer notified after the operation.
@@ -1783,11 +1785,13 @@ and the customer notified after the operation.
 
 The purpose of this chapter was to thoroughly explain each component of the multistage
 localization approach presented in this paper, as well as how these individual components
-fit together in order to enable high precision 3-D feature point localization. In
-addition, this chapter expounded upon the implementation of this approach to two
-tasks which are prevalent in both manufacturing and construction, drilling and sealant
-application operations. The following chapter will discuss the experiment conducted
-in order to validate the approach using the two aforementioned operations.
+fit together in order to enable high precision 3-D feature point localization without
+having to recalibrate the positon of the end-effector each time the robot's mobile
+bases moves. In addition, this chapter expounded upon the implementation of
+this approach to two tasks which are prevalent in both manufacturing and construction
+industries: drilling and sealant application operations. The following chapter will
+discuss the experiment conducted in order to validate the approach using the two
+aforementioned operations.
 
 # Experiments and Results
 
@@ -1796,7 +1800,7 @@ approach and system implementation presented in Chapter 4 through testing. The a
 of each component of the multistage localization technique will be determined on
 two different ROS enabled robotic platforms, the Clearpath Robotics' Husky and Fetch
 Robotics' Fetch. In addition, these accuracies will be discussed and methods to
-improve them to the accuracies limits of the manipulators used will be presented.
+improve them to the accuracy limits of the manipulators used will be presented.
 
 ## Hardware Architecture
 
