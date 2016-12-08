@@ -2347,67 +2347,66 @@ different ROS enabled robotic platforms, the Clearpath Robotics' Husky and Fetch
 Robotics' Fetch. In addition, methods to improve the localization approach to the
 accuracies limits of both manipulator's were presented.
 
-# Conclusion and Future Work
+# Conclusions and Future Work
 
 The purpose of this paper was to present a multistage localization approach for
-an autonomous industrial mobile manipulator (AIMM). This approach allows tasks with
-operational scope outside the range of the robot's manipulator to be complete without
-have to recalibrate the positon of the end-effector each time the robot's mobile
+an autonomous industrial mobile manipulator (AIMM). This approach allows tasks with an
+operational scope outside the range of the robot's manipulator to be completed without
+recalibrating the positon of the end-effector each time the robot's mobile
 base moves to another position in order to complete said operation. This is achieved
-through localizing the AIMM within its area of operation (AO) using adaptive Monte
+by localizing the AIMM within its area of operation (AO) using adaptive Monte
 Carlo localization (AMCL), which relies on the fused odometry and sensor messages
 published by the robot, as well as a 2-D map of the AO, which is normally generated
 using an optimization-based smoothing simultaneous localization and mapping (SLAM)
 technique. The robot navigates to a predefined start location in the map incorporating
 obstacle avoidance through the use of a technique called trajectory rollout. Once
 there, the robot uses its RGB-D sensor to localize an augmented reality (AR) tag
-in the map frame. One localized, the identity and the 3-D position and orientation,
+in the map frame. Once localized, the identity and the 3-D position and orientation,
 collectively known as pose, of the tag are used to generate a list of initial feature
 points and their locations based off of *a priori* knowledge. After the end-effector
 moves to the rough location of a feature point provided by the AR tag localization,
 the feature point's location, as well as the end-effector's positon and orientation
 are refined to within a user specified tolerance through the use of a control loop,
-which utilized images from a calibrated machine vision camera and a laser pointer,
+which utilizes images from a calibrated machine vision camera and a laser pointer,
 simulating stereo vision, to localize the feature point in 3-D space using computer
-vision. This approach was implemented on two different ROS enabled robots, Clearpath
-Robotics' Husky and Fetch Robotics' Fetch , in order to show the utility of the
+vision techniques and basic geometry. This approach was implemented on two different ROS enabled robots, the Clearpath
+Robotics' Husky and the Fetch Robotics' Fetch, in order to show the utility of the
 multistage localization approach in executing two tasks which are prevalent in both
 manufacturing and construction: drilling and sealant application. The proposed approach
 was able to achieve an average accuracy of $\pm$ 1 mm in these operations, verifying
 it's efficacy for tasks which have a larger operational scope than that of the range
 of the AIMM's manipulator and its robustness to general applications in manufacturing.
 
-However, through the steps mentioned in Section 5.4 such as adding additional sensors,
-like an additional IMU, LIDAR, or RGB-D camera in order to increase the accuracy
-of the AMCL from approximately $\pm$ 6 centimeter to $\pm$ 5 millimeter. Additionally, in order
-to improve the accuracy of the initial feature localization, sensors can be calibrated
-on certified rigs, addition fiducial makers localization systems can be explored
-or the initial feature location can be localized using the visual high-precision technique
-presented in Section 2.3, which uses a calibration plate to localize the feature
-within $\pm$ 0.1 mm. Further improvements in the initial feature localization could
-be achieved by calibration the RGB-D and RGB cameras locations with respect to the
-base-link need to within $\pm$ 1 mm through the use of packages like ROS's robot_calibration,
-as well as upgrading to newer RGB-D sensor with better resolution, such as the ZED
-stereo vision camera. The refined feature position's accuracy could conceivable
+Through the addition of further sensors, such as an extra IMU, LIDAR, or RGB-D camera, the accuracy
+of the AMCL can be improved from approximately $\pm$ 6 cm to $\pm$ 5 mm
+as shown in [#Rowekamper2012]. In order to improve the accuracy of
+the initial feature localization, sensors can be calibrated on certified rigs,
+additional fiducial marker localization systems can be explored, or the visual high-precision technique presented in Section
+2.3, which uses a calibration plate and can achieve an accuracy of $\pm$ 0.1 mm,
+can be used. Further improvements in the initial feature localization could
+be achieved through calibrating the RGB-D and RGB cameras' position with respect to the
+base-link to within $\pm$ 1 mm through the use of packages like ROS's robot_calibration,
+as well as upgrading to a newer RGB-D sensor with better resolution, such as the ZED
+stereo vision camera. The accuracy of the refined feature positons could conceivably
 be brought down to the ground sample distance (GSD) of the camera, $/pm$ .006 mm
-at 20 cm away from the work surface with the Basler ACA1920-150uc machine vision
-camera used, which exceeds the capability of manipulators used by both robot platform
-tested. In order to achieve this the calibration of the camera and laser must be
-done on a certified rig or a high precision calibrated stereo camera used instead.
-In addition, more recent computer vision and machine learning techniques should
-be used to localize the feature point.
+at 20 cm away from the work surface for the Basler ACA1920-150uc machine vision
+camera used, which exceeds the capability of the manipulators used on both robot platforms
+tested. In order to achieve this, the calibration of the camera and laser must be
+done on a certified rig or a calibrated stereo camera rig used instead. In addition,
+more recent computer vision and machine learning techniques should be used to localize
+the feature points to subpixel accuracy.
 
 Before the proposed system can be implemented inside a manufacturing or construction
-environment, addition future work besides increasing the accuracy of the system,
-must be done. In order to make AIMMs financial viable they must be able to collaborate
-together to complete a specified task, as well as be easily reprogramming through
+environment, additional future work besides that of increasing the accuracy of the system,
+must be done. In order to make AIMMs financially viable, they must be able to collaborate
+together in order to complete a specified task, as well as be easy to reprogram through
 methods like those suggested in [#Pedersen2016] and [#Pedersen2014]. Other difficult
-hurdles exist, such as ensuring that the robot is 100% safe to use around human. Many
-methods exist or have been proposed to ensure this; however, options such as a disabling
-the robot when a human enters is area of operation as proposed by Kallweit in [#Sbanca2016]
-while ensuring 100% safety will not produce the transformable production system
-needed. AIMMs must be co-Robot, able to interact with human, while ensuring safety.
-This can be achieve through the use of gesture controls, which if given act as alarm
+hurdles exist, such as ensuring that the robot is 100% safe to use around humans. Many
+methods exist or have been proposed to ensure this; however, options such as disabling
+the robot when a human enters its area of operation as proposed by Sbanca et al. in [#Sbanca2016]
+will ensure 100% safety, but will not produce the transformable production system
+needed. AIMMs must be co-Robot, able to interact with humans, while ensuring safety.
+This can be achieved through the use of gesture controls, which if given act as alarm
 behavior stopping whatever the robot is doing in favor of the desired action as
-seen presented by Camprodon in [#Camprodon2015]. Additionally, this could be achieve
+presented by Camprodon in [#Camprodon2015]. Additionally, this could be achieved
 through speech recognition as presented by Mericli in [#Mericli2013].
