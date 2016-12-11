@@ -319,7 +319,7 @@ the translation part of transforming frame $b$ origin to frame $a$ [#Kelly2013].
 \end{figure}
 -->
 
-A robotic system, such as the Clearpath Robotics' Husky and Fetch Robotics' Fetch shown
+A robotic system, such as the Clearpath Robotics' Husky and the Fetch Robotics' Fetch shown
 in Figure <!--\ref{fig:robot_model_with_tfs}-->, typically has many three dimensional
 coordinate frames that change over time as the robot performs different functions.
 ROS's TF [#TF] and TF2 [#TF2] packages keep track of coordinate frames and allow
@@ -606,7 +606,7 @@ After calculating the local and global costmaps, as well as the location of the
 robot within the given map, the robot must now both plan and execute appropriate
 trajectories to its destination. Two frequently used techniques are the Dynamic Window
 Approach (DWA) and Trajectory Rollout. Both sample the space of feasible controls.
-For a differential drive robot, such as the Clearpath Robotics' Husky and Fetch Robotics'
+For a differential drive robot, such as the Clearpath Robotics' Husky and the Fetch Robotics'
 Fetch, this controls space is 2D and consists of translational and rotational velocities,
 $\dot{x}, \dot{\theta}$, which are limited by the robot's capabilities. Each sampled
 velocity is forward simulated from the robot's current position for a short period
@@ -1796,16 +1796,16 @@ aforementioned operations.
 # Experiments and Results
 
 The purpose of this chapter is to validate each stage of multistage localization
-approach and system implementation presented in Chapter 4 through testing. The accuracy
+approach and the system implementation presented in Chapter 4 through testing. The accuracy
 of each component of the multistage localization technique will be determined on
-two different ROS enabled robotic platforms, the Clearpath Robotics' Husky and Fetch
+two different ROS enabled robotic platforms, the Clearpath Robotics' Husky and the Fetch
 Robotics' Fetch. In addition, these accuracies will be discussed and methods to
-improve them to the accuracy limits of the manipulators used will be presented.
+improve them will be presented.
 
 ## Hardware Architecture
 
 Figure <!--\ref{fig:clearpath_robotics'_husky_and_fetch_robotics'_fetch_mobile_manipulator}-->
-shows the Clearpath Robotics' Husky and Fetch Robotics' Fetch with the necessary
+shows the Clearpath Robotics' Husky and the Fetch Robotics' Fetch with the necessary
 equipment to simulate high precision operations, such as drilling and sealing. Each
 robot is equipped with an onboard computer, as well as an RGB-D and RGB camera,
 a laser pointer, LIDAR, IMU, wheel encoders, and a manipulator.
@@ -1814,32 +1814,32 @@ a laser pointer, LIDAR, IMU, wheel encoders, and a manipulator.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/husky_and_fetch_hardware_architecture.png}
-  \caption{Clearpath Robotics' Husky and Fetch Robotics' Fetch Mobile Manipulator}
+  \caption{Clearpath Robotics' Husky and the Fetch Robotics' Fetch Mobile Manipulator}
   \label{fig:clearpath_robotics'_husky_and_fetch_robotics'_fetch_mobile_manipulator}
 \end{figure}
 -->
 
-The Clearpath Robotics' Husky in particular is equipped with a Microsoft Kinect
-V2, Baser ACA1920-150uc machine vision camera, Sick LMS-151 LIDAR, MicroStrain 3DM
+The Clearpath Robotics' Husky is equipped with a Microsoft Kinect V2, Baser
+ACA1920-150uc machine vision camera, Sick LMS-151 LIDAR, MicroStrain 3DM
 GX3-25 IMU, four high precision wheel encoders, and the Universal Robotics UR5 6
 DOF manipulator with a 5kg payload capacity. In regards to the specific computer
 hardware, the Clearpath Robotics' Husky is equipped with a Gigibyte BRIX GB-BXi7G3-760
 which includes an Intel i7 processor, NVIDIA GeForce GTX 760 GPU, 16 GB DDR3 RAM,
 250 GB SSD, and two USB3.0 ports.
 
-The Fetch Robotics' Fetch in particular is equipped with a Primesense Carmine 1.09,
-Baser ACA1920-150uc machine vision camera, Sick TIM571 LIDAR, two 6 DOF IMUs, two
-high precision wheel encoders, and Fetch Robot's proprietary 7 DOF manipulator with
-a 6 kg payload capacity. In regards to the specific computer hardware, The Fetch
+The Fetch Robotics' Fetch is equipped with a Primesense Carmine 1.09, Baser
+ACA1920-150uc machine vision camera, Sick TIM571 LIDAR, two 6 DOF IMUs, two
+high precision wheel encoders, and the Fetch Robot's proprietary 7 DOF manipulator with
+a 6 kg payload capacity. In regards to the specific computer hardware, the Fetch
 Robotics' Fetch is equipped with a standard Mini-ITX motherboard, which includes
 an Intel i5 processer, 16 GB DDR3 RAM, 120 GB SSD, and three USB 2.0 ports.
 
 ## Software Architecture
 
-The Clearpath Robotics' Husky and Fetch Robotics' Fetch used Ubuntu 14.04 and ROS
-Indigo for the experiments. The Clearpath Robotics' Husky used an Extended Kalman
-Filter through ROS's robot_localization package [#RobotLocalization] to fuse its
-wheel encoder and IMU measurements together, while Fetch Robotics' Fetch used an
+The Clearpath Robotics' Husky and the Fetch Robotics' Fetch both used Ubuntu 14.04 and ROS
+Indigo for the experiments. The Clearpath Robotics' Husky used an extended Kalman
+filter through ROS's robot_localization package [#RobotLocalization] to fuse its
+wheel encoder and IMU measurements together, while the Fetch Robotics' Fetch used an
 Unscented Kalman Filter. Both platforms used this corrected odometry, as well as
 laser scans from their respective LIDAR to produce a map of the area of operation
 (AO) using ROS's KartoSLAM package [#KartoSLAM]. Both robot's use ROS's Navigation
@@ -1897,18 +1897,18 @@ minimization.
 \end{figure}
 -->
 
-After the Baser ACA1920-150 camera had been calibrated, the camera and the laser
+After the Baser ACA1920-150 camera was calibrated, the camera and the laser
 pointer were affixed to the mount shown in Figure <!--\ref{fig:clearpath_robotics'_husky_and_fetch_robotics'_fetch_mobile_manipulator}-->.
-After which, the laser pointer 3-D ray equation in camera frame can be calculated
+After which, the laser pointer 3-D ray equation in the camera frame can be calculated
 by minimizing the error between at least 2 known 3-D coordinates in the camera frame.
 Thirty points were used to calibrate the 3-D rays equation of the laser pointer
 for testing. Figure <!--\ref{fig:extracted_corners_and_laser_center}--> shows a
 checkboard, along with a laser point produced by the laser pointer. The extrinsic
-parameters of each image are calculated using the feature in the checkerboard. Using
-the extrinsic, the plane equation of the checkerboard was calculated in camera coordinates.
+parameters of each image are calculated using the features in the checkerboard. Using
+the camera's extrinsics, the plane equation of the checkerboard was calculated in camera coordinates.
 These 3-D camera coordinates points were found by finding line-plane intersection
 between the plane of the checkerboard and 3-D ray of the laser point, which is calculated
-by finding line connecting the camera's center point and the locations of laser
+by finding the line connecting the camera's center point and the locations of laser
 point in camera coordinates. The same procedure presented in Section 4.6 was used
 to find the center pixel of the laser point.
 
@@ -1925,11 +1925,11 @@ to find the center pixel of the laser point.
 
 Figure <!--\ref{fig:navigation_system_experimental_setup}--> shows the experimental
 setup for the navigation system test. Both the Clearpath Robotics' Husky, as well
-as Fetch Robotics' Fetch navigated to specified positions 5, 10, and 20 meters away
+as the Fetch Robotics' Fetch navigated to specified positions 5, 10, and 20 meters away
 from a specified start position. The absolute difference in the x and y directions,
 as well as the angular yaw between the robot's final positons and the set reference
 point were measured. This test was run continually as the robot proceed to each
-5, 10, and 20 meter location, 20 time each.
+5, 10, and 20 meter location, 20 times each.
 
 <!--
 \begin{figure}[H]
@@ -1944,8 +1944,8 @@ point were measured. This test was run continually as the robot proceed to each
 
 Figure <!--\ref{fig:drilling_operations_experimental_setup}--> shows the experimental
 setup for the augmented reality (AR) tag detection, identification, and localization
-tests. Both the Clearpath Robotics' Husky, as well as Fetch Robotics' Fetch were
-placed at locations a specific x and y distance away, as well as at a specific angle
+tests. Both the Clearpath Robotics' Husky, as well as the Fetch Robotics' Fetch were
+placed at locations a specific x and y distance away, as well as at a set angle
 from the drilling station's augmented reality (AR) tag, given the maximum error
 from the navigation test. Each robot's RGB-D sensor was used to detect, identify
 and localize the specific AR tag. After the feature points for that operation were
@@ -1957,8 +1957,8 @@ the AR tag.
 
 Figure <!--\ref{fig:drilling_operations_experimental_setup}--> shows the experimental
 setup for the drilling operation test. First the sub-millimeter accuracy of the
-Universal Robotics' 6 DOF UR5 and Fetch Robotics' 7DOF manipulator was verified.
-After which, the accuracy of feature detection, tracking, and localization pipeline
+Universal Robotics' 6 DOF UR5 and the Fetch Robotics' 7DOF manipulator was verified.
+After which, the accuracy of the feature detection, tracking, and localization pipeline
 was tested using the Baser ACA1920-150uc camera and laser pointer. This accuracy
 was determined by calculating the difference between the distance measured between
 the laser point and hole center produced by the feature detection, tracking and
@@ -1981,8 +1981,8 @@ the laser point and corner: less than 5 mm, between 5 and 10 mm, between 10 and
 
 Figure <!--\ref{fig:sealant_application_experimental_setup}--> shows the experimental
 setup for the sealant operation test. First the sub-millimeter accuracy of the Universal
-Robotics' 6 DOF UR5 and Fetch Robotics' 7DOF manipulator was verified. After which,
-the accuracy of feature detection, tracking, and localization pipeline was tested
+Robotics' 6 DOF UR5 and the Fetch Robotics' 7DOF manipulator was verified. After which,
+the accuracy of the feature detection, tracking, and localization pipeline was tested
 using the Baser ACA1920-150uc camera and laser pointer. This accuracy was determined
 by calculating the difference between the distance measured between the laser point
 and corner produced by the feature detection, tracking and localization framework
@@ -2003,23 +2003,23 @@ mm.
 
 ## Results and Discussion
 
-The purpose of this section is to present the accuracies of the multistage localization
+The purpose of this section is to present the accuracy achieved by each stage of the multistage localization
 approach and system implementation presented in Chapter 4 through the tests presented
-in Section 5.3. In addition, steps to improve these accuracy will be presented.
-It should be noted that the coordinate frame used in these tests, have positive
-x as forward, positive y as left, and positive z up with respect to the robot.
+in Section 5.3. In addition, steps to improve these accuracies will be presented.
+It should be noted that the coordinate frame used in these tests have positive
+x as forward, positive y as left, and positive z as up with respect to the robot.
 
 ### Camera Calibration Accuracy Achieved
 
 The Microsoft Kinect V2 incorporates both an RGB and an IR camera. Each camera's
-intrinsic parameters and distortion coefficients were calculated through calibrated
-individually. After which, each calibrated camera took pictures of a checkerboard
-at the same distance and orientation. The images extrinsic parameters were used
-to calculate the pose of each camera in the other's camera frame. The Microsoft
-Kinect V2's RGB, IR, and Pose pixel error from the calibrations were 0.376 pixels,
-0.126 pixels, and .284719 pixels respectively. The Baser ACA1920-150uc pixel error
-from calibration was .418. While the laser pointer 3-D ray in Baser ACA1920-150uc
-frame minimum mean square orthogonal distance to the line was 0.6468 mm.
+intrinsic parameters and distortion coefficients were calculated through individual
+calibration. After which, each calibrated camera took pictures of a checkerboard
+at the same distance and orientation. The extrinsic parameters computed for each
+image were used to calculate the pose of each camera in the other's camera frame.
+The Microsoft Kinect V2's RGB, IR, and Pose pixel error from the calibrations were
+0.376 pixels, 0.126 pixels, and .284719 pixels respectively. The Baser ACA1920-150uc
+pixel error from calibration was .418; while, the laser pointer's 3-D ray in the Baser
+ACA1920-150uc camera frame minimum mean square orthogonal distance to the line was 0.6468 mm.
 
 ### Navigation System Accuracy Achieved
 
@@ -2027,28 +2027,35 @@ Table <!--\ref{tabel:global_localization_accuracy_given_distance_from_start_clea
 and Figures <!--\ref{fig:global_x_and_y_localization_accuracy_given_distance_from_start_clearpath_robotics_husky}-->
 and <!--\ref{fig:global_psi_localization_accuracy_given_distance_from_start_clearpath_robotics_husky}-->
 show the x, y and $\psi$ error associated with the Clearpath Robotics' Husky in
-reaching the specified positions 5, 10, and 20 meters away from a specified start
-position. While Table <!--\ref{tabel:global_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}-->
+reaching specified positions 5, 10, and 20 meters away from a designated start
+position. Table <!--\ref{tabel:global_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}-->
 and Figures <!--\ref{fig:global_x_and_y_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}-->
 and <!--\ref{fig:global_psi_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}-->
 show the x, y and yaw error associated with the Fetch Robotics' Fetch in reaching
-the specified positions 5, 10, and 20 meters away from a specified start position.
-The following Tables and Figures show that neither the Husky nor the Fetch average
-error pert test exceeded 6.4 cm in the x, 4.5 cm in the y, and .03 radians in the
+specified positions 5, 10, and 20 meters away from a designated start position.
+The following Tables and Figures show that neither the Husky's nor the Fetch's average
+error per test exceeded 6.4 cm in the x, 4.5 cm in the y, and .03 radians in the
 $\psi$. Given that these tests were done consecutively, equating to nearly a kilometer,
 and that y and $\psi$ deviation decreased over time, while the error in x seems
-to have a more sinusoidal pattern, which probably equates to resampling of the particle
-filters, the error is fairly low and did not shown any significant effect on the
-steps in the multistage localization that followed it. In addition, these tests
-were conducted in a long hallway with very few artificial features. A manufacturing
+to follow a more sinusoidal pattern, which is probably due to the resampling of the
+particle filter's particles, the error is fairly low and did not show any significant effect on the
+steps in the multistage localization that followed it. However, due to the fact
+that these robots may need to recharge mid-task or the task's object(s) may be placed in a
+static location, the features populated by the AR tag localization may need to be
+used multiple times or there could be a desire to use them continuously. Consequently, the
+accuracy of the navigation system needs to be improved to mm level. The tests conducted
+were done in a long hallway with very few artificial features. A manufacturing
 facility or construction site tend to be filled with artificial features, thus improvement
 in the accuracy of the adaptive Monte Carlo localization should be seen in these
 environments. Additional performance would be seen by increasing the number of sensors
 fused together by the Kalman filter to improve the filtered odometry sent to the
-AMCL as seen in [#Moore2014]. It should be noted that the increased error seen by
-the Husky over the Fetch was most likely due to the IMU being unresponsive during
-the tests conducted, which supports the theory above that fusing additional sensors
-would decrease error.
+AMCL as seen in [#Moore2014]. Rowekamper et al. in [#Rowekamper2012] was able to achieve an accuracy of $\pm$ 5 mm
+through the addition of a second LIDAR sensor. It should be noted that the increased error seen by
+the Husky over the Fetch was most likely due to the Husky's IMU being unresponsive during
+the tests conducted, which supports the above research. However, much of this error could also be attributed to the
+difference in the steering techniques used by the two robots. The Fetch uses differential steering, due to its two driven wheels,
+while the Husky uses skid steering, due to its four wheels being driven by two motors,
+which results in a larger turn radius and therefore makes the Husky less maneuverable.
 
 <!--
 \begin{table}[H]
@@ -2122,24 +2129,24 @@ would decrease error.
 
 Table <!--\ref{tabel:augmented_reality_accuracy_given_specific_start_conditions_primesense_carmine_1_09}-->
 and Figure <!--\ref{fig:augmented_reality_accuracy_given_specific_start_conditions_primesense_carmine_1_09}-->
-show the augmented reality (AR) tag average localization x, y and z error using
-250 features for each of 6 different tests using the Primesense Carmine 1.09. Test
-1 and 2, had the RGB-D sensor centered on the AR tag but offset in the negative
-x direction (backwards) 1.0 and 0.75 m respectively. While Test 3 and 5, as well
-as 5 and 6 were offsets of Test 1 and 2 respectively. Test 3 and 4, were offset
+show the augmented reality (AR) tag average localization error in the x, y and z directions using
+250 features for each of six different tests using the Primesense Carmine 1.09. Test
+1 and 2, had the RGB-D sensor centered on the AR tag but were offset in the negative
+x direction (backwards) 1.0 m and 0.75 m respectively. Test 3 and 5, as well
+as 4 and 6 were offsets of Test 1 and 2 respectively. Test 3 and 4 were offset
 16.1 cm in the negative x direction, 7.5 cm in the positive y direction (left),
-and 0.09 radian in the negative $\psi$ direction. While test 5 and 6, were offset
+and 0.09 radian in the negative $\psi$ direction. Test 5 and 6 were offset
 16.1 cm in the negative x direction, 7.5 cm in the negative y direction (right),
 and 0.09 radians in the positive $\psi$ direction. These distance offsets were determined
 by taking the average error from the Fetch's navigation tests and adding three standard
 deviations. The tests show an average error of approximately 3.3 cm in the x direction,
 12.6 cm in the y direction, and 11.8 cm in the z. The difference in error between
-Tests 1 and 2, 3 and 4, 5 and 6, are either approximately the same or lower as the
-x distance between is decreased. This makes mathematically sense in that as the
-sensor is closer to the wall as it is in Tests 2, 4, and 6, the ground sample distance
+Tests 1 and 2, 3 and 4, and 5 and 6, are either approximately the same or lower as the
+x distance from the AR tag is decreased. This makes mathematical sense in that as the
+sensor gets closer to the AR Tag as it is in Tests 2, 4, and 6, the ground sample distance
 (GSD) is lower equating to a higher spatial resolution. Also, it appears that moving
 the RGB-D sensor slightly in the positive y direction (left) and negative $\psi$
-seems to decrease error.
+seems to decrease overall error as well.
 
 <!--
 \begin{table}[H]
@@ -2171,12 +2178,12 @@ seems to decrease error.
 
 Table <!--\ref{tabel:augmented_reality_accuracy_given_specific_start_conditions_microsoft_kinect_v2}-->
 and Figure <!--\ref{fig:augmented_reality_accuracy_given_specific_start_conditions_microsoft_kinect_v2}-->
-show the augmented reality (AR) tag average localization x, y and z, error using
-250 features for each of 3 different tests using the Microsoft Kinect V2. Test 1,
+show the augmented reality (AR) tag average localization error in the x, y and z, directions using
+250 features for each of three different tests using the Microsoft Kinect V2. Test 1
 had the RGB-D sensor centered on the AR tag but offset in the negative x direction
-(backwards) 1.0. While Test 2 and 3, were offsets of Test 1. Test 2, were offset
+(backwards) 1.0 m. Test 2 and 3 were offsets of Test 1. Test 2 was offset
 20.0 cm in the negative x direction, 15.2 cm in the positive y direction (left),
-and 0.115 radian in the negative $\psi$ direction. While test 3, were offset 20.0
+and 0.115 radian in the negative $\psi$ direction. Test 3 was offset 20.0
 cm in the negative x direction, 15.2 cm in the negative y direction (right), and
 .115 radians in the positive $\psi$ direction. These distance offsets were determined
 by taking the average error from the Husky's navigation tests and adding three standard
@@ -2211,55 +2218,56 @@ to decrease error overall error in the y and z as seen with the Primesense Carmi
 \end{figure}
 -->
 
-Overall, the Microsoft Kinect V2 performs significantly better than of the Primesense
+Overall, the Microsoft Kinect V2 performs significantly better than the Primesense
 Carmine 1.09. This is due to the fact that the Microsoft Kinect V2 is a newer sensor,
 which has greater resolution, horizontal and vertical field of view (FOV), and onboard
 processing. However, neither the Primesense Carmine 1.09 nor the Microsoft Kinect
 V2 performed exceptionally. Sources of error include, error in the RGB-D camera's
-extrinsic calibration, error associated in localizing the AR tag itself, error in
-the location estimate of the camera with respect to the robot's base link, and finally
-error in the location estimate of robot's base link in the map. In order to reduce
-these sources of error, the RGB-D camera would need to be calibrated on rig which
+intrinsic calibration, error associated in localizing the AR tag itself, error in
+the location estimate of the camera with respect to the robot's base link, and
+error in the location estimate of the robot's base link in the map. In order to reduce
+these sources of error, the RGB-D camera would need to be calibrated on a rig which
 was certified to achieve sub-millimeter to millimeter level accuracy. In order to
-address the accuracy error inherent in the localization using the AR tag, different
-AR tag detection library could be explored, such as AprilTags [#Olson2011] and ARToolKit
-[#ARToolKit], or using QR codes with libraries like ZBar [#ZBar]. The RGB-D sensor's
-position with respect to robot's base would need to be measure accurately to within
-sub-millimeter to millimeter level accuracy. This can be done through using ROS's
-robot_calibration package [#RobotCalibration] and a certified calibrated camera
-to adjust the robot's URDF. In addition, newer RGB-D sensor such as the Orbbec Astra,
-Intel's RealSense R200, and Structure's Sensor or a stereo vision camera such as
-ZED's Stereo Vision Camera, Point Grey's Bumblebee2, and the DUO MLX. In addition,
-to providing depth information the stereos cameras have the ability to work indoor
-and outdoor, which could be extremely advantageous depending on the environment.
-While getting millimeter level accuracy could be achieved, getting sub-millimeter
-accuracy at distance of 1 m or would be nearly impossible with currently technology.
-Consequently, the multistage localization approach would still be necessary for
-high precision operations.
+address the accuracy error inherent in the AR tag localization, different
+AR tag detection libraries could be explored, such as AprilTags [#Olson2011] and ARToolKit
+[#ARToolKit], QR codes could be used, or the visual high-precision technique presented in Section
+2.3, which uses a calibration plate and can achieve an accuracy of $\pm$ 0.1 mm,
+could be used. The positions of the RGB-D sensor's with respect to robot's base would need to be measured to within
+sub-millimeter to millimeter level accuracy. This can be achieved through the use of ROS's
+robot_calibration package [#RobotCalibration], which would use the calibrated RGB-D camera
+and a checkerboard to adjust the position of RGB-D camera in the robot's URDF.
+In addition, newer RGB-D sensors such as the Orbbec Astra, Intel's RealSense R200,
+and Structure's Sensor or a stereo vision camera such as ZED's Stereo Vision Camera,
+Point Grey's Bumblebee2, and the DUO MLX could be used. In addition to providing depth information,
+stereo cameras have the ability to work both indoors and outdoors, which could be
+extremely advantageous depending on the environment. While millimeter
+level accuracy could be achieved, attaining sub-millimeter accuracy at a distance of
+1 m or more would be nearly impossible with currently technology. Consequently, the
+multistage localization approach would still be necessary for high precision operations.
 
 ### Drilling Operation Accuracy Achieved
 
 Table <!--\ref{tabel:drilling_operation_accuracy_given_distance_from_work_surface}-->
 and Figure <!--\ref{fig:drilling_operation_accuracy_given_distance_from_feature_point}-->
-show the x, y and z, error associated with the feature localization, detection,
-and tracking pipeline using 20 features for each of 4 different tests done using
+show the x, y and z error associated with the feature localization, detection,
+and tracking pipeline using 20 features for each of four different tests done using
 the Basler ACA1920-150uc and laser pointer, which were approximately 20 cm away
-from the work surface. This give the Basler ACA1920-150uc with a 16 mm focal length
+from the work surface. This setup gives the Basler ACA1920-150uc with a 16 mm focal length
 lens, a horizontal and vertical field of view (FOV) of 11.9 and 7.6 cm respectively,
 as well as a ground sample distance (GSD) of .0062 cm. While the y accuracy increases
-slightly as the distance away from the feature is increased, the x decreases slightly
-and the z decreased significantly. However, due to the fact that z and x have decreasing
-curves as the laser point get closer to the feature, the system is able to achieve
+slightly as the distance away from the feature is increased, the x accuracy decreases slightly
+and the z accuracy decreases significantly. However, due to the fact that z and x have decreasing
+curves as the laser point gets closer to the feature, the system is able to achieve
 sub-millimeter level accuracy in the y and z, and very low millimeter level accuracy
 in the x due to the method's control loop. The Basler ACA1920-150uc with a 16 mm
 focal length lens should be able to achieve localization accuracies close to its
-GSD of .006 mm, which is exceeds the capability of both manipulators used. In order
+GSD of .006 mm, which exceeds the capability of both manipulators used. In order
 to improve the accuracy to this level, the camera and laser should be calibrated
-on rig certified to this level of accuracy. Alternatively, a stereo camera rig could
-be developed through the purchase of another machine vision camera and those camera
-calibrated on a rig certified to the accuracy mentioned above. In addition, the
+on rig certified to this level of accuracy. Alternatively, a stereo camera could
+be developed through the purchase of another machine vision camera and those cameras
+calibrated on a rigs certified to the accuracy mentioned above. In addition, the
 detection and localization pipeline would need to be improved by using more recent
-and robust computer vision technique in order to find the laser point and feature
+and robust computer vision techniques in order to find the laser point and feature
 to within pixel, if not sub-pixel resolution.
 
 <!--
@@ -2295,21 +2303,21 @@ and Figure <!--\ref{fig:sealant_application_accuracy_given_distance_from_feature
 show the x, y and z, error associated with the feature localization, detection,
 and tracking pipeline using 20 features for each of 4 different tests done using
 the Basler ACA1920-150uc and laser pointer, which were approximately 20 cm away
-from the work surface. This give the Basler ACA1920-150uc with a 16 mm focal length
+from the work surface. This setup gives the Basler ACA1920-150uc with a 16 mm focal length
 lens, a horizontal and vertical field of view (FOV) of 11.9 and 7.6 cm respectively,
 as well as a ground sample distance (GSD) of .0062 cm. While the y accuracy increases
-slightly as the distance away from the feature is increased, the x decreases slightly
-and the z decreased significantly. However, due to the fact that z and x have decreasing
-curves as the laser point get closer to the feature, the system is able to achieve
+slightly as the distance away from the feature is increased, the x accuracy decreases slightly
+and the z accuracy decreases significantly. However, due to the fact that z and x have decreasing
+curves as the laser point gets closer to the feature, the system is able to achieve
 very low millimeter level accuracy in the x, y, and z due to the method's control
 loop. The Basler ACA1920-150uc with a 16 mm focal length lens should be able to
-achieve localization accuracies close to its GSD of .006 mm, which is exceeds the
-capability of the both manipulator used. In order to improve the accuracy to this
-level, the camera and laser should be calibrated on rig certified to this level
+achieve localization accuracies close to its GSD of .006 mm, which exceeds the
+capability of both manipulators used. In order to improve the accuracy to this
+level, the camera and laser should be calibrated on rigs certified to this level
 of accuracy. Alternatively, a stereo camera rig could be developed through the purchase
-of another machine vision camera and those camera calibrated on a rig certified
+of another machine vision camera and those cameras calibrated on a rig certified
 to the accuracy mentioned above. In addition, the detection and localization pipeline
-would need to be improved by using more recent and robust computer vision technique
+would need to be improved by using more recent and robust computer vision techniques
 in order to find the laser point and feature to within pixel, if not sub-pixel resolution.
 
 <!--
@@ -2340,12 +2348,12 @@ in order to find the laser point and feature to within pixel, if not sub-pixel r
 
 ## Summary
 
-The purpose of this chapter was to validate each stage of multistage localization
+The purpose of this chapter was to validate each stage of the multistage localization
 approach and system implementation presented in Chapter 4 through testing. The accuracy
 of each component of the multistage localization technique was determined on two
-different ROS enabled robotic platforms, the Clearpath Robotics' Husky and Fetch
-Robotics' Fetch. In addition, methods to improve the localization approach to the
-accuracies limits of both manipulator's were presented.
+different ROS enabled robotic platforms, the Clearpath Robotics' Husky and the Fetch
+Robotics' Fetch. In addition, methods to improve each stage's accuracy was presented.
+Chapter 6 will present conclusions and suggest future work.
 
 # Conclusions and Future Work
 
