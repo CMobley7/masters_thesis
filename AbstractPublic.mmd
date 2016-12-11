@@ -12,13 +12,13 @@ use of a technique called trajectory rollout. Once there, the robot uses its RGB
 sensor to localize an augmented reality (AR) tag in the map frame. Once localized,
 the identity and the 3-D position and orientation, collectively known as pose, of
 the tag are used to generate a list of initial feature points and their locations
-based on \textit{a priori} knowledge. After the end-effector moves to the approximate
+based on *a priori* knowledge. After the end-effector moves to the approximate
 location of a feature point provided by the AR tag localization, the feature point's
 location, as well as the end-effector's pose are refined to within a user specified
 tolerance through the use of a control loop, which utilizes images from a calibrated
 machine vision camera and a laser pointer, simulating stereo vision, to localize
-the feature point in 3-D space using computer vision. This approach was implemented
-on two different ROS enabled robots, Clearpath Robotics' Husky and Fetch Robotics'
+the feature point in 3-D space using computer vision techniques and basic geometry. This approach was implemented
+on two different ROS enabled robots, the Clearpath Robotics' Husky and the Fetch Robotics'
 Fetch, in order to show the utility of the multistage localization approach in executing
 two tasks which are prevalent in both manufacturing and construction: drilling and
 sealant application. The proposed approach was able to achieve an average accuracy
