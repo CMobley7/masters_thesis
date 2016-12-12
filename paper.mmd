@@ -1106,7 +1106,24 @@ up binary images; so that, higher level computer vision techniques can be used r
 
 ### Canny Edge Detection
 
-Insert Text Explaining the Basic Intuition Behind Canny Edge Detection.
+The Canny edge detector, which is arguable the most used edge detector to date,
+was developed in 1986 by John Canny, from whom it derives it names [#Canny1986].
+Mark Nixon notes in [#Nixon2008] that John Canny developed the Canny edge detector
+to meet three main objectives, two of which are indicated below.
+
+1. *optimal* detection with no spurious responses
+2. *good* localization with minimal distances between detected and true edge positions
+
+Figure <!--\ref{fig:summary_of_canny_edge_detection_framework}--> shows the Canny
+edge detector’s framework. The detector first acquires a greyscale image, either directly
+or through conversion from another image format. The first objective Nixon notes aims to reduce noise.
+Consequently, the detector applies a Gaussian filter, which smooths the image;
+thereby, reducing noise. After which, the Sobel edge detection operators, $G_{x}$,
+which is equal to Equation <!--\ref{eq:sobel_x}-->, and $G_{y}$, which is equal to
+Equation <!--\ref{eq:sobel_y}-->, are used to find the edge gradient, $G$, and direction,
+$\theta$ for each pixel using Equation <!--\ref{eq:edge_gradient}--> and <!--\ref{eq:edge_direction}-->
+respectively.
+
 
 <!--
 \begin{equation}
@@ -1143,6 +1160,13 @@ G = \sqrt{G_{x}^2+G_{y}^2}
 \label{eq:edge_direction}
 \end{equation}
 -->
+
+The second objective Nixon notes aims for accuracy. This accuracy is achieved
+through non-maximum suppression, which uses the calculated edge gradient and direction
+to maintain only those edge points at the top of the hill created by gradient; thus, thinning the
+edges. Hysteresis thresholding is then used to connect the edge points. It does this
+by having a double threshold, one to start an edge and a lower one to continue an
+edge [#Nixon2008], [#Middleton2005].
 
 <!--
 \begin{figure}[H]
