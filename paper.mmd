@@ -1104,7 +1104,7 @@ up binary images; so that, higher level computer vision techniques can be used r
 \end{figure}
 -->
 
-### Canny Edge Detection
+### Canny Edge Detector
 
 The Canny edge detector, which is arguable the most used edge detector to date,
 was developed in 1986 by John Canny, from whom it derives it names [#Canny1986].
@@ -1115,7 +1115,7 @@ to meet three main objectives, two of which are indicated below.
 2. *good* localization with minimal distances between detected and true edge positions
 
 Figure <!--\ref{fig:summary_of_canny_edge_detection_framework}--> shows the Canny
-edge detector’s framework. The detector first acquires a greyscale image, either directly
+edge detector's framework. The detector first acquires a greyscale image, either directly
 or through conversion from another image format. The first objective Nixon notes aims to reduce noise.
 Consequently, the detector applies a Gaussian filter, which smooths the image;
 thereby, reducing noise. After which, the Sobel edge detection operators, $G_{x}$,
@@ -1177,21 +1177,62 @@ edge [#Nixon2008], [#Middleton2005].
 \end{figure}
 -->
 
-### Hough Circle Detection
+### Hough Circle Detector
 
-Insert Text Explaining The Basic Preprocessing Operation Performed by Hough Circle Transform In Order to Get Edges.
+In order to implement the multistage localization technique presented in this paper
+to drilling operations, our detection algorithm must be able to both reliably and
+accurately detect circles on a hole template. The Hough Transform, named after its
+original inventor, is a popular technique for having edges "vote" for plausible
+line locations [#Szeliski2010]. In 1981, Ballard extended the generalized version
+of the Hough Transform developed by Duda and Hart in [#Duda1972] to be used for
+the detection of arbitrary shapes, specifically lines, circles, and parabolas [#Ballard1981].
+The Hough circle detector can be used to robustly and accurately determine the three
+parameters that define a circle on the coordinate plane, the radius of the circle
+and the center of the circle in x and y coordinates [#Xing2008].
+
+In general, the Hough circle detector uses the Canny edge detector to produce a
+binary image of edges. After which, the x-y coordinate of each edge points in the
+image space  is mapped to a two-dimensional, if the radius is known, or
+three-dimensional accumulator array, Hough space, as shown in Figure <!--\ref{fig:hough_circle_detector_2d_accumulator}-->.
+After all of the edge points have been processed, a thresholding technique is applied
+to determine the locations and radii of circles that meet a user specified
+criteria [#Brahmbhatt2013], [#Wu2015].
 
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/edge_detection_hough_circle.png}
-  \caption{Summary of preprocessing operation performed by Hough Circle detector.}
-  \label{fig:summary_of_preprocessing_operation_performed_by_Hough_Circle_detector}
+  \includegraphics[width=0.5\linewidth]{figures/2d_accumulator_hough_circle.png}
+  \caption{Hough Circle Detector's 2-D Accumulator Array with Known Radius (Penny). Adapted from \protect\cite{Parikh2015Fitting}}
+  \label{fig:hough_circle_detector_2d_accumulator}
 \end{figure}
 -->
 
+If the circles in an image have a known radius, $R$, then the search can be reduced
+to two dimensions. Figure <!--\ref{fig:summary_of_hough_circle_detector_with_known_radius}-->
+shows that each edge point in the image space (left) generates a circle in the
+Hough space (right) through the sweeping of the angle, $\theta$, through a full
+360 degrees in Equations <!--\ref{eq:x_parametric_equation}--> and
+<!--\ref{eq:y_parametric_equation}-->,
 
-Insert Text Explaining the Basic Intuition Behind Hough Circle with Know Radius.
+<!--
+\begin{equation}
+x = a + R\cos(\theta)
+\label{eq:x_parametric_equation}
+\end{equation}
+-->
+
+<!--
+\begin{equation}
+y = b + R\sin(\theta)
+\label{eq:y_parametric_equation}
+\end{equation}
+-->
+
+where $R$ is radius and $(a,b)$ is the circle center in x and y coordinates. The
+point(s) in the two-dimensional accumulator, Hough space, with a peak(s) above
+a certain threshold is determined to be the circle center location(s) in x and y
+coordinates [#Parikh2015Fitting].
+
 
 <!--
 \begin{figure}[H]
@@ -1202,12 +1243,16 @@ Insert Text Explaining the Basic Intuition Behind Hough Circle with Know Radius.
 \end{figure}
 -->
 
-Insert Text Expanding Basic Intuition Behind Hough Circle with Unknown Radius.
+If the radius is not known, then the search must be conducted in three dimensions. Each edge point
+in the image space produces a cone surface, instead of a circle, in the Hough space as seen in
+Figure <!--\ref{fig:summary_of_hough_circle_detector_with_unknown_radius}-->. After
+all edge points have voted, then the point(s) with a peak(s) above a certain threshold
+will be chosen as the circle center location(s) and radius [#Parikh2015Fitting].
 
 <!--
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/hough_circle_summary_unknown_r.png}
+  \includegraphics[width=0.45\linewidth]{figures/hough_circle_summary_unknown_r.png}
   \caption{Summary of Hough Circle detector with unknown radius.}
   \label{fig:summary_of_hough_circle_detector_with_unknown_radius}
 \end{figure}
@@ -1659,7 +1704,7 @@ edges in the image, as well as to produce a binary image, which is used to reduc
 computational complexity of the feature detection algorithm used. At which point,
 the outside edges of the image are masked, in order to decrease the likelihood that
 features other than the one desired are detected. After which, the appropriate feature detection
-algorithm, such as Hough Circle Detector [#Illingworth1987] or Good Feature to Track
+algorithm, such as Hough Circle Detector [#Ballard1981] or Good Feature to Track
 [#Tomasi1994], is run in order to find the center pixel of the feature closest to
 the laser point produced by the laser pointer. Once these features' pixel locations
 have been found, they are tracked using the Kanade Lucas Tomasi (KLT) tracker [#Baker2004],
@@ -1669,7 +1714,7 @@ on each frame. The location of the center of the laser point can be found by con
 the pixel to 3-D camera coordinates using the camera's intrinsic parameters. However,
 in order to find the depth, the line-line intersection between the 3-D ray of the
 laser pointer in the camera frame, which was found during calibration, and the laser
-point’s 3-D ray, which is calculated by finding the line connecting the camera's
+point's 3-D ray, which is calculated by finding the line connecting the camera's
 center point and the location of laser point in camera coordinates on the image
 plane, must be found. If the two lines do not intersect, the midpoint of the shortest
 line segment between the two lines should be used. The camera calibration procedure
@@ -1753,7 +1798,7 @@ will move the end-effector to the specified Cartesian location specified using M
 and the TRAC-IK numerical solver. Currently, many companies use hole templates to ensure
 that objects are drilled within necessary tolerances. Consequently, the feature
 correction framework will use these features as landmarks and detect them using
-Hough Circle Detector [#Illingworth1987]. Using these landmarks, the feature locations
+Hough Circle Detector [#Ballard1981]. Using these landmarks, the feature locations
 are refined to within a user specified accuracy. After which, the manipulator will
 drill the hole to the specified depth and at the specified feed rate requested by
 the user. This will continue until all features have been drilled. However, if the
