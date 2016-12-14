@@ -1106,8 +1106,8 @@ up binary images; so that, higher level computer vision techniques can be used r
 
 ### Canny Edge Detector
 
-The Canny edge detector, which is arguable the most used edge detector to date,
-was developed in 1986 by John Canny, from whom it derives it names [#Canny1986].
+The Canny edge detector, which is arguably the most used edge detector to date,
+was developed in 1986 by John Canny, from whom it derives its name [#Canny1986].
 Mark Nixon notes in [#Nixon2008] that John Canny developed the Canny edge detector
 to meet three main objectives, two of which are indicated below.
 
@@ -1117,11 +1117,11 @@ to meet three main objectives, two of which are indicated below.
 Figure <!--\ref{fig:summary_of_canny_edge_detection_framework}--> shows the Canny
 edge detector's framework. The detector first acquires a greyscale image, either directly
 or through conversion from another image format. The first objective Nixon notes aims to reduce noise.
-Consequently, the detector applies a Gaussian filter, which smooths the image;
-thereby, reducing noise. After which, the Sobel edge detection operators, $G_{x}$,
+Consequently, the detector applies a Gaussian filter to smooth the image,
+thereby reducing noise. After which, the Sobel edge detection operators, $G_{x}$,
 which is equal to Equation <!--\ref{eq:sobel_x}-->, and $G_{y}$, which is equal to
 Equation <!--\ref{eq:sobel_y}-->, are used to find the edge gradient, $G$, and direction,
-$\theta$ for each pixel using Equation <!--\ref{eq:edge_gradient}--> and <!--\ref{eq:edge_direction}-->
+$\theta$, for each pixel using Equation <!--\ref{eq:edge_gradient}--> and <!--\ref{eq:edge_direction}-->
 respectively.
 
 
@@ -1163,7 +1163,7 @@ G = \sqrt{G_{x}^2+G_{y}^2}
 
 The second objective Nixon notes aims for accuracy. This accuracy is achieved
 through non-maximum suppression, which uses the calculated edge gradient and direction
-to maintain only those edge points at the top of the hill created by gradient; thus, thinning the
+to maintain only those edge points at the top of the hill created by the gradient, thus thinning the
 edges. Hysteresis thresholding is then used to connect the edge points. It does this
 by having a double threshold, one to start an edge and a lower one to continue an
 edge [#Nixon2008], [#Middleton2005].
@@ -1191,9 +1191,9 @@ of the Hough Transform developed by Duda and Hart in [#Duda1972] to be used for
 the detection of arbitrary shapes, specifically lines, circles, and parabolas [#Ballard1981].
 
 In general, the Hough circle detector uses the Canny edge detector to produce a
-binary image of edges. After which, the x-y coordinate of each edge points in the
-image space  is mapped to a two-dimensional, if the radius is known, or
-three-dimensional accumulator array, Hough space, as shown in Figure <!--\ref{fig:hough_circle_detector_2d_accumulator}-->.
+binary image of edges. After which, the x-y coordinates of each edge point in the
+image space are mapped to a two-dimensional or
+three-dimensional accumulator array, the Hough space, as shown in Figure <!--\ref{fig:hough_circle_detector_2d_accumulator}-->.
 After all of the edge points have been processed, a thresholding technique is applied
 to determine the locations and radii of circles that meet a user specified
 criteria [#Brahmbhatt2013], [#Wu2015].
@@ -1210,8 +1210,8 @@ criteria [#Brahmbhatt2013], [#Wu2015].
 If the circles in an image have a known radius, $R$, then the search can be reduced
 to two dimensions. Figure <!--\ref{fig:summary_of_hough_circle_detector_with_known_radius}-->
 shows that each edge point in the image space (left) generates a circle in the
-Hough space (right) through the sweeping of the angle, $\theta$, through a full
-360 degrees in Equations <!--\ref{eq:x_parametric_equation}--> and
+Hough space (right) through the sweeping of the angle $\theta$ through a full
+360 degree rotation in Equations <!--\ref{eq:x_parametric_equation}--> and
 <!--\ref{eq:y_parametric_equation}-->,
 
 <!--
@@ -1229,8 +1229,8 @@ y = b + R\sin(\theta)
 -->
 
 where $R$ is radius and $(a,b)$ is the circle center in x and y coordinates. The
-point(s) in the two-dimensional accumulator, Hough space, with a peak(s) above
-a certain threshold is determined to be the circle center location(s) in x and y
+points in the two-dimensional Hough space with peaks above
+a certain threshold are determined to be the circle center locations in x and y
 coordinates [#Parikh2015Fitting].
 
 
@@ -1246,8 +1246,8 @@ coordinates [#Parikh2015Fitting].
 If the radius is not known, then the search must be conducted in three dimensions. Each edge point
 in the image space produces a cone surface, instead of a circle, in the Hough space as seen in
 Figure <!--\ref{fig:summary_of_hough_circle_detector_with_unknown_radius}-->. After
-all edge points have voted, then the point(s) with a peak(s) above a certain threshold
-will be chosen as the circle center location(s) and radius [#Parikh2015Fitting].
+all edge points have voted, then the points with a peaks above a certain threshold
+will be chosen as the circle center locations and radii [#Parikh2015Fitting].
 
 <!--
 \begin{figure}[H]
@@ -1315,7 +1315,7 @@ E(u,v) = \sum_{x,y}w(x,y)[\textit{I}(x+u,y+v)-\textit{I}(x,y)]^2
 $w(x,y)$ is the window function, while $\textit{I}(x+u,y+v)$ and $\textit{I}(x,y)$
 are the intensity values at the shifted and original locations respectively.
 
-Equation <!--\ref{eq:maximize_intensity}--> will be approximately zero for "flat"
+Equation <!--\ref{eq:maximize_intensity}--> evaluates to approximately zero for "flat"
 regions; however, for an "edge" or a "corner" the value will be significantly larger.
 
 <!--
@@ -1344,7 +1344,7 @@ E(u,v)\approx\sum_{x,y}u^2I_{x}^2+2uvI_{x}I_{y}+v^2I_{y}^2
 -->
 
 Re-writing Equation <!--\ref{eq:expanding_and_cancelling_properly}--> in matrix
-form result in Equation <!--\ref{eq:express_in_matrix_form}-->. Equation <!--\ref{eq:simplify_matrix}-->
+form results in Equation <!--\ref{eq:express_in_matrix_form}-->. Equation <!--\ref{eq:simplify_matrix}-->
 is the *bilinear* approximation of Equation <!--\ref{eq:express_in_matrix_form}--> for small
 shifts in $[u, v]$,
 
@@ -1398,12 +1398,12 @@ R = \lambda_{1}\lambda_{2} - k(\lambda_{1}+\lambda_{2})^2
 \end{equation}
 -->
 
-Equation <!--\ref{eq:good_feature_scoring_function}--> on the other hand is Shi
-and Tomasi scoring's function for Good Feature to Track. Figure
+Equation <!--\ref{eq:good_feature_scoring_function}-->, on the other hand is Shi
+and Tomasi scoring function for Good Feature to Track. Figure
 <!--\ref{fig:difference_between_good_feature_and_harris_corner_scoring_functions}-->
 shows the difference that this slight change in the Harris corner detector's
 scoring function makes. However, the premise remains
-the same if the eigenvalues, $\lambda_{1}$ and $\lambda_{2}$, are both lower than
+the same. If the eigenvalues, $\lambda_{1}$ and $\lambda_{2}$, are both lower than
 a certain threshold, then the region is determined to be "flat". If $\lambda_{1} >>
 \lambda_{2}$ or vice versa, then the region is determined to be an "edge" and if
 $\lambda_{1}$ and $\lambda_{2}$ are both larger than a certain threshold then the
