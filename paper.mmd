@@ -1202,7 +1202,7 @@ criteria [#Brahmbhatt2013], [#Wu2015].
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{figures/2d_accumulator_hough_circle.png}
-  \caption{Hough Circle Detector's 2-D Accumulator Array with Known Radius (Penny). Adapted from \protect\cite{Parikh2015Fitting}}
+  \caption{Hough Circle Detector's 2-D Accumulator Array with Known Radius (Penny). Adapted from \protect\cite{Parikh2015Fitting}.}
   \label{fig:hough_circle_detector_2d_accumulator}
 \end{figure}
 -->
@@ -1277,20 +1277,20 @@ they would be able to determine if the region was "flat" or if it contained an "
 or a "corner". A "flat" region would have no significant change in intensity regardless
 of direction shifted, while an "edge" would have a significant change in intensity
 if shifted orthogonal to the edge's direction and a "corner" would have a significant
-change in intensity if shifted in any direction.
+change in intensity if shifted in any direction [#Collins2012].
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/good_feature_basic_intuition.png}
-  \caption{Summary of Good Feature detector.}
+  \caption{Summary of Good Feature detector. Adapted from \protect\cite{Collins2012}.}
   \label{fig:summary_of_good_feature_detector}
 \end{figure}
 -->
 
 The change in intensity of each pixel in an image can quickly and efficiently be
 found by taking the derivative of the image in the x and y directions, which produces
-gradient images. Gradient images for each of the aforementioned cases are shown
+gradient images [#Collins2012]. Gradient images for each of the aforementioned cases are shown
 in Figure <!--\ref{fig:image_gradient_example}-->.
 
 <!--
@@ -1303,7 +1303,7 @@ in Figure <!--\ref{fig:image_gradient_example}-->.
 -->
 
 Equation <!--\ref{eq:change_of_intensity_for_the_shift_uv}--> mathematically expresses
-the change of intensity for the shift, $[u, v]$.
+the change of intensity for the shift, $[u, v]$ [#Collins2012].
 
 <!--
 \begin{equation}
@@ -1407,7 +1407,7 @@ the same if the eigenvalues, $\lambda_{1}$ and $\lambda_{2}$, are both lower tha
 a certain threshold, then the region is determined to be "flat". If $\lambda_{1} >>
 \lambda_{2}$ or vice versa, then the region is determined to be an "edge" and if
 $\lambda_{1}$ and $\lambda_{2}$ are both larger than a certain threshold then the
-region is determined to be a "corner".
+region is determined to be a "corner" [#Parikh2015LocalFeaturesAndImageMatching].
 
 <!--
 \begin{equation}
