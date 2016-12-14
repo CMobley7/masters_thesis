@@ -17,8 +17,8 @@ latex footer: vtthesis/footer.tex
 
 In order for manufacturing companies to remain competitive, their production systems
 need to be able to constantly evolve and to accommodate for the market's changing demands
-[#Pedersen2016]. Currently, manufacturing is undergoing a paradigm shift from "mass
-production" to "mass customization" [#Michalos2016], [#Cedeno-Campos2013], [#Hvilshoj2012],
+[#Pedersen2016]. Currently, manufacturing is undergoing a paradigm shift from "mass production"
+to "mass customization" [#Michalos2016], [#Cedeno-Campos2013], [#Hvilshoj2012],
 [#Bogh2012]. As customers demand more customizable products, traditional "mass production"
 becomes untenable. While mass production focuses on producing large volumes of identical
 items with high efficiency, mass customization focuses on producing highly variable
@@ -807,7 +807,7 @@ to be recharged, regardless of what it is doing at the time. When it is fully re
 it will need to pick up exactly where it left off. The recharging period is an
 alarm mechanics, which is something that interrupts normal behavior to respond to something
 important. Representing this in a state machine leads to a doubling the number of
-states. With only one level of "alarm behaviors', this is no problem; however, if
+states. With only one level of "alarm behaviors", this is no problem; however, if
 we add levels of "alarm behaviors", the number of states will increase exponentially.
 So, rather than combining all the logic into a single state machine, the logic can
 be separated it into several. Each alarm mechanism should have its own state machine,
@@ -1181,14 +1181,14 @@ edge [#Nixon2008], [#Middleton2005].
 
 In order to implement the multistage localization technique presented in this paper
 to drilling operations, our detection algorithm must be able to both reliably and
-accurately detect circles on a hole template. The Hough Transform, named after its
+accurately detect circles on a hole template. The Hough circle detector is a circle
+detector which can be used to robustly and accurately determine the three
+parameters that define a circle on the coordinate plane, the radius of the circle
+and the center of the circle in x and y coordinates [#Xing2008]. The Hough Transform, named after its
 original inventor, is a popular technique for having edges "vote" for plausible
 line locations [#Szeliski2010]. In 1981, Ballard extended the generalized version
 of the Hough Transform developed by Duda and Hart in [#Duda1972] to be used for
 the detection of arbitrary shapes, specifically lines, circles, and parabolas [#Ballard1981].
-The Hough circle detector can be used to robustly and accurately determine the three
-parameters that define a circle on the coordinate plane, the radius of the circle
-and the center of the circle in x and y coordinates [#Xing2008].
 
 In general, the Hough circle detector uses the Canny edge detector to produce a
 binary image of edges. After which, the x-y coordinate of each edge points in the
@@ -1261,7 +1261,23 @@ will be chosen as the circle center location(s) and radius [#Parikh2015Fitting].
 
 ### Good Feature To Track
 
-Insert Text Explaining the Basic Intuition Behind Good Feature.
+In order to implement the multistage localization technique presented in this paper
+to sealant application operations, our detection algorithm must be able to both
+reliably and accurately detect corners. Good Feature to Track is a corner detection
+method which can be used to robustly and accurately determine the position of a
+corner in x and y coordinates [#Tomasi1994]. In 1988, Harris and Stephens developed
+the Harris corner detector in [#Harris1988]. Six years later, Shi and Tomasi developed
+Good Feature to Track in [#Tomasi1994] by slightly modifying the Harris corner detector's
+scoring function, which significantly improved the overall reliably of the detector
+[#Joshi2016].
+
+Figure <!--\ref{fig:summary_of_good_feature_detector}--> shows that if one were
+to examine the change in intensity of a small image patch as it was shifted around,
+they would be able to determine if the region was "flat" or if it contained an "edge"
+or a "corner". A "flat" region would have no significant change in intensity regardless
+of direction shifted, while an "edge" would have a significant change in intensity
+if shifted orthogonal to the edge's direction and a "corner" would have a significant
+change in intensity if shifted in any direction.
 
 <!--
 \begin{figure}[H]
@@ -1272,7 +1288,10 @@ Insert Text Explaining the Basic Intuition Behind Good Feature.
 \end{figure}
 -->
 
-Insert Text Explaining an Image Gradient/Derivative and Why We Look for Them.
+The change in intensity of each pixel in an image can quickly and efficiently be
+found by taking the derivative of the image in the x and y directions, which produces
+gradient images. Gradient images for each of the aforementioned cases are shown
+in Figure <!--\ref{fig:image_gradient_example}-->.
 
 <!--
 \begin{figure}[H]
@@ -1283,7 +1302,8 @@ Insert Text Explaining an Image Gradient/Derivative and Why We Look for Them.
 \end{figure}
 -->
 
-Insert Text Explaining Math.
+Equation <!--\ref{eq:change_of_intensity_for_the_shift_uv}--> mathematically expresses
+the change of intensity for the shift, $[u, v]$.
 
 <!--
 \begin{equation}
@@ -1292,12 +1312,22 @@ E(u,v) = \sum_{x,y}w(x,y)[\textit{I}(x+u,y+v)-\textit{I}(x,y)]^2
 \end{equation}
 -->
 
+$w(x,y)$ is the window function, while $\textit{I}(x+u,y+v)$ and $\textit{I}(x,y)$
+are the intensity values at the shifted and original locations respectively.
+
+Equation <!--\ref{eq:maximize_intensity}--> will be approximately zero for "flat"
+regions; however, for an "edge" or a "corner" the value will be significantly larger.
+
 <!--
 \begin{equation}
 \sum_{x,y}[\textit{I}(x+u,y+v)-\textit{I}(x,y)]^2
 \label{eq:maximize_intensity}
 \end{equation}
 -->
+
+Through the use of Taylor Series Expansion, Equation <!--\ref{eq:maximize_intensity}-->
+becomes Equation <!--\ref{eq:taylor_series_expansion}-->, which can be simplified
+to Equation <!--\ref{eq:expanding_and_cancelling_properly}-->.
 
 <!--
 \begin{equation}
@@ -1312,6 +1342,11 @@ E(u,v)\approx\sum_{x,y}u^2I_{x}^2+2uvI_{x}I_{y}+v^2I_{y}^2
 \label{eq:expanding_and_cancelling_properly}
 \end{equation}
 -->
+
+Re-writing Equation <!--\ref{eq:expanding_and_cancelling_properly}--> in matrix
+form result in Equation <!--\ref{eq:express_in_matrix_form}-->. Equation <!--\ref{eq:simplify_matrix}-->
+is the *bilinear* approximation of Equation <!--\ref{eq:express_in_matrix_form}--> for small
+shifts in $[u, v]$,
 
 <!--
 \begin{equation}
@@ -1340,12 +1375,10 @@ v
 \end{equation}
 -->
 
-Where $$M=\sum_{x,y}w(x,y)\begin{bmatrix}
+where $M=\sum_{x,y}w(x,y)\begin{bmatrix}
 I_{x}^2 & I_{x}I_{y}\\
 I_{x}I_{y} & I_{y}^2
-\end{bmatrix}$$
-
-Insert Text Explaining How Both Harris Corner and Good Feature Scoring Functions Work and Why Good Feature Performs Slightly Higher.
+\end{bmatrix}$. Equation <!--\ref{eq:harris_corner_scoring_function}--> is the Harris corner scoring function,
 
 <!--
 \begin{equation}
@@ -1354,7 +1387,9 @@ R = \textup{det}(M) - k(\textup{trace}(M))^2
 \end{equation}
 -->
 
-Where $\textup{det}(M) = \lambda_{1}\lambda_{2}$ and $\textup{trace}(M) = \lambda_{1} + \lambda_{2}$. So,
+where $\textup{det}(M) = \lambda_{1}\lambda_{2}$ and $\textup{trace}(M) =
+\lambda_{1} + \lambda_{2}$. So, Equation <!--\ref{eq:harris_corner_scoring_function}-->
+can be rewritten as Equation <!--\ref{eq:simplified_harris_corner_scoring_function}-->.
 
 <!--
 \begin{equation}
@@ -1363,6 +1398,17 @@ R = \lambda_{1}\lambda_{2} - k(\lambda_{1}+\lambda_{2})^2
 \end{equation}
 -->
 
+Equation <!--\ref{eq:good_feature_scoring_function}--> on the other hand is Shi
+and Tomasi scoring's function for Good Feature to Track. Figure
+<!--\ref{fig:difference_between_good_feature_and_harris_corner_scoring_functions}-->
+shows the difference that this slight change in the Harris corner detector's
+scoring function makes. However, the premise remains
+the same if the eigenvalues, $\lambda_{1}$ and $\lambda_{2}$, are both lower than
+a certain threshold, then the region is determined to be "flat". If $\lambda_{1} >>
+\lambda_{2}$ or vice versa, then the region is determined to be an "edge" and if
+$\lambda_{1}$ and $\lambda_{2}$ are both larger than a certain threshold then the
+region is determined to be a "corner".
+
 <!--
 \begin{equation}
 R = \textup{min}(\lambda_{1},\lambda_{2})
@@ -1370,12 +1416,11 @@ R = \textup{min}(\lambda_{1},\lambda_{2})
 \end{equation}
 -->
 
-
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/good_feature_harris_scoring_comparison.png}
-  \caption{Difference Between Good Feature and Harris Corner Scoring Functions.}
+  \caption{Difference Between Good Feature (a) and Harris Corner (b) Scoring Functions.}
   \label{fig:difference_between_good_feature_and_harris_corner_scoring_functions}
 \end{figure}
 -->
