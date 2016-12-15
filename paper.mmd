@@ -239,7 +239,7 @@ The purpose of this chapter is to briefly explain all of the concepts needed to 
 the work presented in the chapters thereafter. The following subsections will explain
 the basic concepts of the Robot Operating System (ROS), Simultaneous Localization
 and Mapping (SLAM), Localization and Path Planning, as well as Manipulation. In addition,
-Task Execution using State Machines and the specific Computer Vision Algorithms
+Task Execution using State Machines and the specific Computer Vision algorithms
 implemented will be expounded upon.
 
 ## ROS Concepts
@@ -1427,39 +1427,75 @@ R = \textup{min}(\lambda_{1},\lambda_{2})
 
 ### Optical Flow
 
-Insert Text Explaining the Basic Intuition Behind Optical Flow.
+In order to reduce the computational complexity inherent in running feature detection
+algorithms on every frame, optical flow, a method of computing an independent
+motion estimate for each pixel in an image [#Szeliski2010], can be a computational
+inexpensive way to track features between frames. Figure <!--\ref{fig:example_of_optical_flow}-->
+shows the computed flow vectors between two frames. The length of the vector is
+dependent on the motion of the pixel or patch between frames.
 
 <!--
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/optical_flow_example.png}
-  \caption{Example of optical flow.}
+  \caption{Example of optical flow. Adapted from \protect\cite{Sastrasinh}.}
   \label{fig:example_of_optical_flow}
 \end{figure}
 -->
 
-Insert Text Explaining the Basic Intuition Behind Kanade-Lucas-Tomasi Feature Tracker.
+Kanade-Lucas-Tomasi (KLT) tracker is a widely accepted and used method to track
+image point features between frames using optical flow [#Trummer2009]. The goal of
+KLT is to align a template image, $\textit{T}(\textbf{x})$, to an input image $\textit{I}(\textbf{x})$,
+where $\textbf{x} = (x,y)^{T}$ is a column vector containing the pixel location of the image
+point features. Consequently, KLT’s inverse compositional algorithm seeks to minimize
+Equation <!--\ref{eq:klt_i}-->,
 
 <!--
 \begin{equation}
 \sum_{x} [\textit{T}(\textbf{W}(\textbf{x;}\Delta\textbf{p}))-\textit{I}(\textbf{W(x;p}))]^2
-\label{eq:klt1}
+\label{eq:klt_i}
 \end{equation}
 -->
+
+where $\textbf{p}=(p_{1},...p_{n})^{T}$ is a vector of parameters, the warp
+$\textbf{W}(\textbf{x;}\textbf{p})$ takes all of the pixels, $\textbf{x}$, in the
+template coordinate frame and maps it to image coordinate frame, while
+$\textbf{W}(\textbf{x;}\Delta\textbf{p})$ denotes the incremental warp between
+the same frames [#Baker2004].
+
+Taking the first order Taylor Expansion of Equation <!--\ref{eq:klt_i}--> results
+in Equation <!--\ref{eq:klt_ii}-->.
 
 <!--
 \begin{equation}
 \sum_{x} \bigg[\textit{T}(\textbf{W}(\textbf{x;0}))+\nabla \textbf{T}\frac{\partial\textbf{W}}{\partial\textbf{p}}\Delta\textbf{p}-\textit{I}(\textbf{W}(\textbf{x;p}))\bigg]^2
-\label{eq:klt2}
+\label{eq:klt_ii}
 \end{equation}
 -->
+
+Assuming that $\textbf{W}(\textbf{x};\textbf{0})$ is the identity warp, the
+solution to this least-square problem is Equation <!--\ref{eq:klt_iii}-->,
 
 <!--
 \begin{equation}
 \Delta\textbf{p}=\textit{H}^{-1}\sum_{x} \bigg[\nabla \textbf{T}\frac{\partial\textbf{W}}{\partial\textbf{p}} \bigg]^T[\textit{I}(\textbf{W}(\textbf{x;p}))-\textit{T}(\textbf{x})]
-\label{eq:klt3}
+\label{eq:klt_iii}
 \end{equation}
 -->
+
+where the Hessian matrix, $H$, is equal to Equation <!--\ref{eq:hessian_matrix}--> [#Baker2004].
+
+<!--
+\begin{equation}
+H = \sum_{x}\bigg[\nabla \textbf{T}\frac{\partial\textbf{W}}{\partial\textbf{p}}\bigg]^{T}\bigg[\nabla \textbf{T}\frac{\partial\textbf{W}}{\partial\textbf{p}}\bigg]
+\label{eq:hessian_matrix}
+\end{equation}
+-->
+
+Figure<!--\ref{fig:example_of_optical_flow}--> is a graphical representation of
+this optimization for a two parameter model, translation. However, the 6 parameter
+model, affine, is used in the multistage localization approach presented in this
+paper.
 
 <!--
 \begin{figure}[H]
@@ -1525,7 +1561,15 @@ coordinates.
 
 ## Summary
 
-Insert Text Summarizing This Chapter and Transiting to the Next.
+The purpose of this chapter was to briefly explain all of the concepts needed to
+understand the work presented in the chapters thereafter. The basic concepts of
+the Robot Operating System (ROS), Simultaneous Localization and Mapping (SLAM),
+Localization and Path Planning, Manipulation, Task Execution using State Machines,
+and the specific Computer Vision algorithms implemented were explained in depth.
+The following chapter will explain in detail each component of the multistage localization
+approach presented in this paper, as well as its implementation to two tasks which
+are prevalent in both the manufacturing and construction industries: drilling and
+sealant application operations.
 
 # Multistage Localization for High Precision Mobile Manipulation Tasks
 
@@ -1752,7 +1796,7 @@ features other than the one desired are detected. After which, the appropriate f
 algorithm, such as Hough Circle Detector [#Ballard1981] or Good Feature to Track
 [#Tomasi1994], is run in order to find the center pixel of the feature closest to
 the laser point produced by the laser pointer. Once these features' pixel locations
-have been found, they are tracked using the Kanade Lucas Tomasi (KLT) tracker [#Baker2004],
+have been found, they are tracked using the Kanade-Lucas-Tomasi (KLT) tracker [#Baker2004],
 based on the optical flow of the image, in order to reduce complexation complexity
 that would be associated with running the aforementioned feature detection algorithms
 on each frame. The location of the center of the laser point can be found by converting
