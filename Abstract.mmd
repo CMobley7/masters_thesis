@@ -1,7 +1,7 @@
 This paper will present a multistage localization approach for
 an autonomous industrial mobile manipulator (AIMM). This approach allows tasks with
 an operational scope outside the range of the robot's manipulator to be completed
-without having to recalibrate the positon of the end-effector each time the robot's
+without having to recalibrate the position of the end-effector each time the robot's
 mobile base moves to another position. This is achieved by localizing the AIMM
 within its area of operation (AO) using adaptive Monte Carlo localization (AMCL),
 which relies on the fused odometry and sensor messages published by the robot, as
@@ -22,6 +22,6 @@ on two different ROS enabled robots, the Clearpath Robotics' Husky and the Fetch
 Fetch, in order to show the utility of the multistage localization approach in executing
 two tasks which are prevalent in both manufacturing and construction: drilling and
 sealant application. The proposed approach was able to achieve an average accuracy
-of $\pm$ 1 mm in these operations, verifying it's efficacy for tasks which have a
+of $\pm$ 1 mm in these operations, verifying its efficacy for tasks which have a
 larger operational scope than that of the range of the AIMM's manipulator and its
 robustness to general applications in manufacturing.

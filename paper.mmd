@@ -4,7 +4,7 @@ latex author: Christopher James Mobley
 latex title: Multistage Localization for High Precision Mobile Manipulation Tasks
 my abstract: Abstract.tex
 my public abstract: AbstractPublic.tex
-bibtex: masters_thesis
+bibtex: masters_thesis_final
 myreporttype: Thesis
 mydegree: Masters of Science
 mydepartment: Mechanical Engineering
@@ -227,7 +227,7 @@ base.
 
 ## Summary
 
-The purpose of this chapter is to present where each component of the multistage
+The purpose of this chapter was to present where each component of the multistage
 localization technique fits into current literature, as well as why specific techniques
 were used over others. The following chapter will present in depth all of the concepts
 needed to understand the multistage localization approach; so that, anyone
@@ -238,8 +238,8 @@ can understand the work presented regardless of background.
 The purpose of this chapter is to briefly explain all of the concepts needed to understand
 the work presented in the chapters thereafter. The following subsections will explain
 the basic concepts of the Robot Operating System (ROS), Simultaneous Localization
-and Mapping (SLAM), Localization and Path Planning, as well as Manipulation. In addition,
-Task Execution using State Machines and the specific Computer Vision algorithms
+and Mapping (SLAM), localization and path planning, as well as manipulation. In addition,
+task execution using state machines and the specific Computer Vision algorithms
 implemented will be expounded upon.
 
 ## ROS Concepts
@@ -275,7 +275,7 @@ interfaces provide ROS a great deal of flexibility for robotic applications [#RO
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{figures/simple_ros_node_diagram.png}
-  \caption{Simple ROS Node Flowchart. Adapted from \protect\cite{Burton2015}.}
+  \caption{Simple ROS node flowchart. Adapted from \protect\cite{Burton2015}.}
   \label{fig:simple_ros_node_flowchart}
 \end{figure}
 -->
@@ -314,7 +314,7 @@ the translation part of transforming frame $b$ origin to frame $a$ [#Kelly2013].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/conversion_from_frame_a_b.png}
-  \caption{Conversion from Coordinate Frame A to B.}
+  \caption{Conversion from coordinate frame A to B.}
   \label{fig:conversion_from_coordinate_frame_a_to_b}
 \end{figure}
 -->
@@ -332,7 +332,7 @@ Format (URDF) File [#URDF].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/robots_with_without_tfs.png}
-  \caption{Robot Model with TFs.}
+  \caption{Robot model with TFs.}
   \label{fig:robot_model_with_tfs}
 \end{figure}
 -->
@@ -387,7 +387,7 @@ state is refined and returned based on the parameters and/or constraints.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/overview_of_slam_framework.png}
-  \caption{Overview of SLAM Framework.}
+  \caption{Overview of SLAM framework.}
   \label{fig:overview_of_slam_framework}
 \end{figure}
 -->
@@ -401,7 +401,7 @@ to plan and execute appropriate trajectories in order for the robot to reach its
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/2d_occupancy_grid_map.png}
-  \caption{Example of 2-D Occupancy Grid Map Produced.}
+  \caption{Example of 2-D occupancy grid map produced.}
   \label{fig:example_of_2d_cccupancy_grid_map_produced}
 \end{figure}
 -->
@@ -431,7 +431,7 @@ presented in this paper.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/real_world_performance_analysis_ros_slam_algorithms.png}
-  \caption{Real World Performance Analysis of ROS Available SLAM Algorithms. Adapted from \protect\cite{Santos2013}.}
+  \caption{Real world performance analysis of ROS available SLAM algorithms. Adapted from \protect\cite{Santos2013}.}
   \label{fig:real_world_performance_analysis_of_ros_available_slam_algorithms}
 \end{figure}
 -->
@@ -439,7 +439,7 @@ presented in this paper.
 <!--
 \begin{table}[H]
 \centering
-\caption{Real World Error Estimation for ROS Available SLAM Algorithm. Adapted from \protect\cite{Santos2013}.}
+\caption{Real world error estimation for ROS available SLAM algorithm. Adapted from \protect\cite{Santos2013}.}
 \label{table:real_world_error_estimation_for_ros_available_slam_algorithms}
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|@{}}
 \toprule
@@ -525,7 +525,7 @@ this location [#Thrun2005].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/particle_filter_1d_example.png}
-  \caption{One-Dimensional Monte Carlo Localization Example. Adapted from \protect\cite{Thrun2005}.}
+  \caption{One-Dimensional Monte Carlo localization example. Adapted from \protect\cite{Thrun2005}.}
   \label{fig:one_dimensional_monte_carlo_localization_example}
 \end{figure}
 -->
@@ -574,7 +574,7 @@ weight. As a result, the particle filter begins from scratch.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/amcl_resampling.png}
-  \caption{Particle Filter Resampling Example}
+  \caption{Particle filter resampling example.}
   \label{fig:particle_filter_resampling_example}
 \end{figure}
 -->
@@ -597,7 +597,7 @@ removes the redundant particles and improves computational performance.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/amcl_visual_in_rviz.png}
-  \caption{Visual of AMCL in RVIZ}
+  \caption{Visual of AMCL in RVIZ.}
   \label{fig:visual_of_amcl_in_rviz}
 \end{figure}
 -->
@@ -638,7 +638,7 @@ velocities for just one simulation step [#BaseLocalPlanner].
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{figures/trajectory_rollout_depiction.png}
-  \caption{Trajectory Rollout Path Planning Framework.}
+  \caption{Trajectory Rollout path planning framework.}
   \label{fig:trajectory_rollout_path_planning_framework}
 \end{figure}
 -->
@@ -674,7 +674,7 @@ manipulator [#MoveItConcepts].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/moveit_system_architecture.png}
-  \caption{Moveit!'s System Architecture. Adapted from \protect\cite{MoveItConcepts}}
+  \caption{Moveit!'s system architecture. Adapted from \protect\cite{MoveItConcepts}.}
   \label{fig:moveit!'s_system_architecture}
 \end{figure}
 -->
@@ -695,7 +695,7 @@ determine the appropriate joint angles needed in order to reach the desired pose
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/forward_and_inverse_kinematics_depiction.png}
-  \caption{Forward and Inverse Kinematics Example}
+  \caption{Forward and inverse kinematics example.}
   \label{fig:forward_and_inverse_kinematics_example}
 \end{figure}
 -->
@@ -748,7 +748,7 @@ convergence times are well below one millisecond [#Beeson2015].
 <!--
 \begin{table}[H]
 \centering
-\caption{Comparison Between ROS Available Moveit! Inverse Kinematic Plugins. Adapted from \protect\cite{Beeson2015}.}
+\caption{Comparison between ROS available Moveit! inverse kinematic plugins. Adapted from \protect\cite{Beeson2015}.}
 \label{table:comparison_between_ros_available_moveit!_inverse_kinematic_plugins}
 \resizebox{\linewidth}{!}{\begin{tabular}{@{}|c|c|c|c|c|c|c|c|@{}}
 \toprule
@@ -828,7 +828,7 @@ or recharge if necessary.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/graphical_view_of_state_machine_using_smach.png}
-  \caption{Graphical View of State Machine using SMACH}
+  \caption{Graphical view of state machine using SMACH.}
   \label{fig:graphical_view_of_state_machine_using_smach}
 \end{figure}
 -->
@@ -843,7 +843,7 @@ photometric images are formed.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/photometric_image_formation.png}
-  \caption{Photmetric Image Formation. Adapted from \protect\cite{Szeliski2010}.}
+  \caption{Photmetric image formation. Adapted from \protect\cite{Szeliski2010}.}
   \label{fig:photmetric_image_formation}
 \end{figure}
 -->
@@ -857,7 +857,7 @@ in Figure <!--\ref{fig:digital_camera_diagram}-->.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/digital_camera_diagram.png}
-  \caption{Digital Camera Diagram. Adapted from \protect\cite{DigitalCamera}.}
+  \caption{Digital camera diagram. Adapted from \protect\cite{DigitalCamera}.}
   \label{fig:digital_camera_diagram}
 \end{figure}
 -->
@@ -944,7 +944,7 @@ VGSD = \frac{h_{s}d}{f*r_{v}}
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/spatial_resolution.png}
-  \caption{Ground Sample Distance Effects on Image Quality. Adapted from \protect\cite{Quadri}.}
+  \caption{Ground sample distance effects on image quality. Adapted from \protect\cite{Quadri}.}
   \label{fig:ground_sample_distance_effects_on_image_quality}
 \end{figure}
 -->
@@ -994,7 +994,7 @@ RGB camera with a GS is needed.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/global_vs_rolling_shutter.png}
-  \caption{Shutter Type Effects on Image Quality. Adapted from \protect\cite{RSGSDiff}.}
+  \caption{Shutter type effects on image quality. Adapted from \protect\cite{RSGSDiff}.}
   \label{fig:shutter_type_effects_on_image_quality}
 \end{figure}
 -->
@@ -1035,7 +1035,7 @@ the brightness of a color, where 0 is black and 1 is white [#HSVColorSpace].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/rgb_and_hsv_color_space_models.png}
-  \caption{RGB and HSV color space models}
+  \caption{RGB and HSV color space models.}
   \label{fig:RGB_and_HSV_color_space_models}
 \end{figure}
 -->
@@ -1172,7 +1172,7 @@ edge [#Nixon2008], [#Middleton2005].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/canny_edge_detection.png}
-  \caption{Summary of Canny Edge Detection Framework.}
+  \caption{Summary of Canny edge detection framework.}
   \label{fig:summary_of_canny_edge_detection_framework}
 \end{figure}
 -->
@@ -1202,7 +1202,7 @@ criteria [#Brahmbhatt2013], [#Wu2015].
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{figures/2d_accumulator_hough_circle.png}
-  \caption{Hough Circle Detector's 2-D Accumulator Array with Known Radius (Penny). Adapted from \protect\cite{Parikh2015Fitting}.}
+  \caption{Hough circle detector's 2-D accumulator array with known radius (penny). Adapted from \protect\cite{Parikh2015Fitting}.}
   \label{fig:hough_circle_detector_2d_accumulator}
 \end{figure}
 -->
@@ -1238,7 +1238,7 @@ coordinates [#Parikh2015Fitting].
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/hough_circle_summary_known_r.png}
-  \caption{Summary of Hough Circle detector with known radius.}
+  \caption{Summary of Hough circle detector with known radius.}
   \label{fig:summary_of_hough_circle_detector_with_known_radius}
 \end{figure}
 -->
@@ -1253,7 +1253,7 @@ will be chosen as the circle center locations and radii [#Parikh2015Fitting].
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.45\linewidth]{figures/hough_circle_summary_unknown_r.png}
-  \caption{Summary of Hough Circle detector with unknown radius.}
+  \caption{Summary of Hough circle detector with unknown radius.}
   \label{fig:summary_of_hough_circle_detector_with_unknown_radius}
 \end{figure}
 -->
@@ -1297,7 +1297,7 @@ in Figure <!--\ref{fig:image_gradient_example}-->.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/image_gradient_example.png}
-  \caption{Image Gradient Example.}
+  \caption{Image gradient example.}
   \label{fig:image_gradient_example}
 \end{figure}
 -->
@@ -1420,7 +1420,7 @@ R = \textup{min}(\lambda_{1},\lambda_{2})
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/good_feature_harris_scoring_comparison.png}
-  \caption{Difference Between Good Feature (a) and Harris Corner (b) Scoring Functions.}
+  \caption{Difference between Good Feature (a) and Harris Corner (b) scoring functions.}
   \label{fig:difference_between_good_feature_and_harris_corner_scoring_functions}
 \end{figure}
 -->
@@ -1428,11 +1428,11 @@ R = \textup{min}(\lambda_{1},\lambda_{2})
 ### Optical Flow
 
 In order to reduce the computational complexity inherent in running feature detection
-algorithms on every frame, optical flow, a method of computing an independent
-motion estimate for each pixel in an image [#Szeliski2010], can be a computational
-inexpensive way to track features between frames. Figure <!--\ref{fig:example_of_optical_flow}-->
-shows the computed flow vectors between two frames. The length of the vector is
-dependent on the motion of the pixel or patch between frames.
+algorithms on every image, optical flow, a method of computing an independent
+motion estimate for each pixel in an image [#Szeliski2010], can be a computationally
+inexpensive way to track features between images. Figure <!--\ref{fig:example_of_optical_flow}-->
+shows the computed flow vectors between two images. The length of the vector is
+dependent on the motion of the pixel or patch between images.
 
 <!--
 \begin{figure}[H]
@@ -1444,8 +1444,8 @@ dependent on the motion of the pixel or patch between frames.
 -->
 
 Kanade-Lucas-Tomasi (KLT) tracker is a widely accepted and used method to track
-image point features between frames using optical flow [#Trummer2009]. The goal of
-KLT is to align a template image, $\textit{T}(\textbf{x})$, to an input image $\textit{I}(\textbf{x})$,
+image point features between images using optical flow [#Trummer2009]. The goal of
+KLT is to align a template image, $\textit{T}(\textbf{x})$, to an input image ,$\textit{I}(\textbf{x})$,
 where $\textbf{x} = (x,y)^{T}$ is a column vector containing the pixel location of the image
 point features. Consequently, KLT’s inverse compositional algorithm seeks to minimize
 Equation <!--\ref{eq:klt_i}-->,
@@ -1457,11 +1457,11 @@ Equation <!--\ref{eq:klt_i}-->,
 \end{equation}
 -->
 
-where $\textbf{p}=(p_{1},...p_{n})^{T}$ is a vector of parameters, the warp
+where $\textbf{p}=(p_{1},...p_{n})^{T}$ is a vector of parameters, the warp function
 $\textbf{W}(\textbf{x;}\textbf{p})$ takes all of the pixels, $\textbf{x}$, in the
-template coordinate frame and maps it to image coordinate frame, while
+template coordinate frame and maps it to image coordinate frame, while the warp function
 $\textbf{W}(\textbf{x;}\Delta\textbf{p})$ denotes the incremental warp between
-the same frames [#Baker2004].
+the same coordinate frames [#Baker2004].
 
 Taking the first order Taylor Expansion of Equation <!--\ref{eq:klt_i}--> results
 in Equation <!--\ref{eq:klt_ii}-->.
@@ -1473,7 +1473,7 @@ in Equation <!--\ref{eq:klt_ii}-->.
 \end{equation}
 -->
 
-Assuming that $\textbf{W}(\textbf{x};\textbf{0})$ is the identity warp, the
+Assuming that the warp function $\textbf{W}(\textbf{x};\textbf{0})$ is the identity warp, the
 solution to this least-square problem is Equation <!--\ref{eq:klt_iii}-->,
 
 <!--
@@ -1492,9 +1492,9 @@ H = \sum_{x}\bigg[\nabla \textbf{T}\frac{\partial\textbf{W}}{\partial\textbf{p}}
 \end{equation}
 -->
 
-Figure<!--\ref{fig:example_of_optical_flow}--> is a graphical representation of
-this optimization for a two parameter model, translation. However, the 6 parameter
-model, affine, is used in the multistage localization approach presented in this
+Figure <!--\ref{fig:example_of_optical_flow}--> is a graphical representation of
+this optimization for a two parameter translation model. However, the six parameter affine
+model is used in the multistage localization approach presented in this
 paper.
 
 <!--
@@ -1554,7 +1554,7 @@ coordinates.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/ar_track_alvar_framework.png}
-  \caption{Summary of ALVAR AR Tag Detection Framework. Adapted from \protect\cite{Sanni2012}.}
+  \caption{Summary of ALVAR AR tag detection framework. Adapted from \protect\cite{Sanni2012}.}
   \label{fig:summary_of_alvar_ar_tag_detection_framework}
 \end{figure}
 -->
@@ -1564,10 +1564,10 @@ coordinates.
 The purpose of this chapter was to briefly explain all of the concepts needed to
 understand the work presented in the chapters thereafter. The basic concepts of
 the Robot Operating System (ROS), Simultaneous Localization and Mapping (SLAM),
-Localization and Path Planning, Manipulation, Task Execution using State Machines,
-and the specific Computer Vision algorithms implemented were explained in depth.
+localization and path planning, manipulation, task execution using state machines,
+and the specific computer vision algorithms implemented were explained in depth.
 The following chapter will explain in detail each component of the multistage localization
-approach presented in this paper, as well as its implementation to two tasks which
+approach presented in this paper, as well as its implementation to accomplish two tasks which
 are prevalent in both the manufacturing and construction industries: drilling and
 sealant application operations.
 
@@ -1604,7 +1604,7 @@ simulating stereo vision, to localize the feature point in 3-D space using compu
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/multistage_localization_approach.png}
-  \caption{Multistage Localization Approach Overview.}
+  \caption{Multistage localization approach overview.}
   \label{fig:multistage_localization_approach_overview}
 \end{figure}
 -->
@@ -1664,7 +1664,7 @@ to improve computational efficiency by removing redundant particles.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/robot_localization_framework.png}
-  \caption{Robot Localization Framework.}
+  \caption{Robot localization framework.}
   \label{fig:robot_localization_framework}
 \end{figure}
 -->
@@ -1717,7 +1717,7 @@ localization framework.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/initial_feature_localization_framework.png}
-  \caption{Initial Feature Localization Framework.}
+  \caption{Initial feature localization framework.}
   \label{fig:initial_feature_localization_framework}
 \end{figure}
 -->
@@ -1822,7 +1822,7 @@ the plane of the laser point.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth, height=\textheight, keepaspectratio]{figures/feature_detection_and_tracking_pipeline.png}
-  \caption{Feature Detection and Tracking Pipeline.}
+  \caption{Feature detection and tracking pipeline.}
   \label{fig:feature_detection_and_tracking_pipeline}
 \end{figure}
 -->
@@ -1840,7 +1840,7 @@ or the end-effector itself, whichever is higher.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/manipulator_control_loop.png}
-  \caption{Manipulator Correction Control Loop.}
+  \caption{Manipulator correction control loop.}
   \label{fig:manipulator_correction_control_loop}
 \end{figure}
 -->
@@ -1934,7 +1934,7 @@ and the customer notified after the operation.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/sealant_application_framework.png}
-  \caption{Sealant Application Framework.}
+  \caption{Sealant application framework.}
   \label{fig:sealant_application_framework}
 \end{figure}
 -->
@@ -1972,8 +1972,8 @@ a laser pointer, LIDAR, IMU, wheel encoders, and a manipulator.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/husky_and_fetch_hardware_architecture.png}
-  \caption{Clearpath Robotics' Husky and the Fetch Robotics' Fetch Mobile Manipulator}
-  \label{fig:clearpath_robotics'_husky_and_fetch_robotics'_fetch_mobile_manipulator}
+  \caption{Clearpath Robotics' Husky and the Fetch Robotics' Fetch mobile manipulators.}
+  \label{fig:clearpath_robotics'_husky_and_fetch_robotics'_fetch_mobile_manipulators}
 \end{figure}
 -->
 
@@ -2004,7 +2004,7 @@ laser scans from their respective LIDAR to produce a map of the area of operatio
 Stack [#Navigation] to localize themselves in the map using the AMCL package [#AMCL]
 and implement trajectory rollout through the base_local_planner package [#BaseLocalPlanner]
 for path planning and obstacle avoidance. Both robots used ROS's ar_track_alvar
-package [#ARTrackALVAR] to identify and localize augmented reality (AR) tags. For
+package [#ARTrackAlvar] to identify and localize augmented reality (AR) tags. For
 motion planning, both robot's used ROS's Moveit! [# MoveIt], which was setup to
 use the TRAC-IK [#TracIK] numerical solver. For perception, both robot's used OpenCV
 2.4 [#Itseez2015] to perform necessary operations on the images provided by the
@@ -2030,7 +2030,7 @@ toolbox for Matlab [#Bouguet2015].
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/camera_calibration_setup.png}
-  \caption{Camera Calibration Setup.}
+  \caption{Camera calibration setup.}
   \label{fig:camera_calibration_setup}
 \end{figure}
 -->
@@ -2050,7 +2050,7 @@ minimization.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/image_extracted_corners.png}
-  \caption{Extracted Corners of Calibration Pattern.}
+  \caption{Extracted corners of calibration pattern.}
   \label{fig:extracted_corners_of_calibration_pattern}
 \end{figure}
 -->
@@ -2074,7 +2074,7 @@ to find the center pixel of the laser point.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/laser_extracted_corners_laser_center.png}
-  \caption{Extracted Corners and Laser Center}
+  \caption{Extracted corners and laser center.}
   \label{fig:extracted_corners_and_laser_center}
 \end{figure}
 -->
@@ -2093,7 +2093,7 @@ point were measured. This test was run continually as the robot proceed to each
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/navigation_system_experimental_setup.png}
-  \caption{Navigation System Experimental Setup.}
+  \caption{Navigation system experimental setup.}
   \label{fig:navigation_system_experimental_setup}
 \end{figure}
 -->
@@ -2130,7 +2130,7 @@ the laser point and corner: less than 5 mm, between 5 and 10 mm, between 10 and
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/drilling_operation_experimental_setup.png}
-  \caption{Drilling Operations Experimental Setup.}
+  \caption{Drilling operations experimental setup.}
   \label{fig:drilling_operations_experimental_setup}
 \end{figure}
 -->
@@ -2154,7 +2154,7 @@ mm.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/sealant_application_experimental_setup.png}
-  \caption{Sealant Application Experimental Setup.}
+  \caption{Sealant application experimental setup.}
   \label{fig:sealant_application_experimental_setup}
 \end{figure}
 -->
@@ -2218,7 +2218,7 @@ which results in a larger turn radius and therefore makes the Husky less maneuve
 <!--
 \begin{table}[H]
 \centering
-\caption{Global Localization Accuracy Given Distance From Start - Clearpath Robotics' Husky.}
+\caption{Global localization accuracy given distance from start - Clearpath Robotics' Husky.}
 \label{tabel:global_localization_accuracy_given_distance_from_start_clearpath_robotics_husky}
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
 \cmidrule(l){2-7}
@@ -2235,7 +2235,7 @@ which results in a larger turn radius and therefore makes the Husky less maneuve
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/husky_navigation_xy_accuracy.png}
-  \caption{Global X and Y Localization Accuracy Given Distance From Start - Clearpath Robotics' Husky.}
+  \caption{Global X and Y localization accuracy given distance from start - Clearpath Robotics' Husky.}
   \label{fig:global_x_and_y_localization_accuracy_given_distance_from_start_clearpath_robotics_husky}
 \end{figure}
 -->
@@ -2244,7 +2244,7 @@ which results in a larger turn radius and therefore makes the Husky less maneuve
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/husky_navigation_yaw_accuracy.png}
-  \caption{Global $\psi$ Localization Accuracy Given Distance From Start - Clearpath Robotics' Husky.}
+  \caption{Global $\psi$ localization accuracy given distance from start - Clearpath Robotics' Husky.}
   \label{fig:global_psi_localization_accuracy_given_distance_from_start_clearpath_robotics_husky}
 \end{figure}
 -->
@@ -2252,7 +2252,7 @@ which results in a larger turn radius and therefore makes the Husky less maneuve
 <!--
 \begin{table}[H]
 \centering
-\caption{Global Localization Accuracy Given Distance From Start - Fetch Robotics' Fetch.}
+\caption{Global localization accuracy given distance from start - Fetch Robotics' Fetch.}
 \label{tabel:global_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
 \cmidrule(l){2-7}
@@ -2269,7 +2269,7 @@ which results in a larger turn radius and therefore makes the Husky less maneuve
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/fetch_navigation_xy_accuracy.png}
-  \caption{Global X and Y Localization Accuracy Given Distance From Start - Fetch Robotics' Fetch.}
+  \caption{Global X and Y localization accuracy given distance from start - Fetch Robotics' Fetch.}
   \label{fig:global_x_and_y_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}
 \end{figure}
 -->
@@ -2278,7 +2278,7 @@ which results in a larger turn radius and therefore makes the Husky less maneuve
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/fetch_navigation_yaw_accuracy.png}
-  \caption{Global $\psi$ Localization Accuracy Given Distance From Start  - Fetch Robotics' Fetch.}
+  \caption{Global $\psi$ localization accuracy given distance from start  - Fetch Robotics' Fetch.}
   \label{fig:global_psi_localization_accuracy_given_distance_from_start_fetch_robotics_fetch}
 \end{figure}
 -->
@@ -2309,7 +2309,7 @@ seems to decrease overall error as well.
 <!--
 \begin{table}[H]
 \centering
-\caption{Augmented Reality Accuracy Given Specific Start Conditions - Primesense Carmine 1.09.}
+\caption{Augmented reality accuracy given specific start conditions - Primesense Carmine 1.09.}
 \label{tabel:augmented_reality_accuracy_given_specific_start_conditions_primesense_carmine_1_09}
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
 \cmidrule(l){2-7}
@@ -2329,7 +2329,7 @@ seems to decrease overall error as well.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/ar_tag_accuracy_primesense.png}
-  \caption{Augmented Reality Accuracy Given Specific Start Conditions - Primesense Carmine 1.09.}
+  \caption{Augmented reality accuracy given specific start conditions - Primesense Carmine 1.09.}
   \label{fig:augmented_reality_accuracy_given_specific_start_conditions_primesense_carmine_1_09}
 \end{figure}
 -->
@@ -2354,7 +2354,7 @@ to decrease error overall error in the y and z as seen with the Primesense Carmi
 <!--
 \begin{table}[H]
 \centering
-\caption{Augmented Reality Accuracy Given Specific Start Conditions - Microsoft Kinect V2.}
+\caption{Augmented reality accuracy given specific start conditions - Microsoft Kinect V2.}
 \label{tabel:augmented_reality_accuracy_given_specific_start_conditions_microsoft_kinect_v2}
 \resizebox{0.75\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
 \cmidrule(l){2-7}
@@ -2371,7 +2371,7 @@ to decrease error overall error in the y and z as seen with the Primesense Carmi
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/ar_tag_accuracy_kinectv2.png}
-  \caption{Augmented Reality Accuracy Given Specific Start Conditions - Microsoft Kinect V2.}
+  \caption{Augmented reality accuracy given specific start conditions - Microsoft Kinect V2.}
   \label{fig:augmented_reality_accuracy_given_specific_start_conditions_microsoft_kinect_v2}
 \end{figure}
 -->
@@ -2431,7 +2431,7 @@ to within pixel, if not sub-pixel resolution.
 <!--
 \begin{table}[H]
 \centering
-\caption{Drilling Operation Accuracy Given Distance From Work Surface.}
+\caption{Drilling operation accuracy given distance from work surface.}
 \label{tabel:drilling_operation_accuracy_given_distance_from_work_surface}
 \resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
 \cmidrule(l){2-7}
@@ -2449,7 +2449,7 @@ to within pixel, if not sub-pixel resolution.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/drill_accuracy.png}
-  \caption{Drilling Operation Accuracy Given Distance From Feature Point.}
+  \caption{Drilling operation accuracy given distance from feature point.}
   \label{fig:drilling_operation_accuracy_given_distance_from_feature_point}
 \end{figure}
 -->
@@ -2481,7 +2481,7 @@ in order to find the laser point and feature to within pixel, if not sub-pixel r
 <!--
 \begin{table}[H]
 \centering
-\caption{Sealant Application Accuracy Given Distance From Work Surface.}
+\caption{Sealant application accuracy given distance from work surface.}
 \label{tabel:sealant_application_accuracy_given_distance_from_work_surface}
 \resizebox{\linewidth}{!}{\begin{tabular}{@{}c|c|c|c|c|c|c|@{}}
 \cmidrule(l){2-7}
@@ -2499,7 +2499,7 @@ in order to find the laser point and feature to within pixel, if not sub-pixel r
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/seal_accuracy.png}
-  \caption{Sealant Application Accuracy Given Distance From Feature Point.}
+  \caption{Sealant application accuracy given distance from feature point.}
   \label{fig:sealant_application_accuracy_given_distance_from_feature_point}
 \end{figure}
 -->
